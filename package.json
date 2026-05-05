@@ -11,7 +11,9 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "check": "astro check"
+    "check": "astro check",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.9",
@@ -27,5 +29,10 @@
     "react-dom": "^19.2.5",
     "tailwindcss": "^4.2.4",
     "typescript": "^6.0.3"
+  },
+  "devDependencies": {
+    "prettier": "3.8.3",
+    "prettier-plugin-astro": "0.14.1",
+    "prettier-plugin-tailwindcss": "0.8.0"
   }
 }
