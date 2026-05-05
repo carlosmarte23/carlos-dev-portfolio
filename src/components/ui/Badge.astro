@@ -1,0 +1,26 @@
+---
+type Variant = "default" | "featured" | "tech" | "muted";
+
+interface Props {
+  variant?: Variant;
+  class?: string;
+}
+
+const { variant = "default", class: className = "" } = Astro.props;
+
+const baseClasses =
+  "inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold leading-none";
+
+const variantClasses: Record<Variant, string> = {
+  default: "bg-surface-muted text-muted",
+  featured: "border border-accent/40 bg-accent-soft text-accent",
+  tech: "bg-accent-soft text-accent",
+  muted: "bg-surface-muted text-muted",
+};
+
+const classes = `${baseClasses} ${variantClasses[variant]} ${className}`;
+---
+
+<span class={classes}>
+  <slot />
+</span>

@@ -1,0 +1,22 @@
+---
+interface Props {
+  class?: string;
+  bodyClass?: string;
+}
+
+const { class: className = "", bodyClass = "" } = Astro.props;
+
+const rootClasses = `overflow-hidden rounded-card border border-accent/40 bg-surface/80 font-mono text-sm shadow-glow backdrop-blur ${className}`;
+const bodyClasses = `p-5 ${bodyClass}`;
+---
+
+<div class={rootClasses}>
+  <div class="flex items-center gap-2 border-b border-line px-5 py-4">
+    <span class="size-3 rounded-full bg-red-500"></span>
+    <span class="size-3 rounded-full bg-yellow-500"></span>
+    <span class="size-3 rounded-full bg-green-500"></span>
+  </div>
+  <div class={bodyClasses}>
+    <slot />
+  </div>
+</div>
