@@ -1,0 +1,29 @@
+---
+type Padding = "none" | "sm" | "md" | "lg";
+
+interface Props {
+  glow?: boolean;
+  padding?: Padding;
+  class?: string;
+}
+
+const { glow = false, padding = "md", class: className = "" } = Astro.props;
+
+const baseClasses =
+  "rounded-card border border-line bg-surface text-main transition";
+
+const paddingClasses: Record<Padding, string> = {
+  none: "",
+  sm: "p-4",
+  md: "p-5",
+  lg: "p-8",
+};
+
+const glowClasses = glow ? "shadow-glow" : "shadow-card";
+
+const classes = `${baseClasses} ${paddingClasses[padding]} ${glowClasses} ${className}`;
+---
+
+<div class={classes}>
+  <slot />
+</div>

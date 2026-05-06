@@ -1,0 +1,84 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Inter Variable", system-ui, sans-serif;
+  --font-display:
+    "Space Grotesk Variable", "Inter Variable", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono Variable", monospace;
+
+  --color-app: var(--portfolio-bg);
+  --color-app-muted: var(--portfolio-bg-muted);
+  --color-surface: var(--portfolio-surface);
+  --color-surface-muted: var(--portfolio-surface-muted);
+  --color-line: var(--portfolio-line);
+  --color-line-strong: var(--portfolio-line-strong);
+  --color-main: var(--portfolio-text);
+  --color-muted: var(--portfolio-muted);
+  --color-soft: var(--portfolio-soft);
+  --color-accent: var(--portfolio-accent);
+  --color-accent-hover: var(--portfolio-accent-hover);
+  --color-accent-soft: var(--portfolio-accent-soft);
+  --color-accent-contrast: var(--portfolio-accent-contrast);
+
+  --radius-card: 1.25rem;
+  --radius-button: 0.875rem;
+
+  --shadow-card: 0 20px 60px rgba(0, 0, 0, 0.28);
+  --shadow-glow: 0 0 48px rgba(34, 197, 94, 0.16);
+  --shadow-dialog:
+    0 20px 60px rgba(0, 0, 0, 0.28), 0 0 48px rgba(34, 197, 94, 0.25);
+}
+
+:root {
+  --portfolio-bg: #f8fafc;
+  --portfolio-bg-muted: #f1f5f9;
+  --portfolio-surface: #ffffff;
+  --portfolio-surface-muted: #f8fafc;
+
+  --portfolio-line: #cbd5e1;
+  --portfolio-line-strong: #94a3b8;
+
+  --portfolio-text: #0f172a;
+  --portfolio-muted: #475569;
+  --portfolio-soft: #64748b;
+
+  --portfolio-accent: #16a34a;
+  --portfolio-accent-hover: #15803d;
+  --portfolio-accent-soft: rgba(22, 163, 74, 0.12);
+  --portfolio-accent-contrast: #f8fafc;
+}
+
+.dark {
+  --portfolio-bg: #020617;
+  --portfolio-bg-muted: #0f172a;
+  --portfolio-surface: #0b1120;
+  --portfolio-surface-muted: #111827;
+
+  --portfolio-line: #1e293b;
+  --portfolio-line-strong: #334155;
+
+  --portfolio-text: #f8fafc;
+  --portfolio-muted: #cbd5e1;
+  --portfolio-soft: #94a3b8;
+
+  --portfolio-accent: #22c55e;
+  --portfolio-accent-hover: #4ade80;
+  --portfolio-accent-soft: rgba(34, 197, 94, 0.12);
+  --portfolio-accent-contrast: #020617;
+}
+
+html {
+  color-scheme: light;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--portfolio-bg);
+  color: var(--portfolio-text);
+}

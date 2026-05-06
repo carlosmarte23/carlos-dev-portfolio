@@ -1,0 +1,121 @@
+---
+import NavLink from "@components/layout/NavLink.astro";
+import ThemeToggle from "@components/layout/ThemeToggle.astro";
+import { Menu, X } from "@lucide/astro";
+import { site } from "@data/site";
+
+interface NavItem {
+  href: string;
+  label: string;
+}
+
+interface Props {
+  navItems: NavItem[];
+}
+
+const { navItems } = Astro.props;
+const dialogId = "mobile-menu";
+---
+
+<button
+  type="button"
+  class="inline-flex size-10 transform items-center justify-center rounded-button border border-line bg-surface text-main hover:bg-surface-muted focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent md:hidden"
+  aria-controls={dialogId}
+  aria-expanded="false"
+  aria-label="Open navigation"
+  data-menu-open
+>
+  <span class="sr-only">Open Menu</span>
+  <Menu class="size-5" aria-hidden="true" />
+</button>
+
+<dialog
+  id={dialogId}
+  data-mobile-menu
+  class="mx-auto mt-24 w-[min(92vw,24rem)] rounded-card border border-line bg-surface p-0 text-main shadow-dialog backdrop:bg-app/40 backdrop:backdrop-blur-sm"
+>
+  <div class="flex items-center justify-between border-b border-line px-5 py-4">
+    <div class="flex items-center gap-2">
+      <span class="size-3 rounded-full bg-red-500"></span>
+      <span class="size-3 rounded-full bg-yellow-500"></span>
+      <span class="size-3 rounded-full bg-green-500"></span>
+    </div>
+
+    <p class="font-mono text-sm font-semibold">
+      <span class="text-accent">{site.brand}</span>
+    </p>
+
+    <button
+      type="button"
+      class="inline-flex size-9 items-center justify-center rounded-button border border-line text-main transition hover:bg-surface-muted focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+      aria-label="Close menu"
+      data-menu-close
+    >
+      <X class="size-5" aria-hidden="true" />
+    </button>
+  </div>
+
+  <div class="space-y-6 p-5 font-mono text-sm">
+    <p class="font-semibold">
+      <span class="text-accent">carlos@portfolio:~$</span>
+      <span class="text-main">menu</span>
+    </p>
+    <nav class="flex flex-col gap-3" aria-label="Mobile navigation">
+      {navItems.map((item) => <NavLink href={item.href} label={item.label} />)}
+    </nav>
+
+    <div class="flex items-center justify-between border-t border-line pt-5">
+      <span class="text-sm font-semibold text-muted">Theme</span>
+
+      <ThemeToggle class:list={["sm:hidden"]} />
+    </div>
+  </div>
+</dialog>
+
+<script>
+  const dialog =
+    document.querySelector<HTMLDialogElement>("[data-mobile-menu]");
+  const openButton =
+    document.querySelector<HTMLButtonElement>("[data-menu-open]");
+  const closeButton =
+    document.querySelector<HTMLButtonElement>("[data-menu-close]");
+
+  const setExpanded = (expanded: boolean) => {
+    openButton?.setAttribute("aria-expanded", String(expanded));
+  };
+
+  openButton?.addEventListener("click", () => {
+    if (!(dialog instanceof HTMLDialogElement)) return;
+
+    dialog.showModal();
+    setExpanded(true);
+  });
+
+  closeButton?.addEventListener("click", () => {
+    if (!(dialog instanceof HTMLDialogElement)) return;
+
+    dialog.close();
+    setExpanded(false);
+  });
+
+  dialog?.addEventListener("click", (event) => {
+    if (!(dialog instanceof HTMLDialogElement)) return;
+
+    const rect = dialog.getBoundingClientRect();
+
+    const clickedOutside =
+      event.clientX < rect.left ||
+      event.clientX > rect.right ||
+      event.clientY < rect.top ||
+      event.clientY > rect.bottom;
+
+    if (clickedOutside) {
+      dialog.close();
+      setExpanded(false);
+    }
+  });
+
+  dialog?.addEventListener("close", () => {
+    setExpanded(false);
+  });
+</script>
