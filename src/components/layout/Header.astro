@@ -3,14 +3,9 @@ import Container from "@components/ui/Container.astro";
 import NavLink from "@components/layout/NavLink.astro";
 import ThemeToggle from "./ThemeToggle.astro";
 import MobileMenu from "./MobileMenu.astro";
+import { site } from "@data/site";
 
-const navItems = [
-  { href: "/", label: "Home" },
-  { href: "/projects", label: "Projects" },
-  { href: "/about", label: "About" },
-  { href: "/about-this-site", label: "About This Site" },
-  { href: "/contact", label: "Contact" },
-];
+const navItems = site.nav;
 ---
 
 <header class="border-b border-line bg-app/90 backdrop-blur">

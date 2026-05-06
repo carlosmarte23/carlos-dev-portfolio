@@ -3,29 +3,19 @@ import Container from "@components/ui/Container.astro";
 import { Copyright, ArrowUp, Mail } from "@lucide/astro";
 import GithubIcon from "@/components/icons/GithubIcon.astro";
 import LinkedInIcon from "@components/icons/LinkedIn.astro";
+import { site } from "@data/site";
 
 const currentYear = new Date().getFullYear();
 
-const links = [
-  {
-    href: "https://github.com/carlosmarte23",
-    label: "GitHub",
-    icon: GithubIcon,
-    external: true,
-  },
-  {
-    href: "https://www.linkedin.com/in/carlos-marte-4baa8138/",
-    label: "LinkedIn",
-    icon: LinkedInIcon,
-    external: true,
-  },
-  {
-    href: "mailto:carlosmartebloise@gmail.com?subject=Portfolio%20Contact",
-    label: "Email",
-    icon: Mail,
-    external: false,
-  },
-];
+type SocialType = "github" | "linkedin" | "email";
+
+const icons = {
+  github: GithubIcon,
+  linkedin: LinkedInIcon,
+  email: Mail,
+};
+
+const links = site.socialLinks;
 ---
 
 <footer class="border-t border-line py-6">
@@ -40,17 +30,20 @@ const links = [
     <div class="flex gap-4">
       <nav class="flex items-center gap-6" aria-label="Footer navigation">
         {
-          links.map((link) => (
-            <a
-              href={link.href}
-              class="flex items-center justify-between gap-2 text-main transition hover:scale-125 hover:text-accent"
-              aria-label={link.label}
-              target={link.external ? "_blank" : undefined}
-              rel={link.external ? "noopener noreferrer" : undefined}
-            >
-              <link.icon class="size-5" aria-hidden="true" />
-            </a>
-          ))
+          links.map((link) => {
+            const Icon = icons[link.type as SocialType];
+            return (
+              <a
+                href={link.href}
+                class="flex items-center justify-between gap-2 text-main transition hover:scale-125 hover:text-accent"
+                aria-label={link.label}
+                target={link.external ? "_blank" : undefined}
+                rel={link.external ? "noopener noreferrer" : undefined}
+              >
+                <Icon class="size-5" aria-hidden="true" />
+              </a>
+            );
+          })
         }
       </nav>
 
