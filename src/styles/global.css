@@ -27,6 +27,8 @@
 
   --shadow-card: 0 20px 60px rgba(0, 0, 0, 0.28);
   --shadow-glow: 0 0 48px rgba(34, 197, 94, 0.16);
+  --shadow-dialog:
+    0 20px 60px rgba(0, 0, 0, 0.28), 0 0 48px rgba(34, 197, 94, 0.25);
 }
 
 :root {
