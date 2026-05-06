@@ -2,6 +2,7 @@
 import NavLink from "@components/layout/NavLink.astro";
 import ThemeToggle from "@components/layout/ThemeToggle.astro";
 import { Menu, X } from "@lucide/astro";
+import { site } from "@data/site";
 
 interface NavItem {
   href: string;
@@ -41,7 +42,7 @@ const dialogId = "mobile-menu";
     </div>
 
     <p class="font-mono text-sm font-semibold">
-      <span class="text-accent">nav</span>
+      <span class="text-accent">{site.brand}</span>
     </p>
 
     <button
