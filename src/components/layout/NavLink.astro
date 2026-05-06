@@ -1,0 +1,28 @@
+---
+interface Props {
+  href: string;
+  label: string;
+}
+
+const { href, label } = Astro.props;
+
+const currentPath = Astro.url.pathname;
+const normalizedPath = currentPath.endsWith("/")
+  ? currentPath.slice(0, -1) || "/"
+  : currentPath;
+
+const isActive =
+  href === "/" ? normalizedPath === "/" : normalizedPath.startsWith(href);
+
+const classes = isActive
+  ? "text-accent after:scale-x-100"
+  : "text-main hover:text-accent after:scale-x-0";
+---
+
+<a
+  href={href}
+  aria-current={isActive ? "page" : undefined}
+  class={`relative inline-flex w-fit py-1 text-sm font-semibold transition after:bg-accent after:absolute after:inset-x-0 after:-bottom-0.5 after:h-0.5 after:origin-left after:rounded-full after:transition-transform after:content-[''] ${classes}`}
+>
+  {label}
+</a>

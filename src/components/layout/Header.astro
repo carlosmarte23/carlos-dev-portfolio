@@ -1,0 +1,42 @@
+---
+import Container from "@components/ui/Container.astro";
+import NavLink from "@components/layout/NavLink.astro";
+import ThemeToggle from "./ThemeToggle.astro";
+import MobileMenu from "./MobileMenu.astro";
+
+const navItems = [
+  { href: "/", label: "Home" },
+  { href: "/projects", label: "Projects" },
+  { href: "/about", label: "About" },
+  { href: "/about-this-site", label: "About This Site" },
+  { href: "/contact", label: "Contact" },
+];
+---
+
+<header class="border-b border-line bg-app/90 backdrop-blur">
+  <Container>
+    <div class="flex h-16 items-center justify-between gap-6">
+      <a href="/" class="flex items-center gap-2 font-mono text-lg font-bold">
+        <span class="text-accent">&gt;</span>
+        <span>carlos.dev</span>
+      </a>
+
+      <nav
+        class="hidden items-center gap-8 md:flex"
+        aria-label="Main navigation"
+      >
+        {
+          navItems.map((item) => (
+            <NavLink href={item.href} label={item.label} />
+          ))
+        }
+      </nav>
+
+      <MobileMenu navItems={navItems} />
+
+      <div class="hidden items-center justify-between md:flex">
+        <ThemeToggle />
+      </div>
+    </div>
+  </Container>
+</header>
