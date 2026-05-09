@@ -10,7 +10,7 @@ interface Props {
 const { glow = false, padding = "md", class: className = "" } = Astro.props;
 
 const baseClasses =
-  "rounded-card border border-line bg-surface text-main transition";
+  "rounded-card overflow-hidden border border-line bg-surface text-main transition duration-200";
 
 const paddingClasses: Record<Padding, string> = {
   none: "",
@@ -24,6 +24,6 @@ const glowClasses = glow ? "shadow-glow" : "shadow-card";
 const classes = `${baseClasses} ${paddingClasses[padding]} ${glowClasses} ${className}`;
 ---
 
-<div class={classes}>
+<article class={classes}>
   <slot />
-</div>
+</article>

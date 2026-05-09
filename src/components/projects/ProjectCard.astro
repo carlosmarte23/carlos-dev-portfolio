@@ -1,0 +1,102 @@
+---
+import Badge from "../ui/Badge.astro";
+import Card from "../ui/Card.astro";
+import Button from "../ui/Button.astro";
+import { Icon } from "astro-icon/components";
+import { ExternalLink } from "@lucide/astro";
+
+interface Props {
+  title: string;
+  summary: string;
+  image: string;
+  stack: string[];
+  slug: string;
+  featured?: boolean;
+  status?: "completed" | "in-progress";
+  liveUrl?: string;
+  repoUrl?: string;
+}
+
+const {
+  title,
+  summary,
+  image,
+  stack,
+  slug,
+  featured = false,
+  status = "completed",
+  liveUrl,
+  repoUrl,
+} = Astro.props;
+
+const projectHref = `/projects/${slug}`;
+const isAvailable = status === "completed";
+const applyGlow = isAvailable && featured;
+---
+
+<Card
+  glow={applyGlow}
+  padding="none"
+  class="group hover:-translate-y-1 hover:border-line-strong"
+>
+  <a href={projectHref} class="block">
+    <div class="relative aspect-16/10 overflow-hidden bg-surface-muted">
+      <img
+        src={image}
+        alt={`Screenshot of ${title}`}
+        class="size-full object-cover object-top transition duration-300 group-hover:scale-105"
+        loading="lazy"
+      />
+
+      {
+        featured && (
+          <Badge variant="card" class="text-sx absolute top-3 right-3">
+            Featured
+          </Badge>
+        )
+      }
+    </div>
+  </a>
+
+  <div class="p-5">
+    <div class="flex items-center justify-between gap-4">
+      <h3 class="font-display text-xl font-bold text-main">
+        <a href={projectHref} class="transition hover:text-accent">
+          {title}
+        </a>
+      </h3>
+    </div>
+
+    <p class="mt-3 text-sm leading-6 text-muted">
+      {summary}
+    </p>
+
+    <div class="mt-4 flex flex-wrap gap-2">
+      {stack.map((item) => <Badge variant="tech">{item}</Badge>)}
+    </div>
+
+    <div class="mt-8 mb-4 flex flex-col gap-3">
+      {
+        liveUrl && (
+          <Button
+            href={liveUrl}
+            variant="primary"
+            aria-label={`Open ${title} live demo`}
+          >
+            <span>Live demo</span>
+            <ExternalLink class="size-4" aria-hidden="true" />
+          </Button>
+        )
+      }
+
+      <Button
+        href={repoUrl}
+        aria-label={`Go to ${title} repo`}
+        variant="secondary"
+      >
+        <span>Go to repo</span>
+        <Icon name="simple-icons:github" class="size-4" aria-hidden="true" />
+      </Button>
+    </div>
+  </div>
+</Card>

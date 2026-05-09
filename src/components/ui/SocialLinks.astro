@@ -1,0 +1,37 @@
+---
+import { Icon } from "astro-icon/components";
+import { Mail } from "@lucide/astro";
+import { site } from "@data/site";
+import type { SocialLinkType } from "@data/site";
+
+const links = site.socialLinks;
+
+const brandIcons: Partial<Record<SocialLinkType, string>> = {
+  github: "simple-icons:github",
+  linkedin: "simple-icons:linkedin",
+};
+---
+
+<nav class="flex items-center gap-6" aria-label="Footer navigation">
+  {
+    links.map((link) => {
+      const brandIcon = brandIcons[link.type];
+
+      return (
+        <a
+          href={link.href}
+          class="flex items-center justify-between gap-2 text-main transition hover:scale-125 hover:text-accent"
+          aria-label={link.label}
+          target={link.external ? "_blank" : undefined}
+          rel={link.external ? "noopener noreferrer" : undefined}
+        >
+          {brandIcon ? (
+            <Icon name={brandIcon} class="size-5" aria-hidden="true" />
+          ) : (
+            <Mail class="size-5" aria-hidden="true" />
+          )}
+        </a>
+      );
+    })
+  }
+</nav>
