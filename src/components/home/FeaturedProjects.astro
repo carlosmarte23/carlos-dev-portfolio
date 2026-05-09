@@ -1,0 +1,44 @@
+---
+import Container from "../ui/Container.astro";
+import { ArrowRight, FolderOpen } from "@lucide/astro";
+import ProjectCard from "../projects/ProjectCard.astro";
+import { projects } from "@data/projects";
+---
+
+<section id="featured-projects" class="scroll-mt-22">
+  <Container>
+    <header
+      class="w-max-container mx-auto my-12 flex items-center justify-between border-b border-line py-4"
+    >
+      <h2
+        class="flex items-center justify-between gap-4 font-mono text-lg font-bold"
+      >
+        <span class="size-4 text-accent"><FolderOpen /></span> Featured Projects
+      </h2>
+      <a href="/projects" class="flex items-center gap-2 text-accent">
+        View All Projects <span><ArrowRight /></span>
+      </a>
+    </header>
+
+    <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+      {
+        projects.map(
+          (project) =>
+            project.isFeatured && (
+              <ProjectCard
+                title={project.title}
+                summary={project.summary}
+                image={project.image.src}
+                stack={project.techStack}
+                slug={project.slug}
+                featured={project.isFeatured}
+                status={project.status}
+                liveUrl={project.links.live}
+                repoUrl={project.links.repo}
+              />
+            ),
+        )
+      }
+    </div>
+  </Container>
+</section>

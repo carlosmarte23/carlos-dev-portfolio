@@ -1,86 +1,21 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import Container from "@components/ui/Container.astro";
-import Button from "@components/ui/Button.astro";
-import Badge from "@components/ui/Badge.astro";
-import Card from "@components/ui/Card.astro";
-import TerminalCard from "@/components/ui/TerminalCard.astro";
+import HomeHero from "@/components/home/HomeHero.astro";
+import FeaturedProjects from "@/components/home/FeaturedProjects.astro";
+import TechStack from "@/components/home/TechStack.astro";
+import AboutPreview from "@/components/home/AboutPreview.astro";
+import AboutThisSite from "./about-this-site.astro";
+import ContactCTA from "@/components/home/ContactCTA.astro";
 ---
 
 <BaseLayout
   title="Carlos Marte | Frontend Developer"
   description="Frontend Developer focused on clean, responsive web experiences."
 >
-  <main class="my-12 min-h-screen bg-app text-main">
-    <Container>
-      <div class="space-y-10">
-        <section>
-          <h1 class="font-display text-4xl font-bold">Design System Preview</h1>
-          <p class="mt-3 max-w-2xl text-muted">
-            Temporary preview for base UI components.
-          </p>
-        </section>
-
-        <section class="space-y-4">
-          <h2 class="font-display text-2xl font-semibold">Buttons</h2>
-
-          <div class="flex flex-wrap gap-4">
-            <Button type="button">Button</Button>
-            <Button href="/projects">View Projects</Button>
-            <Button href="/contact" variant="secondary">Contact Me</Button>
-            <Button href="/about" variant="ghost">About</Button>
-          </div>
-        </section>
-
-        <section class="space-y-4">
-          <h2 class="font-display text-2xl font-semibold">Badges</h2>
-
-          <div>
-            <Badge>React</Badge>
-            <Badge variant="featured">Featured</Badge>
-            <Badge variant="tech">Tailwind CSS</Badge>
-            <Badge variant="muted">Testing Library</Badge>
-          </div>
-        </section>
-
-        <section class="space-y-4">
-          <h2 class="font-display text-2xl font-semibold">Cards</h2>
-
-          <div class="grid gap-6 md:grid-cols-2">
-            <Card>
-              <h3 class="font-display text-xl font-semibold">Base Card</h3>
-              <p class="mt-2 text-muted">
-                This card should work in both light and dark themes.
-              </p>
-            </Card>
-
-            <Card glow>
-              <h3 class="font-display text-xl font-semibold">Glow Card</h3>
-              <p class="mt-2 text-muted">Useful for highlighted UI blocks.</p>
-            </Card>
-
-            <Card padding="none">
-              <img
-                src="/card-preview.svg"
-                alt="Dashboard preview"
-                class="aspect-video w-full rounded-t-card object-cover"
-              />
-
-              <div class="p-5">
-                <h3 class="font-display text-xl font-semibold">Project Card</h3>
-                <p class="mt-2 text-muted">
-                  Testing how a project card looks with an image.
-                </p>
-              </div>
-            </Card>
-
-            <TerminalCard>
-              <p><span class="text-accent">carlos@portfolio:~$</span></p>
-              <p class="mt-3"><span>Carlos Marte</span></p>
-            </TerminalCard>
-          </div>
-        </section>
-      </div>
-    </Container>
-  </main>
+  <HomeHero />
+  <FeaturedProjects />
+  <TechStack />
+  <AboutPreview />
+  <AboutThisSite />
+  <ContactCTA />
 </BaseLayout>

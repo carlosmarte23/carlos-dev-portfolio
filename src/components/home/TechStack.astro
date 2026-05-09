@@ -1,0 +1,47 @@
+---
+import Container from "@/components/ui/Container.astro";
+import Card from "@/components/ui/Card.astro";
+import SkillIcon from "@/components/skills/SkillIcon.astro";
+import { groupedSkillGroups } from "@data/skills";
+import { CodeXml } from "@lucide/astro";
+---
+
+<section class="scroll-mt-22">
+  <Container>
+    <header
+      class="w-max-container mx-auto my-12 flex items-center gap-3 border-b border-line py-4"
+    >
+      <CodeXml class="size-8 text-accent" aria-hidden="true" />
+      <h2
+        class="flex items-center justify-between gap-4 font-mono text-lg font-bold"
+      >
+        Tech Stack
+      </h2>
+    </header>
+
+    <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+      {
+        groupedSkillGroups.map((group) => (
+          <Card
+            padding="sm"
+            class="flex h-full flex-col items-center overflow-visible md:items-start"
+          >
+            <h3 class="font-display text-base font-semibold text-main">
+              {group.title}
+            </h3>
+
+            <div class="mt-4 flex flex-wrap gap-2">
+              {group.skills.map((skill) => (
+                <SkillIcon
+                  name={skill.name}
+                  icon={skill.icon}
+                  level={skill.level}
+                />
+              ))}
+            </div>
+          </Card>
+        ))
+      }
+    </div>
+  </Container>
+</section>

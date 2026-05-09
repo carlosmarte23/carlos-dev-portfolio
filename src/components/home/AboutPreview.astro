@@ -1,0 +1,110 @@
+---
+import Container from "@/components/ui/Container.astro";
+import Button from "@/components/ui/Button.astro";
+import TerminalCard from "@/components/ui/TerminalCard.astro";
+import { ArrowRight, UserRound } from "@lucide/astro";
+
+import { site } from "@data/site";
+const { name, location, focus, passions, currentGoal, availability } = site;
+---
+
+<section>
+  <Container>
+    <header
+      class="w-max-container mx-auto my-12 flex items-center justify-between border-b border-line py-4"
+    >
+      <h2
+        class="flex items-baseline justify-between gap-4 font-mono text-lg font-bold"
+      >
+        <span class="size-4 text-accent"><UserRound /></span> About Me
+      </h2>
+    </header>
+
+    <div class="grid gap-5 md:grid-cols-2">
+      <div>
+        <p class="leading-6 text-pretty text-muted">
+          I'm passionate about building products that solve real problems. I
+          enjoy turning ideas into clean, accessible and performant interfaces.
+          Always learning, always building.
+        </p>
+        <Button href="/about" class="mt-6" variant="secondary">
+          More About Me
+          <span><ArrowRight /></span>
+        </Button>
+      </div>
+      <div class="w-full lg:max-w-xl xl:max-w-2xl">
+        <TerminalCard class="lg:ml-auto">
+          <div class="space-y-2">
+            <p>
+              <span class="text-pink-400">const</span>
+              <span class="text-orange-300"> developer</span>
+              <span class="text-main"> = {"{"}</span>
+            </p>
+
+            <p class="pl-4">
+              <span class="text-accent-code">name</span><span class="text-main"
+                >:
+              </span><span class="text-accent">'{name}'</span><span
+                class="text-main">,</span
+              >
+            </p>
+
+            <p class="pl-4">
+              <span class="text-accent-code">location</span><span
+                class="text-main"
+                >:
+              </span><span class="text-accent">'{location}'</span><span
+                class="text-main">,</span
+              >
+            </p>
+
+            <p class="pl-4">
+              <span class="text-accent-code">focus</span><span class="text-main"
+                >:
+              </span><span class="text-accent">'{focus}'</span><span
+                class="text-main">,</span
+              >
+            </p>
+
+            <p class="pl-4">
+              <span class="text-accent-code">passions</span><span
+                class="text-main">: [</span
+              >{
+                passions.map((passion, index) => (
+                  <>
+                    <span class="text-accent">'{passion}'</span>
+                    {index < passions.length - 1 && (
+                      <span class="text-main">, </span>
+                    )}
+                  </>
+                ))
+              }<span class="text-main">],</span>
+            </p>
+
+            <p class="pl-4">
+              <span class="text-accent-code">currentGoal</span><span
+                class="text-main"
+                >:
+              </span><span class="text-accent">'{currentGoal}'</span><span
+                class="text-main">,</span
+              >
+            </p>
+
+            <p class="pl-4">
+              <span class="text-accent-code">openToWork</span><span
+                class="text-main"
+                >:
+              </span><span class="text-yellow-300"
+                >{String(availability.value)}</span
+              ><span class="text-main">,</span>
+            </p>
+
+            <p>
+              <span class="text-main"> {"};"}</span>
+            </p>
+          </div>
+        </TerminalCard>
+      </div>
+    </div>
+  </Container>
+</section>
