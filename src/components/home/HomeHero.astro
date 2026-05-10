@@ -53,25 +53,28 @@ const { hero, cta } = site;
         <TerminalCard class="lg:ml-auto">
           <div class="space-y-5">
             <p>
-              <span class="text-accent">carlos@portfolio:~$</span>
+              <span class="text-accent"
+                >carlos@portfolio:<span class="text-blue-400">~</span></span
+              >$
               <span class="text-main">whoami</span>
             </p>
             <p class="pl-4">&gt; Carlos Marte</p>
 
             <p>
-              <span class="text-accent">carlos@portfolio:~$</span>
+              <span class="text-accent"
+                >carlos@portfolio:<span class="text-blue-400">~</span></span
+              >$
               <span class="text-main">skills</span>
             </p>
 
             <ul class="space-y-2 pl-4 text-accent">
-              <li>&gt; React / Astro</li>
-              <li>&gt; Tailwind CSS</li>
-              <li>&gt; Responsive UI</li>
-              <li>&gt; Real-World Projects</li>
+              {hero.skills.map((skill) => <li>&gt; {skill}</li>)}
             </ul>
 
             <p>
-              <span class="text-accent">carlos@portfolio:~$</span>
+              <span class="text-accent"
+                >carlos@portfolio:<span class="text-blue-400">~</span></span
+              >$
               <span class="text-main">status</span>
             </p>
 

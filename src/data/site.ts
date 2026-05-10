@@ -32,6 +32,7 @@ export interface SiteConfig {
       accent: string;
     };
     description: string;
+    skills: string[];
   };
 
   nav: NavItem[];
@@ -64,6 +65,13 @@ export const site: SiteConfig = {
     },
     description:
       "I'm building real-world frontend projects with React, Astro, Tailwind CSS and modern web tooling.",
+    skills: [
+      "Frontend Development",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "Astro",
+    ],
   },
 
   nav: [
