@@ -25,8 +25,12 @@ const {
     <meta name="description" content={description} />
   </head>
   <body id="top" class="bg-app font-sans text-main antialiased">
-    <Header />
-    <slot />
-    <Footer />
+    <div class="flex min-h-svh flex-col">
+      <Header />
+      <main class="flex-1">
+        <slot />
+      </main>
+      <Footer />
+    </div>
   </body>
 </html>

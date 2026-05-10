@@ -1,0 +1,43 @@
+---
+import { Icon } from "astro-icon/components";
+import type { SkillIcon as SkillIconData, SkillLevel } from "@data/skills";
+
+interface Props {
+  name: string;
+  icon: SkillIconData;
+  level: SkillLevel;
+}
+
+const { name, icon, level } = Astro.props;
+---
+
+<div
+  class:list={[
+    "group relative flex size-12 items-center justify-center rounded-xl border bg-surface-muted transition hover:-translate-y-0.5 hover:border-accent hover:bg-accent-soft",
+    level === "primary" ? "border-line-strong" : "border-line opacity-80",
+  ]}
+  role="img"
+  aria-label={name}
+  title={name}
+>
+  {
+    icon.provider === "iconify" ? (
+      <Icon
+        name={icon.name}
+        class="size-7 text-main transition group-hover:text-accent"
+        aria-hidden="true"
+      />
+    ) : (
+      <span class="text-xs font-bold text-muted transition group-hover:text-accent">
+        {icon.fallback}
+      </span>
+    )
+  }
+
+  <span
+    class="pointer-events-none absolute top-full left-1/2 z-10 mt-2 -translate-x-1/2 -translate-y-1 rounded-md border border-line bg-surface px-2.5 py-1 text-xs font-semibold whitespace-nowrap text-main opacity-0 shadow-card transition group-hover:translate-y-0 group-hover:opacity-100"
+    aria-hidden="true"
+  >
+    {name}
+  </span>
+</div>

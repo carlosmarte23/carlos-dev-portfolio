@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "tailwind-animations";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -21,6 +22,7 @@
   --color-accent-hover: var(--portfolio-accent-hover);
   --color-accent-soft: var(--portfolio-accent-soft);
   --color-accent-contrast: var(--portfolio-accent-contrast);
+  --color-accent-code: var(--portfolio-accent-code);
 
   --radius-card: 1.25rem;
   --radius-button: 0.875rem;
@@ -48,6 +50,9 @@
   --portfolio-accent-hover: #15803d;
   --portfolio-accent-soft: rgba(22, 163, 74, 0.12);
   --portfolio-accent-contrast: #f8fafc;
+  --portfolio-accent-code: #906fa9;
+
+  --header-height: 5rem;
 }
 
 .dark {
@@ -71,6 +76,7 @@
 
 html {
   color-scheme: light;
+  scroll-behavior: smooth;
 }
 
 html.dark {
@@ -78,7 +84,7 @@ html.dark {
 }
 
 body {
-  min-height: 100vh;
+  min-height: 100svh;
   background: var(--portfolio-bg);
   color: var(--portfolio-text);
 }

@@ -1,8 +1,37 @@
-export const projects = [
+export type ProjectStatus = "completed" | "in-progress";
+
+export interface Project {
+  slug: string;
+  title: string;
+  isFeatured: boolean;
+  status: ProjectStatus;
+  summary: string;
+  description: string;
+  image: {
+    src: string;
+    alt: string;
+  };
+  techStack: string[];
+  links: {
+    live: string;
+    repo: string;
+  };
+  caseStudy: {
+    overview: string;
+    problem: string;
+    features: string[];
+    challenges: string[];
+    learnings: string[];
+    futureImprovements: string[];
+  };
+}
+
+export const projects: Project[] = [
   {
     slug: "stagelink",
     title: "StageLink",
-    status: "featured",
+    isFeatured: true,
+    status: "completed",
 
     summary:
       "Concert ticketing web app MVP with event discovery, cart persistence, simulated checkout, and digital tickets.",
@@ -11,14 +40,14 @@ export const projects = [
       "StageLink is a React and Vite application that simulates a complete e-commerce flow for live events. It focuses on clean frontend architecture, state management, local persistence, and a smooth ticket purchasing experience.",
 
     image: {
-      src: "/images/projects/stagelink/cover.png",
+      src: "/images/projects/stagelink/cover.webp",
       alt: "StageLink concert ticketing app preview",
     },
 
     techStack: ["React", "Vite", "React Router", "LocalStorage", "CSS"],
 
     links: {
-      live: "",
+      live: "https://stagelink-one.vercel.app/",
       repo: "https://github.com/carlosmarte23/stagelink",
     },
 
