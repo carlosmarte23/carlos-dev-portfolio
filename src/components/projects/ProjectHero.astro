@@ -13,7 +13,7 @@ interface Props {
 const { project } = Astro.props;
 ---
 
-<a href="/projects" class="flex items-center gap-2 text-accent">
+<a href="/#projects" class="flex items-center gap-2 text-accent">
   <ArrowLeft class="size-4" aria-hidden="true" />
   Back to projects
 </a>
@@ -40,6 +40,7 @@ const { project } = Astro.props;
             target={link.external ? "_blank" : undefined}
             rel={link.external ? "noopener noreferrer" : undefined}
             variant={link.type === "live" ? "primary" : "secondary"}
+            aria-label={`Open ${project.title} ${link.label}`}
           >
             {link.type === "repo" && (
               <Icon
