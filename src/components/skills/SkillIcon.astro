@@ -13,7 +13,7 @@ const { name, icon, level } = Astro.props;
 
 <div
   class:list={[
-    "group relative flex size-12 items-center justify-center rounded-xl border bg-surface-muted transition hover:-translate-y-0.5 hover:border-accent hover:bg-accent-soft",
+    "group relative flex size-12 items-center justify-center rounded-xl border bg-surface-muted transition hover:z-50 hover:-translate-y-0.5 hover:border-accent hover:bg-accent-soft",
     level === "primary" ? "border-line-strong" : "border-line opacity-80",
   ]}
   role="img"
