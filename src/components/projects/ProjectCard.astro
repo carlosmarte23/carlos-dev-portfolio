@@ -86,7 +86,8 @@ const visibleLinks = links.filter((link) =>
             href={link.href}
             variant={link.type === "live" ? "primary" : "secondary"}
             target={link.external ? "_blank" : undefined}
-            rel={link.external ? "noreferrer" : undefined}
+            rel={link.external ? "noopener noreferrer" : undefined}
+            aria-label={`Open ${title} ${link.label}`}
           >
             <span>{link.label}</span>
             {link.type === "repo" ? (
