@@ -1,0 +1,73 @@
+---
+import type { Project } from "@data/projects";
+import Button from "@/components/ui/Button.astro";
+import TerminalCard from "@/components/ui/TerminalCard.astro";
+import ProjectTechStrip from "@/components/projects/ProjectTechStrip.astro";
+import { ArrowLeft, ExternalLink } from "@lucide/astro";
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+---
+
+<a href="/#projects" class="flex items-center gap-2 text-accent">
+  <ArrowLeft class="size-4" aria-hidden="true" />
+  Back to projects
+</a>
+
+<header class="grid grid-cols-1 gap-5 lg:grid-cols-2">
+  <div class="flex flex-col gap-3">
+    <p
+      class="flex items-center gap-3 font-mono text-sm font-semibold text-accent uppercase"
+    >
+      <span class="size-2.5 rounded-full bg-accent" aria-hidden="true"></span>
+      Case study
+    </p>
+    <h1 class="font-display text-4xl font-bold">{project.title}</h1>
+    <h2 class="text-xl font-semibold text-muted">
+      {project.subtitle}
+    </h2>
+    <p class="text-muted">{project.description}</p>
+
+    <div class="flex flex-col flex-wrap gap-2 md:flex-row">
+      {
+        project.links.map((link) => (
+          <Button
+            href={link.href}
+            target={link.external ? "_blank" : undefined}
+            rel={link.external ? "noopener noreferrer" : undefined}
+            variant={link.type === "live" ? "primary" : "secondary"}
+            aria-label={`Open ${project.title} ${link.label}`}
+          >
+            {link.type === "repo" && (
+              <Icon
+                name="simple-icons:github"
+                class="size-4"
+                aria-hidden="true"
+              />
+            )}
+            {link.label}
+            {link.type === "live" && (
+              <ExternalLink class="size-4" aria-hidden="true" />
+            )}
+          </Button>
+        ))
+      }
+    </div>
+
+    <ProjectTechStrip techStack={project.techStack} />
+  </div>
+
+  <TerminalCard bodyClass="p-0">
+    <div class="aspect-16/10 overflow-hidden">
+      <img
+        src={project.image.src}
+        alt={project.image.alt}
+        class="size-full object-cover object-top"
+      />
+    </div>
+  </TerminalCard>
+</header>

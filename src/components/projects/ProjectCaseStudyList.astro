@@ -1,0 +1,46 @@
+---
+import Card from "@/components/ui/Card.astro";
+
+type ListType = "numbered" | "bullet" | "arrow";
+type IconComponent = (typeof import("@lucide/astro"))["Wrench"];
+
+interface Props {
+  title?: string;
+  icon?: IconComponent;
+  items?: string[];
+  listType?: ListType;
+}
+
+const { title, icon: Icon, items, listType = "numbered" } = Astro.props;
+---
+
+<Card padding="sm" class="h-full space-y-4">
+  <header class="flex items-center gap-3">
+    {Icon && <Icon class="size-5 text-accent" aria-hidden="true" />}
+    <h2 class="font-display text-xl font-bold text-main">{title}</h2>
+  </header>
+
+  <ul class="space-y-3">
+    {
+      items?.map((item, index) => (
+        <li class="flex gap-3 text-sm leading-6 text-muted">
+          <span class="mt-0.5 flex size-6 shrink-0 items-center justify-center text-accent">
+            {listType === "numbered" && (
+              <span class="flex size-6 items-center justify-center rounded-full border border-accent font-mono text-xs">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+            )}
+
+            {listType === "bullet" && (
+              <span class="size-1.5 rounded-full bg-accent" />
+            )}
+            {listType === "arrow" && (
+              <span class="font-mono text-sm text-accent">-&gt;</span>
+            )}
+          </span>
+          <span>{item}</span>
+        </li>
+      ))
+    }
+  </ul>
+</Card>

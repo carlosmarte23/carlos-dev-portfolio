@@ -1,0 +1,48 @@
+---
+import type { ProjectImage } from "@data/projects";
+import Card from "../ui/Card.astro";
+
+import { ImageIcon } from "@lucide/astro";
+
+interface Props {
+  images?: ProjectImage[];
+}
+
+const { images = [] } = Astro.props;
+---
+
+<section data-project-gallery data-count={images.length}>
+  <Card padding="sm" class="overflow-hidden">
+    <header class="mb-3 flex items-center gap-3">
+      <ImageIcon class="size-8 text-accent" aria-hidden="true" />
+      <h3 class="font-display text-xl font-bold text-main">Gallery</h3>
+    </header>
+
+    <div class="gallery-scroll overflow-x-auto pb-3">
+      <div class="flex snap-x snap-mandatory gap-4">
+        {
+          images.map((image) => (
+            <article class="min-w-[18rem] snap-start overflow-hidden rounded-xl border border-line bg-surface-muted sm:min-w-88 lg:min-w-104">
+              <div class="overflow-hidden">
+                <img
+                  src={image.src}
+                  alt={image.alt}
+                  class="aspect-video size-full object-cover object-top"
+                  loading="lazy"
+                />
+              </div>
+              {image.title && (
+                <p class="p-2 leading-6 font-bold">{image.title}</p>
+              )}
+              {image.caption && (
+                <p class="p-2 pt-0 text-sm leading-6 text-muted">
+                  {image.caption}
+                </p>
+              )}
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </Card>
+</section>

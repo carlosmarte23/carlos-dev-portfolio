@@ -76,7 +76,7 @@ export const site: SiteConfig = {
 
   nav: [
     { href: "/", label: "Home" },
-    { href: "/projects", label: "Projects" },
+    { href: "/#projects", label: "Projects" },
     { href: "/about", label: "About" },
     { href: "/about-this-site", label: "About This Site" },
     { href: "/contact", label: "Contact" },
@@ -106,7 +106,7 @@ export const site: SiteConfig = {
   cta: {
     primary: {
       label: "View Projects",
-      href: "/projects",
+      href: "/#projects",
     },
     secondary: {
       label: "Contact Me",

@@ -4,34 +4,38 @@ import Card from "../ui/Card.astro";
 import Button from "../ui/Button.astro";
 import { Icon } from "astro-icon/components";
 import { ExternalLink } from "@lucide/astro";
+import type { ProjectLink, ProjectStatus, ProjectTech } from "@data/projects";
 
 interface Props {
   title: string;
   summary: string;
   image: string;
-  stack: string[];
+  imageAlt?: string;
+  stack: ProjectTech[];
+  links: ProjectLink[];
   slug: string;
   featured?: boolean;
-  status?: "completed" | "in-progress";
-  liveUrl?: string;
-  repoUrl?: string;
+  status?: ProjectStatus;
 }
 
 const {
   title,
   summary,
   image,
+  imageAlt,
   stack,
+  links,
   slug,
   featured = false,
   status = "completed",
-  liveUrl,
-  repoUrl,
 } = Astro.props;
 
 const projectHref = `/projects/${slug}`;
-const isAvailable = status === "completed";
+const isAvailable = status !== "planned";
 const applyGlow = isAvailable && featured;
+const visibleLinks = links.filter((link) =>
+  ["live", "repo"].includes(link.type),
+);
 ---
 
 <Card
@@ -43,7 +47,7 @@ const applyGlow = isAvailable && featured;
     <div class="relative aspect-16/10 overflow-hidden bg-surface-muted">
       <img
         src={image}
-        alt={`Screenshot of ${title}`}
+        alt={imageAlt ?? `Screenshot of ${title}`}
         class="size-full object-cover object-top transition duration-300 group-hover:scale-105"
         loading="lazy"
       />
@@ -72,31 +76,32 @@ const applyGlow = isAvailable && featured;
     </p>
 
     <div class="mt-4 flex flex-wrap gap-2">
-      {stack.map((item) => <Badge variant="tech">{item}</Badge>)}
+      {stack.map((item) => <Badge variant="tech">{item.name}</Badge>)}
     </div>
 
     <div class="mt-8 mb-4 flex flex-col gap-3">
       {
-        liveUrl && (
+        visibleLinks.map((link) => (
           <Button
-            href={liveUrl}
-            variant="primary"
-            aria-label={`Open ${title} live demo`}
+            href={link.href}
+            variant={link.type === "live" ? "primary" : "secondary"}
+            target={link.external ? "_blank" : undefined}
+            rel={link.external ? "noopener noreferrer" : undefined}
+            aria-label={`Open ${title} ${link.label}`}
           >
-            <span>Live demo</span>
-            <ExternalLink class="size-4" aria-hidden="true" />
+            <span>{link.label}</span>
+            {link.type === "repo" ? (
+              <Icon
+                name="simple-icons:github"
+                class="size-4"
+                aria-hidden="true"
+              />
+            ) : (
+              <ExternalLink class="size-4" aria-hidden="true" />
+            )}
           </Button>
-        )
+        ))
       }
-
-      <Button
-        href={repoUrl}
-        aria-label={`Go to ${title} repo`}
-        variant="secondary"
-      >
-        <span>Go to repo</span>
-        <Icon name="simple-icons:github" class="size-4" aria-hidden="true" />
-      </Button>
     </div>
   </div>
 </Card>

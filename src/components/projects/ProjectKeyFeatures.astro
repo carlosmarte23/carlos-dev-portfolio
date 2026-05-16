@@ -1,0 +1,68 @@
+---
+import type { ProjectFeature } from "@data/projects";
+import Card from "@/components/ui/Card.astro";
+import {
+  CircleCheck,
+  ShoppingCart,
+  Smartphone,
+  SquareCheckBig,
+  Star,
+  Tickets,
+  Timer,
+  WalletCards,
+} from "@lucide/astro";
+
+interface Props {
+  title: string;
+  features: ProjectFeature[];
+}
+
+const { title, features } = Astro.props;
+
+const featureIconByName = {
+  ticket: Tickets,
+  timer: Timer,
+  cart: ShoppingCart,
+  checkout: CircleCheck,
+  wallet: WalletCards,
+  responsive: Smartphone,
+  testing: SquareCheckBig,
+};
+---
+
+<section>
+  <Card padding="sm" class="space-y-4">
+    <div class="flex items-center gap-3">
+      <Star class="size-8 text-accent" aria-hidden="true" />
+      <h3 class="font-display text-xl font-bold text-main">
+        {title}
+      </h3>
+    </div>
+
+    <div class="grid gap-3 md:grid-cols-2">
+      {
+        features.map((feature) => {
+          const FeatureIcon = featureIconByName[feature.icon];
+
+          return (
+            <div class="rounded-xl border border-line bg-surface-muted/60 p-4">
+              <div class="flex items-center gap-3">
+                <FeatureIcon
+                  class="size-6 shrink-0 text-accent"
+                  aria-hidden="true"
+                />
+                <h4 class="font-display text-base font-bold text-main">
+                  {feature.title}
+                </h4>
+              </div>
+
+              <p class="mt-3 text-sm leading-6 text-muted">
+                {feature.description}
+              </p>
+            </div>
+          );
+        })
+      }
+    </div>
+  </Card>
+</section>

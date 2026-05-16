@@ -1,0 +1,70 @@
+---
+import { Icon } from "astro-icon/components";
+import { CodeXml } from "@lucide/astro";
+import type { ProjectTech } from "@data/projects";
+import { skills } from "@data/skills";
+import type { SkillIcon } from "@data/skills";
+
+interface Props {
+  techStack: ProjectTech[];
+}
+
+const { techStack } = Astro.props;
+
+const visibleTech = techStack.filter((tech) => tech.featured);
+
+const categoryLabels: Record<ProjectTech["category"], string> = {
+  frontend: "Frontend",
+  styling: "Styling",
+  routing: "Routing",
+  state: "State",
+  testing: "Testing",
+  tooling: "Build Tool",
+  "browser-api": "Browser API",
+  data: "Data",
+  backend: "Backend",
+};
+
+const normalize = (value: string) => value.toLowerCase().trim();
+
+const getSkillIcon = (tech: ProjectTech): SkillIcon | undefined => {
+  if (tech.icon) return tech.icon;
+
+  return skills.find((skill) => normalize(skill.name) === normalize(tech.name))
+    ?.icon;
+};
+---
+
+<div class="mt-8 grid grid-cols-2 gap-y-5" aria-label="Featured technologies">
+  {
+    visibleTech.map((tech, index) => {
+      const icon = getSkillIcon(tech);
+
+      return (
+        <div
+          class:list={[
+            "flex min-w-0 items-center gap-3",
+            index % 2 === 1 && "border-l border-line pl-4",
+          ]}
+        >
+          <div class="flex size-8 shrink-0 items-center justify-center text-cyan-400">
+            {icon?.provider === "iconify" ? (
+              <Icon name={icon.name} class="size-6" aria-hidden="true" />
+            ) : icon?.provider === "none" ? (
+              <span class="font-mono text-xs font-bold">{icon.fallback}</span>
+            ) : (
+              <CodeXml class="size-6" aria-hidden="true" />
+            )}
+          </div>
+
+          <div class="min-w-0">
+            <p class="truncate text-sm font-bold text-main">{tech.name}</p>
+            <p class="mt-1 truncate text-xs text-muted">
+              {categoryLabels[tech.category]}
+            </p>
+          </div>
+        </div>
+      );
+    })
+  }
+</div>
