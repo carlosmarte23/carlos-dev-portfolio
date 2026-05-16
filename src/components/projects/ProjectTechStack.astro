@@ -1,0 +1,120 @@
+---
+import Card from "@/components/ui/Card.astro";
+import { Icon } from "astro-icon/components";
+import { CodeXml } from "@lucide/astro";
+import type { ProjectTech } from "@data/projects";
+import { skills } from "@data/skills";
+import type { SkillIcon } from "@data/skills";
+
+interface Props {
+  techStack: ProjectTech[];
+}
+
+const { techStack } = Astro.props;
+
+type TechDisplayGroup = {
+  id: string;
+  label: string;
+  categories: ProjectTech["category"][];
+  rowClasses: string;
+  chipClasses: string;
+};
+
+const displayGroups: TechDisplayGroup[] = [
+  {
+    id: "frontend",
+    label: "Frontend",
+    categories: ["frontend", "routing", "state"],
+    rowClasses: "border-cyan-400/15 bg-cyan-400/5",
+    chipClasses: "bg-cyan-400/15 text-cyan-200 ring-cyan-300/20",
+  },
+  {
+    id: "tooling",
+    label: "Tooling",
+    categories: ["tooling", "data"],
+    rowClasses: "border-violet-400/15 bg-violet-400/5",
+    chipClasses: "bg-violet-400/15 text-violet-200 ring-violet-300/20",
+  },
+  {
+    id: "styling",
+    label: "Styling",
+    categories: ["styling"],
+    rowClasses: "border-emerald-400/15 bg-emerald-400/5",
+    chipClasses: "bg-emerald-400/15 text-emerald-200 ring-emerald-300/20",
+  },
+  {
+    id: "testing",
+    label: "Testing",
+    categories: ["testing"],
+    rowClasses: "border-fuchsia-400/15 bg-fuchsia-400/5",
+    chipClasses: "bg-fuchsia-400/15 text-fuchsia-200 ring-fuchsia-300/20",
+  },
+  {
+    id: "browser-api",
+    label: "Browser APIs",
+    categories: ["browser-api"],
+    rowClasses: "border-orange-400/15 bg-orange-400/5",
+    chipClasses: "bg-orange-400/15 text-orange-200 ring-orange-300/20",
+  },
+];
+
+const normalize = (value: string) => value.toLowerCase().trim();
+
+const getSkillIcon = (tech: ProjectTech): SkillIcon | undefined => {
+  if (tech.icon) return tech.icon;
+
+  return skills.find((skill) => normalize(skill.name) === normalize(tech.name))
+    ?.icon;
+};
+
+const groupedTech = displayGroups
+  .map((group) => ({
+    ...group,
+    items: techStack.filter((tech) => group.categories.includes(tech.category)),
+  }))
+  .filter((group) => group.items.length > 0);
+---
+
+<Card class="space-y-4">
+  <h2 class="flex items-center gap-3 font-display text-xl font-bold text-main">
+    <CodeXml class="size-5 text-accent" aria-hidden="true" />
+    Tech stack
+  </h2>
+
+  <div class="space-y-3">
+    {
+      groupedTech.map((group) => (
+        <div
+          class={`rounded-xl border p-4 sm:flex sm:items-center sm:gap-5 ${group.rowClasses}`}
+        >
+          <h3 class="mb-3 min-w-28 text-sm font-bold text-main sm:mb-0">
+            {group.label}
+          </h3>
+
+          <div class="flex flex-wrap gap-2">
+            {group.items.map((tech) => {
+              const icon = getSkillIcon(tech);
+
+              return (
+                <span
+                  class={`inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-xs font-semibold ring-1 ${group.chipClasses}`}
+                >
+                  {icon?.provider === "iconify" ? (
+                    <Icon name={icon.name} class="size-4" aria-hidden="true" />
+                  ) : icon?.provider === "none" ? (
+                    <span class="font-mono text-[0.65rem] leading-none">
+                      {icon.fallback}
+                    </span>
+                  ) : (
+                    <CodeXml class="size-4" aria-hidden="true" />
+                  )}
+                  {tech.name}
+                </span>
+              );
+            })}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</Card>

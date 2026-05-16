@@ -1,5 +1,37 @@
 ---
+import { getProjectStaticPaths } from "@data/projects";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Container from "@/components/ui/Container.astro";
+import ProjectCaseStudySummary from "@/components/projects/ProjectCaseStudySummary.astro";
+import ProjectFacts from "@/components/projects/ProjectFacts.astro";
+import ProjectGallery from "@/components/projects/ProjectGallery.astro";
+import ProjectHero from "@/components/projects/ProjectHero.astro";
+import ProjectKeyFeatures from "@/components/projects/ProjectKeyFeatures.astro";
+import ProjectTechStack from "@/components/projects/ProjectTechStack.astro";
+import type { ProjectFeature } from "@data/projects";
+
 export function getStaticPaths() {
-  return [];
+  return getProjectStaticPaths();
 }
+
+const { project } = Astro.props;
+const keyFeatures = project.caseStudy.sections[0];
+const featureItems = (keyFeatures.items ?? []) as ProjectFeature[];
 ---
+
+<BaseLayout>
+  <Container class="flex flex-col gap-8 lg:gap-6">
+    <ProjectHero project={project} />
+    <ProjectFacts project={project} />
+    <ProjectCaseStudySummary caseStudy={project.caseStudy} />
+
+    <div
+      class="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1.35fr)_minmax(20rem,0.65fr)]"
+    >
+      <ProjectKeyFeatures title={keyFeatures.title} features={featureItems} />
+      <ProjectTechStack techStack={project.techStack} />
+    </div>
+
+    <ProjectGallery images={project.gallery} />
+  </Container>
+</BaseLayout>

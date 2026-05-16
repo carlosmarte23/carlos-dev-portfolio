@@ -4,10 +4,10 @@ interface Props {
   bodyClass?: string;
 }
 
-const { class: className = "", bodyClass = "" } = Astro.props;
+const { class: className = "", bodyClass = "p-5" } = Astro.props;
 
 const rootClasses = `overflow-hidden rounded-card border border-accent/40 bg-surface/80 font-mono text-sm shadow-glow backdrop-blur ${className}`;
-const bodyClasses = `p-5 ${bodyClass}`;
+const bodyClasses = `${bodyClass}`;
 ---
 
 <div class={rootClasses}>

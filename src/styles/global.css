@@ -88,3 +88,25 @@ body {
   background: var(--portfolio-bg);
   color: var(--portfolio-text);
 }
+
+.gallery-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--portfolio-line-strong) transparent;
+}
+
+.gallery-scroll::-webkit-scrollbar {
+  height: 0.5rem;
+}
+
+.gallery-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.gallery-scroll::-webkit-scrollbar-thumb {
+  background: var(--portfolio-line-strong);
+  border-radius: 999px;
+}
+
+.gallery-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--portfolio-accent);
+}
