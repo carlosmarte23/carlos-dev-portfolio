@@ -2,6 +2,8 @@ export type SkillLevel = "primary" | "learning";
 
 export type SkillCategory =
   | "frontend"
+  | "backend"
+  | "data-cms"
   | "ui-styling"
   | "tools"
   | "testing-quality";
@@ -38,19 +40,29 @@ export const skillGroups: SkillGroup[] = [
     order: 1,
   },
   {
+    id: "backend",
+    title: "Backend",
+    order: 2,
+  },
+  {
+    id: "data-cms",
+    title: "Data & CMS",
+    order: 3,
+  },
+  {
     id: "ui-styling",
     title: "UI & Styling",
-    order: 2,
+    order: 4,
   },
   {
     id: "tools",
     title: "Tools",
-    order: 3,
+    order: 5,
   },
   {
     id: "testing-quality",
     title: "Testing & Quality",
-    order: 4,
+    order: 6,
   },
 ];
 
@@ -86,6 +98,46 @@ export const skills: Skill[] = [
     category: "frontend",
     icon: { provider: "iconify", name: "devicon:astro" },
     order: 4,
+  },
+  {
+    id: "node",
+    name: "Node.js",
+    level: "learning",
+    category: "backend",
+    icon: { provider: "iconify", name: "devicon:nodejs" },
+    order: 1,
+  },
+  {
+    id: "express",
+    name: "Express",
+    level: "learning",
+    category: "backend",
+    icon: { provider: "iconify", name: "simple-icons:express" },
+    order: 2,
+  },
+  {
+    id: "api-integration",
+    name: "API Integration",
+    level: "learning",
+    category: "backend",
+    icon: { provider: "none", fallback: "API" },
+    order: 3,
+  },
+  {
+    id: "strapi",
+    name: "Strapi",
+    level: "learning",
+    category: "data-cms",
+    icon: { provider: "iconify", name: "simple-icons:strapi" },
+    order: 1,
+  },
+  {
+    id: "postgresql",
+    name: "PostgreSQL",
+    level: "learning",
+    category: "data-cms",
+    icon: { provider: "iconify", name: "devicon:postgresql" },
+    order: 2,
   },
   {
     id: "css-modules",
