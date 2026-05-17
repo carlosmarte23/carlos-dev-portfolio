@@ -1,8 +1,8 @@
 ---
 import NavLink from "@components/layout/NavLink.astro";
+import BrandLogo from "@components/layout/BrandLogo.astro";
 import ThemeToggle from "@components/layout/ThemeToggle.astro";
 import { Menu, X } from "@lucide/astro";
-import { site } from "@data/site";
 
 interface NavItem {
   href: string;
@@ -41,8 +41,8 @@ const dialogId = "mobile-menu";
       <span class="size-3 rounded-full bg-green-500"></span>
     </div>
 
-    <p class="font-mono text-sm font-semibold">
-      <span class="text-accent">{site.brand}</span>
+    <p class="text-sm" aria-label="Carlos Marte">
+      <BrandLogo />
     </p>
 
     <button
