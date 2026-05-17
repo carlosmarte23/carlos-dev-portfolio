@@ -188,7 +188,7 @@ export const projects: Project[] = [
     links: [
       {
         label: "Live Demo",
-        href: "https://stagelink-one.vercel.app/",
+        href: "https://stagelink.carlosmarte.dev/",
         type: "live",
         external: true,
       },

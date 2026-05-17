@@ -1,6 +1,7 @@
 ---
 import Container from "@components/ui/Container.astro";
 import NavLink from "@components/layout/NavLink.astro";
+import BrandLogo from "@components/layout/BrandLogo.astro";
 import ThemeToggle from "./ThemeToggle.astro";
 import MobileMenu from "./MobileMenu.astro";
 import { site } from "@data/site";
@@ -11,9 +12,13 @@ const navItems = site.nav;
 <header class="sticky top-0 z-50 bg-app/90 backdrop-blur">
   <Container class="px-4">
     <div class="flex h-(--header-height) items-center justify-between gap-6">
-      <a href="/" class="flex items-center gap-2 font-mono text-lg font-bold">
-        <span class="text-accent">&gt;</span>
-        <span>{site.brand}</span>
+      <a
+        href="/"
+        class="inline-flex items-center transition hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+        aria-label={`${site.name} home`}
+        title={site.name}
+      >
+        <BrandLogo class="text-lg" />
       </a>
 
       <nav

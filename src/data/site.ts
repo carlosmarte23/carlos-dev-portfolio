@@ -66,6 +66,7 @@ export interface AboutStory {
 export interface SiteConfig {
   name: string;
   brand: string;
+  url: string;
   role: string;
   location: string;
   email: string;
@@ -99,7 +100,8 @@ export interface SiteConfig {
 
 export const site: SiteConfig = {
   name: "Carlos Marte",
-  brand: "carlos.dev",
+  brand: "Carlos Marte",
+  url: "https://carlosmarte.dev",
   role: "Web Developer",
   location: "Lancaster, Pennsylvania",
   email: "carlosmartebloise@gmail.com",
@@ -231,7 +233,6 @@ export const site: SiteConfig = {
     { href: "/", label: "Home" },
     { href: "/#projects", label: "Projects" },
     { href: "/about", label: "About" },
-    { href: "/about-this-site", label: "About This Site" },
     { href: "/contact", label: "Contact" },
   ],
 
