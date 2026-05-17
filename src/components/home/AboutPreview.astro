@@ -5,7 +5,17 @@ import TerminalCard from "@/components/ui/TerminalCard.astro";
 import { ArrowRight, UserRound } from "@lucide/astro";
 
 import { site } from "@data/site";
-const { name, location, focus, passions, currentGoal, availability } = site;
+const {
+  name,
+  location,
+  role,
+  positioning,
+  currentStrength,
+  professionalInterests,
+  currentGoal,
+  availability,
+  about,
+} = site;
 ---
 
 <section>
@@ -22,11 +32,7 @@ const { name, location, focus, passions, currentGoal, availability } = site;
 
     <div class="grid gap-5 md:grid-cols-2">
       <div>
-        <p class="leading-6 text-pretty text-muted">
-          I'm passionate about building products that solve real problems. I
-          enjoy turning ideas into clean, accessible and performant interfaces.
-          Always learning, always building.
-        </p>
+        <p class="leading-6 text-pretty text-muted">{about.preview}</p>
         <Button href="/about" class="mt-6" variant="secondary">
           More About Me
           <span><ArrowRight /></span>
@@ -59,21 +65,39 @@ const { name, location, focus, passions, currentGoal, availability } = site;
             </p>
 
             <p class="pl-4">
-              <span class="text-accent-code">focus</span><span class="text-main"
+              <span class="text-accent-code">role</span><span class="text-main"
                 >:
-              </span><span class="text-accent">'{focus}'</span><span
+              </span><span class="text-accent">'{role}'</span><span
                 class="text-main">,</span
               >
             </p>
 
             <p class="pl-4">
-              <span class="text-accent-code">passions</span><span
+              <span class="text-accent-code">direction</span><span
+                class="text-main"
+                >:
+              </span><span class="text-accent">'{positioning}'</span><span
+                class="text-main">,</span
+              >
+            </p>
+
+            <p class="pl-4">
+              <span class="text-accent-code">currentStrength</span><span
+                class="text-main"
+                >:
+              </span><span class="text-accent">'{currentStrength}'</span><span
+                class="text-main">,</span
+              >
+            </p>
+
+            <p class="pl-4">
+              <span class="text-accent-code">interests</span><span
                 class="text-main">: [</span
               >{
-                passions.map((passion, index) => (
+                professionalInterests.map((interest, index) => (
                   <>
-                    <span class="text-accent">'{passion}'</span>
-                    {index < passions.length - 1 && (
+                    <span class="text-accent">'{interest}'</span>
+                    {index < professionalInterests.length - 1 && (
                       <span class="text-main">, </span>
                     )}
                   </>

@@ -1,0 +1,33 @@
+---
+import Card from "@/components/ui/Card.astro";
+import { Rocket } from "@lucide/astro";
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<Card padding="sm" class="bg-surface/80">
+  <div class="grid gap-5 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
+    <div class="flex min-w-0 items-start gap-4 sm:items-center">
+      <Rocket
+        class="mt-0.5 size-10 shrink-0 text-accent sm:mt-0"
+        aria-hidden="true"
+      />
+
+      <div class="min-w-0">
+        <h3 class="font-mono text-base font-bold text-main">{title}</h3>
+        <p class="mt-1 text-sm leading-6 text-muted">{description}</p>
+      </div>
+    </div>
+
+    <div
+      class="grid w-full grid-cols-1 gap-3 sm:grid-cols-2 lg:w-100 lg:justify-self-end xl:w-108"
+    >
+      <slot />
+    </div>
+  </div>
+</Card>

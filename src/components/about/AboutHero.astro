@@ -1,0 +1,127 @@
+---
+import Button from "@/components/ui/Button.astro";
+import Card from "@/components/ui/Card.astro";
+import {
+  MapPin,
+  ChartNoAxesCombined,
+  BriefcaseBusiness,
+  ArrowRight,
+  ChevronRight,
+} from "@lucide/astro";
+
+interface Props {
+  title: string;
+  intro: string;
+  profileName: string;
+  role: string;
+  location: string;
+  positioning: string;
+  availabilityLabel: string;
+  isOpenToWork: boolean;
+  focus: string;
+}
+
+const {
+  title,
+  intro,
+  profileName,
+  role,
+  location,
+  positioning,
+  availabilityLabel,
+  isOpenToWork,
+  focus,
+} = Astro.props;
+---
+
+<header
+  class="grid grid-cols-1 gap-8 border-b border-line pb-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] lg:items-start lg:gap-6"
+>
+  <div class="flex flex-col gap-6 lg:gap-4">
+    <div class="flex items-center gap-3 text-accent">
+      <span class="size-2.5 rounded-full bg-accent" aria-hidden="true"></span>
+      <p class="font-mono text-sm font-semibold uppercase">About me</p>
+    </div>
+    <h1 class="font-display text-3xl font-bold text-main">
+      {title}
+    </h1>
+    <p class="text-muted">
+      {intro}
+    </p>
+
+    <div class="flex flex-col gap-3 lg:flex-row lg:flex-wrap">
+      <Button
+        href="/contact"
+        variant="primary"
+        aria-label={`Go to contact page`}
+      >
+        <span> Contact Me </span>
+        <ArrowRight class="size-4" aria-hidden="true" />
+      </Button>
+      <Button variant="secondary" href="/#projects">
+        View Projects
+        <ChevronRight class="size-4" aria-hidden="true" />
+      </Button>
+    </div>
+  </div>
+
+  <Card
+    glow
+    padding="none"
+    class="grid grid-cols-1 font-mono lg:grid-cols-2 lg:items-stretch"
+  >
+    <div class="aspect-4/3 w-full overflow-hidden lg:aspect-auto lg:h-full">
+      <img
+        src="/images/profile/photo.webp"
+        alt="Profile photo of me"
+        class="h-full w-full object-cover object-center"
+      />
+    </div>
+    <div class="flex flex-col gap-3 p-4">
+      <div class="">
+        <h2 class="text-xl font-bold text-main">
+          {profileName}
+        </h2>
+        <p class="text-bold text-accent">{role}</p>
+      </div>
+
+      <div
+        class="grid grid-cols-[1.25rem_minmax(0,1fr)] gap-x-3 gap-y-3 border-b border-line pb-4"
+      >
+        <MapPin class="mt-0.5 size-5 justify-self-center text-accent" />
+        <span class="leading-snug">{location}</span>
+
+        <ChartNoAxesCombined
+          class="mt-0.5 size-5 justify-self-center text-accent"
+        />
+        <span class="leading-snug">{positioning}</span>
+
+        <BriefcaseBusiness
+          class="mt-0.5 size-5 justify-self-center text-accent"
+        />
+        <span class="leading-snug">{availabilityLabel}</span>
+      </div>
+
+      <div class="flex flex-col gap-2 p-4 text-sm">
+        <p class="">
+          <span class="text-accent">{`const status`}</span>
+          <span>{`= {`}</span>
+        </p>
+
+        <p class="pl-4">
+          <span>focus:</span>
+          <span class="text-accent">{focus}</span>
+        </p>
+
+        <p class="pl-4">
+          <span>{`openToWork`}:</span>
+          <span class="text-accent">{isOpenToWork}</span>
+        </p>
+
+        <p>
+          <span>{`};`}</span>
+        </p>
+      </div>
+    </div>
+  </Card>
+</header>

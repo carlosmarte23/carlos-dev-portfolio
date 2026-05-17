@@ -1,0 +1,70 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Container from "@/components/ui/Container.astro";
+import Button from "@/components/ui/Button.astro";
+import AboutFocusAreas from "@/components/about/AboutFocusAreas.astro";
+import AboutHero from "@/components/about/AboutHero.astro";
+import AboutStory from "@/components/about/AboutStory.astro";
+import AboutValues from "@/components/about/AboutValues.astro";
+import FooterCTA from "@/components/shared/FooterCTA.astro";
+import { site } from "@data/site";
+
+import { ArrowRight } from "@lucide/astro";
+
+const {
+  name: profileName,
+  role,
+  location,
+  positioning,
+  availability,
+  about,
+} = site;
+
+const { label: availabilityLabel, value: isOpenToWork } = availability;
+
+const {
+  title: aboutTitle,
+  intro: aboutIntro,
+  focus,
+  values: buildValues,
+  focusAreas,
+  cta: aboutCta,
+} = about;
+
+const { title: aboutCtaTitle, description: aboutCtaDescription } = aboutCta;
+---
+
+<BaseLayout>
+  <Container>
+    <AboutHero
+      title={aboutTitle}
+      intro={aboutIntro}
+      profileName={profileName}
+      role={role}
+      location={location}
+      positioning={positioning}
+      availabilityLabel={availabilityLabel}
+      isOpenToWork={isOpenToWork}
+      focus={focus}
+    />
+
+    <AboutStory story={about.story} />
+    <AboutValues values={buildValues} />
+    <AboutFocusAreas focusAreas={focusAreas} />
+
+    <FooterCTA title={aboutCtaTitle} description={aboutCtaDescription}>
+      <Button href="/contact" variant="primary">
+        <span>Contact me</span>
+        <ArrowRight
+          name="simple-icons:github"
+          class="size-4"
+          aria-hidden="true"
+        />
+      </Button>
+      <Button variant="secondary" href="/#projects">
+        View Projects
+        <ArrowRight class="size-4" aria-hidden="true" />
+      </Button>
+    </FooterCTA>
+  </Container>
+</BaseLayout>
