@@ -1,0 +1,369 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Container from "@/components/ui/Container.astro";
+import Button from "@/components/ui/Button.astro";
+import Card from "@/components/ui/Card.astro";
+import Badge from "@/components/ui/Badge.astro";
+import FooterCTA from "@/components/projects/FooterCTA.astro";
+import { site } from "@data/site";
+
+import {
+  MapPin,
+  ChartNoAxesCombined,
+  BriefcaseBusiness,
+  ArrowRight,
+  ChevronRight,
+  Target,
+  GitBranch,
+  Rocket,
+  Star,
+  TrendingUp,
+  Flag,
+} from "@lucide/astro";
+
+const {
+  name: profileName,
+  role,
+  location,
+  positioning,
+  availability,
+  about,
+} = site;
+
+const { label: availabilityLabel, value: isOpenToWork } = availability;
+
+const {
+  title: aboutTitle,
+  intro: aboutIntro,
+  focus,
+  story,
+  values: buildValues,
+  focusAreas,
+  cta: aboutCta,
+} = about;
+
+const { title: storyTitle, summary: storySummary, items: storyItems } = story;
+
+const {
+  title: focusAreasTitle,
+  description: focusAreasDescription,
+  items: focusAreaItems,
+} = focusAreas;
+
+const { title: aboutCtaTitle, description: aboutCtaDescription } = aboutCta;
+
+const valueIcons = {
+  target: Target,
+  network: GitBranch,
+  rocket: Rocket,
+};
+
+const focusIcons = {
+  star: Star,
+  trending: TrendingUp,
+  flag: Flag,
+};
+---
+
+<BaseLayout>
+  <Container>
+    <header
+      class="grid grid-cols-1 gap-8 border-b border-line pb-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] lg:items-start lg:gap-6"
+    >
+      <div class="flex flex-col gap-6 lg:gap-4">
+        <div class="flex items-center gap-3 text-accent">
+          <span class="size-2.5 rounded-full bg-accent" aria-hidden="true"
+          ></span>
+          <p class="font-mono text-sm font-semibold uppercase">About me</p>
+        </div>
+        <h1 class="font-display text-3xl font-bold text-main">
+          {aboutTitle}
+        </h1>
+        <p class="text-muted">
+          {aboutIntro}
+        </p>
+
+        <div class="flex flex-col gap-3 lg:flex-row lg:flex-wrap">
+          <Button
+            href="/contact"
+            variant="primary"
+            aria-label={`Go to contact page`}
+          >
+            <span> Contact Me </span>
+            <ArrowRight class="size-4" aria-hidden="true" />
+          </Button>
+          <Button variant="secondary" href="/#projects">
+            View Projects
+            <ChevronRight class="size-4" aria-hidden="true" />
+          </Button>
+        </div>
+      </div>
+
+      <Card
+        glow
+        padding="none"
+        class="grid grid-cols-1 font-mono lg:grid-cols-2 lg:items-stretch"
+      >
+        <div class="aspect-4/3 w-full overflow-hidden lg:aspect-auto lg:h-full">
+          <img
+            src="/images/profile/photo.webp"
+            alt="Profile photo of me"
+            class="h-full w-full object-cover object-center"
+          />
+        </div>
+        <div class="flex flex-col gap-3 p-4">
+          <div class="">
+            <h2 class="text-xl font-bold text-main">
+              {profileName}
+            </h2>
+            <p class="text-bold text-accent">{role}</p>
+          </div>
+
+          <div
+            class="grid grid-cols-[1.25rem_minmax(0,1fr)] gap-x-3 gap-y-3 border-b border-line pb-4"
+          >
+            <MapPin class="mt-0.5 size-5 justify-self-center text-accent" />
+            <span class="leading-snug">{location}</span>
+
+            <ChartNoAxesCombined
+              class="mt-0.5 size-5 justify-self-center text-accent"
+            />
+            <span class="leading-snug">{positioning}</span>
+
+            <BriefcaseBusiness
+              class="mt-0.5 size-5 justify-self-center text-accent"
+            />
+            <span class="leading-snug">{availabilityLabel}</span>
+          </div>
+
+          <div class="flex flex-col gap-2 p-4 text-sm">
+            <p class="">
+              <span class="text-accent">{`const status`}</span>
+              <span>{`= {`}</span>
+            </p>
+
+            <p class="pl-4">
+              <span>focus:</span>
+              <span class="text-accent">{focus}</span>
+            </p>
+
+            <p class="pl-4">
+              <span>{`openToWork`}:</span>
+              <span class="text-accent">{isOpenToWork}</span>
+            </p>
+
+            <p>
+              <span>{`};`}</span>
+            </p>
+          </div>
+        </div>
+      </Card>
+    </header>
+
+    <!-- My story -->
+    <section
+      class="my-8 border-b border-line pb-8 lg:grid lg:grid-cols-[0.85fr_minmax(0,3fr)] lg:gap-10"
+    >
+      <header class="flex flex-col gap-3 lg:border-r lg:border-line lg:pr-8">
+        <div class="flex items-center gap-3 font-mono text-accent">
+          <span class="size-2.5 rounded-full bg-accent" aria-hidden="true"
+          ></span>
+          <p>My story</p>
+        </div>
+        <h2 class="font-display text-2xl font-bold text-main">
+          {storyTitle}
+        </h2>
+        <p class="text-muted">{storySummary}</p>
+      </header>
+
+      <!-- Mobile / Tablet: collapsable -->
+      <details class="mt-6 lg:hidden">
+        <summary
+          class="flex cursor-pointer list-none items-center gap-2 font-mono text-sm font-semibold text-accent"
+        >
+          Read more
+          <ArrowRight class="size-4" aria-hidden="true" />
+        </summary>
+
+        <div>
+          {
+            storyItems.map((paragraph, index) => (
+              <article class="mt-4 grid gap-2">
+                <span class="font-mono text-sm font-bold text-accent">
+                  {String(index + 1).padStart(2, "0")}.
+                </span>{" "}
+                <p class="leading-7 text-muted">{paragraph}</p>
+              </article>
+            ))
+          }
+        </div>
+      </details>
+
+      <!-- Desktop: always open timeline -->
+      <div
+        class="relative hidden before:absolute before:top-4.5 before:right-[30%] before:left-0 before:h-px before:border-t before:border-dashed before:border-accent/45 lg:grid lg:grid-cols-3 lg:gap-8 lg:pt-1 lg:before:block"
+      >
+        {
+          storyItems.map((paragraph, index) => (
+            <article class="relative grid content-start gap-6">
+              <span class="relative z-10 inline-flex size-7 items-center justify-center rounded-full border border-accent bg-app font-mono font-bold text-accent shadow-glow ring-6 ring-app">
+                {String(index + 1).padStart(2, "0")}
+              </span>{" "}
+              <span class="max-w-[34ch] leading-7 text-muted">{paragraph}</span>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- Values / How I build -->
+    <section class="my-8 border-b border-line pb-8">
+      <header class="flex flex-col gap-3">
+        <div class="flex items-center gap-3 font-mono text-accent">
+          <span class="size-2.5 rounded-full bg-accent" aria-hidden="true"
+          ></span>
+          <p>How I build</p>
+        </div>
+      </header>
+
+      <!-- Mobile / Tablet : collapsable -->
+      <div class="mt-6 flex flex-col gap-4 lg:hidden">
+        {
+          buildValues.map((value) => {
+            const Icon = valueIcons[value.icon];
+
+            return (
+              <details>
+                <summary class="flex cursor-pointer list-none items-center gap-2 font-mono text-sm font-semibold text-accent">
+                  <Icon name={value.icon} class="size-4" aria-hidden="true" />
+                  <h3>{value.title}</h3>
+                  <ChevronRight class="size-4" aria-hidden="true" />
+                </summary>
+                <p class="mt-2 ml-4 border-b border-accent-soft pb-4 text-muted">
+                  {value.description}
+                </p>
+              </details>
+            );
+          })
+        }
+      </div>
+
+      <!-- Desktop -->
+      <div class="mt-6 hidden grid-cols-3 gap-4 lg:grid">
+        {
+          buildValues.map((value) => {
+            const Icon = valueIcons[value.icon];
+
+            return (
+              <article class="flex flex-row font-mono text-sm font-semibold text-accent">
+                <Card padding="sm" class="grid grid-cols-[auto_1fr] gap-6">
+                  <Icon
+                    name={value.icon}
+                    class="size-12 text-accent"
+                    aria-hidden="true"
+                  />
+                  <div class="flex flex-col gap-1">
+                    <h3 class="font-display text-lg font-bold text-main">
+                      {value.title}
+                    </h3>
+                    <p class="text-muted">{value.description}</p>
+                  </div>
+                </Card>
+              </article>
+            );
+          })
+        }
+      </div>
+    </section>
+
+    <!-- Current Focus  -->
+    <section class="my-8 border-b border-line pb-8">
+      <header class="flex flex-col gap-3">
+        <div class="flex items-center gap-3 font-mono text-accent">
+          <span class="size-2.5 rounded-full bg-accent" aria-hidden="true"
+          ></span>
+          <p>{focusAreasTitle}</p>
+        </div>
+        <p>{focusAreasDescription}</p>
+      </header>
+
+      <!-- Mobile / Tablet : collapsable -->
+      <div class="mt-6 flex flex-col gap-4 lg:hidden">
+        {
+          focusAreaItems.map((areas) => {
+            const Icon = focusIcons[areas.icon];
+
+            return (
+              <details>
+                <summary class="flex cursor-pointer list-none items-center gap-2 font-mono text-sm font-semibold text-accent">
+                  <Icon name={areas.icon} class="size-4" aria-hidden="true" />
+                  <h3>{areas.title}</h3>
+                  <ChevronRight class="size-4" aria-hidden="true" />
+                </summary>
+
+                <p class="mt-2 ml-4 text-muted">{areas.description}</p>
+
+                <div class="my-2 flex flex-wrap border-b border-accent-soft pb-4">
+                  {areas.items.map((item) => (
+                    <Badge variant="tech" class="mt-2 ml-4 text-muted">
+                      {item}
+                    </Badge>
+                  ))}
+                </div>
+              </details>
+            );
+          })
+        }
+      </div>
+
+      <!-- Desktop -->
+      <div class="mt-6 hidden grid-cols-3 gap-4 lg:grid">
+        {
+          focusAreaItems.map((area) => {
+            const Icon = focusIcons[area.icon];
+
+            return (
+              <article class="flex flex-row font-mono text-sm font-semibold text-accent">
+                <Card padding="sm" class="flex flex-col gap-4 py-4">
+                  <div class="flex items-center gap-2">
+                    <Icon
+                      name={area.icon}
+                      class="size-6 text-accent"
+                      aria-hidden="true"
+                    />
+                    <h3 class="font-display text-lg font-bold text-main">
+                      {area.title}
+                    </h3>
+                  </div>
+                  <div class="my-2 flex flex-wrap gap-2">
+                    {area.items.map((item) => (
+                      <Badge variant="tech" class="text-muted">
+                        {item}
+                      </Badge>
+                    ))}
+                  </div>
+                  <p class="text-muted">{area.description}</p>
+                </Card>
+              </article>
+            );
+          })
+        }
+      </div>
+    </section>
+
+    <FooterCTA title={aboutCtaTitle} description={aboutCtaDescription}>
+      <Button href="/contact" variant="primary">
+        <span>Contact me</span>
+        <ArrowRight
+          name="simple-icons:github"
+          class="size-4"
+          aria-hidden="true"
+        />
+      </Button>
+      <Button variant="secondary" href="/#projects">
+        View Projects
+        <ArrowRight class="size-4" aria-hidden="true" />
+      </Button>
+    </FooterCTA>
+  </Container>
+</BaseLayout>
