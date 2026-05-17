@@ -2,7 +2,6 @@
 import { getProjectStaticPaths } from "@data/projects";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import Container from "@/components/ui/Container.astro";
-import Card from "@/components/ui/Card.astro";
 import Button from "@/components/ui/Button.astro";
 import { Icon } from "astro-icon/components";
 
@@ -13,8 +12,11 @@ import ProjectGallery from "@/components/projects/ProjectGallery.astro";
 import ProjectHero from "@/components/projects/ProjectHero.astro";
 import ProjectKeyFeatures from "@/components/projects/ProjectKeyFeatures.astro";
 import ProjectTechStack from "@/components/projects/ProjectTechStack.astro";
+import FooterCTA from "@/components/projects/FooterCTA.astro";
 import { Lightbulb, Rocket, Wrench, ArrowRight } from "@lucide/astro";
+
 import type { ProjectFeature } from "@data/projects";
+import { site } from "@data/site";
 
 export function getStaticPaths() {
   return getProjectStaticPaths();
@@ -71,48 +73,25 @@ const improvements = getSectionItems("Future improvements");
       />
     </div>
 
-    <Card padding="sm" class="bg-surface/80">
-      <div class="grid gap-5 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
-        <div class="flex min-w-0 items-start gap-4 sm:items-center">
-          <Rocket
-            class="mt-0.5 size-10 shrink-0 text-accent sm:mt-0"
-            aria-hidden="true"
-          />
-          <div class="min-w-0">
-            <h3 class="font-mono text-base font-bold text-main">
-              Interested in how this project was built?
-            </h3>
-            <p class="mt-1 text-sm leading-6 text-muted">
-              Check out the source code or let's talk about building something
-              amazing together.
-            </p>
-          </div>
-        </div>
+    <FooterCTA
+      title={site.projects.cta.title}
+      description={site.projects.cta.description}
+    >
+      <Button
+        href={repoUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        variant="secondary"
+        aria-label={`Open ${project.title} GitHub repository`}
+      >
+        <Icon name="simple-icons:github" class="size-4" aria-hidden="true" />
 
-        <div
-          class="grid w-full grid-cols-1 gap-3 sm:grid-cols-2 lg:w-100 lg:justify-self-end xl:w-108"
-        >
-          <Button
-            href={repoUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            variant="secondary"
-            aria-label={`Open ${project.title} GitHub repository`}
-          >
-            <Icon
-              name="simple-icons:github"
-              class="size-4"
-              aria-hidden="true"
-            />
-
-            {"View on GitHub"}
-          </Button>
-          <Button variant="primary" href="/contact">
-            Contact me
-            <ArrowRight class="size-4" aria-hidden="true" />
-          </Button>
-        </div>
-      </div>
-    </Card>
+        {"View on GitHub"}
+      </Button>
+      <Button variant="primary" href="/contact">
+        Contact me
+        <ArrowRight class="size-4" aria-hidden="true" />
+      </Button>
+    </FooterCTA>
   </Container>
 </BaseLayout>
