@@ -1,0 +1,90 @@
+---
+import Badge from "@/components/ui/Badge.astro";
+import Card from "@/components/ui/Card.astro";
+import type { AboutFocus } from "@data/site";
+import { ChevronRight, Star, TrendingUp, Flag } from "@lucide/astro";
+
+interface Props {
+  focusAreas: AboutFocus;
+}
+
+const { focusAreas } = Astro.props;
+const { title, description, items } = focusAreas;
+
+const focusIcons = {
+  star: Star,
+  trending: TrendingUp,
+  flag: Flag,
+};
+---
+
+<section class="my-8 border-b border-line pb-8">
+  <header class="flex flex-col gap-3">
+    <div class="flex items-center gap-3 font-mono text-accent">
+      <span class="size-2.5 rounded-full bg-accent" aria-hidden="true"></span>
+      <p>{title}</p>
+    </div>
+    <p>{description}</p>
+  </header>
+
+  <div class="mt-6 flex flex-col gap-4 lg:hidden">
+    {
+      items.map((area) => {
+        const Icon = focusIcons[area.icon];
+
+        return (
+          <details>
+            <summary class="flex cursor-pointer list-none items-center gap-2 font-mono text-sm font-semibold text-accent">
+              <Icon name={area.icon} class="size-4" aria-hidden="true" />
+              <h3>{area.title}</h3>
+              <ChevronRight class="size-4" aria-hidden="true" />
+            </summary>
+
+            <p class="mt-2 ml-4 text-muted">{area.description}</p>
+
+            <div class="my-2 flex flex-wrap border-b border-accent-soft pb-4">
+              {area.items.map((item) => (
+                <Badge variant="tech" class="mt-2 ml-4 text-muted">
+                  {item}
+                </Badge>
+              ))}
+            </div>
+          </details>
+        );
+      })
+    }
+  </div>
+
+  <div class="mt-6 hidden grid-cols-3 gap-4 lg:grid">
+    {
+      items.map((area) => {
+        const Icon = focusIcons[area.icon];
+
+        return (
+          <article class="flex flex-row font-mono text-sm font-semibold text-accent">
+            <Card padding="sm" class="flex flex-col gap-4 py-4">
+              <div class="flex items-center gap-2">
+                <Icon
+                  name={area.icon}
+                  class="size-6 text-accent"
+                  aria-hidden="true"
+                />
+                <h3 class="font-display text-lg font-bold text-main">
+                  {area.title}
+                </h3>
+              </div>
+              <div class="my-2 flex flex-wrap gap-2">
+                {area.items.map((item) => (
+                  <Badge variant="tech" class="text-muted">
+                    {item}
+                  </Badge>
+                ))}
+              </div>
+              <p class="text-muted">{area.description}</p>
+            </Card>
+          </article>
+        );
+      })
+    }
+  </div>
+</section>
