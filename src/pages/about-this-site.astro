@@ -1,0 +1,12 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { aboutThisSitePage } from "@data/pages/aboutThisSite";
+
+const { seo } = aboutThisSitePage;
+---
+
+<BaseLayout
+  title={seo.title}
+  description={seo.description}
+  ogImage={seo.ogImage}
+/>

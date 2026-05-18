@@ -30,7 +30,11 @@ const {
 const { title: aboutCtaTitle, description: aboutCtaDescription } = aboutCta;
 ---
 
-<BaseLayout title={seo.title} description={seo.description}>
+<BaseLayout
+  title={seo.title}
+  description={seo.description}
+  ogImage={seo.ogImage}
+>
   <Container>
     <AboutHero
       eyebrow={eyebrow}

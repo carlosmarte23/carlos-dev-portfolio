@@ -31,9 +31,36 @@ const featureItems = project.caseStudy.features as ProjectFeature[];
 const challenges = project.caseStudy.challenges;
 const learnings = project.caseStudy.learned;
 const improvements = project.caseStudy.futureImprovements;
+const projectUrl = new URL(Astro.url.pathname, Astro.site).toString();
+const projectImage = new URL(
+  project.seo.ogImage ?? project.coverImage.src,
+  Astro.site,
+).toString();
+const projectStructuredData = [
+  {
+    "@type": "CreativeWork",
+    "@id": `${projectUrl}#project`,
+    url: projectUrl,
+    name: project.title,
+    headline: project.seo.title,
+    description: project.seo.description,
+    image: projectImage,
+    dateCreated: project.year,
+    creator: {
+      "@id": `${Astro.site}#person`,
+    },
+    programmingLanguage: project.stack.map((tech) => tech.name),
+    keywords: project.focus,
+  },
+];
 ---
 
-<BaseLayout title={project.seo.title} description={project.seo.description}>
+<BaseLayout
+  title={project.seo.title}
+  description={project.seo.description}
+  ogImage={project.seo.ogImage}
+  structuredData={projectStructuredData}
+>
   <Container class="flex flex-col gap-8 lg:gap-6">
     <ProjectHero
       project={project}

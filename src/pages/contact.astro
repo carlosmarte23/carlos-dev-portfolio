@@ -24,7 +24,11 @@ const {
 } = contact;
 ---
 
-<BaseLayout title={seo.title} description={seo.description}>
+<BaseLayout
+  title={seo.title}
+  description={seo.description}
+  ogImage={seo.ogImage}
+>
   <Container>
     <ContactHero hero={hero} availability={availability} />
     <ContactMethods methods={contactMethods} labels={labels} />
