@@ -46,6 +46,8 @@ const projectStructuredData = [
     description: project.seo.description,
     image: projectImage,
     dateCreated: project.year,
+    datePublished: project.publishedAt,
+    dateModified: project.updatedAt,
     creator: {
       "@id": `${Astro.site}#person`,
     },
@@ -59,6 +61,7 @@ const projectStructuredData = [
   title={project.seo.title}
   description={project.seo.description}
   ogImage={project.seo.ogImage}
+  ogImageAlt={project.seo.ogImageAlt}
   structuredData={projectStructuredData}
 >
   <Container class="flex flex-col gap-8 lg:gap-6">

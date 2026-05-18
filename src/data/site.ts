@@ -15,5 +15,7 @@ export const site: SiteConfig = {
     description:
       "Portfolio of Carlos Marte, a web developer focused on React, Astro, TypeScript, and practical web projects.",
     ogImage: "/images/og/default-og.jpg",
+    ogImageAlt:
+      "Carlos Marte frontend developer portfolio social preview image.",
   },
 };

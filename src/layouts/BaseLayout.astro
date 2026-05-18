@@ -13,6 +13,7 @@ const {
   title = site.seo.title,
   description = site.seo.description,
   ogImage = site.seo.ogImage,
+  ogImageAlt = site.seo.ogImageAlt,
   canonical = new URL(Astro.url.pathname, site.url).toString(),
   structuredData = [],
 } = Astro.props;
@@ -75,10 +76,12 @@ const structuredDataJson = JSON.stringify({
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     {absoluteOgImage && <meta property="og:image" content={absoluteOgImage} />}
+    {ogImageAlt && <meta property="og:image:alt" content={ogImageAlt} />}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     {absoluteOgImage && <meta name="twitter:image" content={absoluteOgImage} />}
+    {ogImageAlt && <meta name="twitter:image:alt" content={ogImageAlt} />}
     <script
       is:inline
       type="application/ld+json"

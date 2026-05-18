@@ -83,6 +83,8 @@ export const projects: Project[] = [
     role: "Frontend Developer",
     year: "2026",
     timeline: "May 2026",
+    publishedAt: "2026-05-05",
+    updatedAt: "2026-05-05",
 
     stack: [
       {
@@ -309,6 +311,7 @@ export const projects: Project[] = [
       description:
         "A case study of StageLink, a frontend-first concert ticketing portfolio project built with React.",
       ogImage: "/images/projects/stagelink/cover.webp",
+      ogImageAlt: "StageLink concert ticketing app case study preview.",
     },
   },
 ];

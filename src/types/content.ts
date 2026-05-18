@@ -14,6 +14,7 @@ export interface Seo {
   title: string;
   description: string;
   ogImage?: string;
+  ogImageAlt?: string;
 }
 
 export interface ImageAsset {
@@ -383,6 +384,8 @@ export interface Project {
   role: string;
   year: string;
   timeline: string;
+  publishedAt?: string;
+  updatedAt?: string;
   stack: ProjectTech[];
   focus: string[];
   links: ProjectLink[];
