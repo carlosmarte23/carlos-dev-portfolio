@@ -1,13 +1,14 @@
 ---
 import Card from "@/components/ui/Card.astro";
-import type { AboutValue } from "@data/site";
+import type { AboutValue } from "@content-types/content";
 import { ChevronRight, Target, GitBranch, Rocket } from "@lucide/astro";
 
 interface Props {
   values: AboutValue[];
+  eyebrow: string;
 }
 
-const { values } = Astro.props;
+const { values, eyebrow } = Astro.props;
 
 const valueIcons = {
   target: Target,
@@ -20,7 +21,7 @@ const valueIcons = {
   <header class="flex flex-col gap-3">
     <div class="flex items-center gap-3 font-mono text-accent">
       <span class="size-2.5 rounded-full bg-accent" aria-hidden="true"></span>
-      <p>How I build</p>
+      <p>{eyebrow}</p>
     </div>
   </header>
 

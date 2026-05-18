@@ -8,8 +8,10 @@ import {
   ArrowRight,
   ChevronRight,
 } from "@lucide/astro";
+import type { Cta, ImageAsset } from "@content-types/content";
 
 interface Props {
+  eyebrow: string;
   title: string;
   intro: string;
   profileName: string;
@@ -19,9 +21,12 @@ interface Props {
   availabilityLabel: string;
   isOpenToWork: boolean;
   focus: string;
+  profileImage: ImageAsset;
+  cta: Cta;
 }
 
 const {
+  eyebrow,
   title,
   intro,
   profileName,
@@ -31,6 +36,8 @@ const {
   availabilityLabel,
   isOpenToWork,
   focus,
+  profileImage,
+  cta,
 } = Astro.props;
 ---
 
@@ -40,7 +47,7 @@ const {
   <div class="flex flex-col gap-6 lg:gap-4">
     <div class="flex items-center gap-3 text-accent">
       <span class="size-2.5 rounded-full bg-accent" aria-hidden="true"></span>
-      <p class="font-mono text-sm font-semibold uppercase">About me</p>
+      <p class="font-mono text-sm font-semibold uppercase">{eyebrow}</p>
     </div>
     <h1 class="font-display text-3xl font-bold text-main">
       {title}
@@ -50,18 +57,18 @@ const {
     </p>
 
     <div class="flex flex-col gap-3 lg:flex-row lg:flex-wrap">
-      <Button
-        href="/contact"
-        variant="primary"
-        aria-label={`Go to contact page`}
-      >
-        <span> Contact Me </span>
+      <Button href={cta.primaryHref} variant="primary">
+        <span>{cta.primaryLabel}</span>
         <ArrowRight class="size-4" aria-hidden="true" />
       </Button>
-      <Button variant="secondary" href="/#projects">
-        View Projects
-        <ChevronRight class="size-4" aria-hidden="true" />
-      </Button>
+      {
+        cta.secondaryHref && cta.secondaryLabel && (
+          <Button variant="secondary" href={cta.secondaryHref}>
+            {cta.secondaryLabel}
+            <ChevronRight class="size-4" aria-hidden="true" />
+          </Button>
+        )
+      }
     </div>
   </div>
 
@@ -72,8 +79,8 @@ const {
   >
     <div class="aspect-4/3 w-full overflow-hidden lg:aspect-auto lg:h-full">
       <img
-        src="/images/profile/photo.webp"
-        alt="Profile photo of me"
+        src={profileImage.src}
+        alt={profileImage.alt}
         class="h-full w-full object-cover object-center"
       />
     </div>

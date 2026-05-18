@@ -1,101 +1,78 @@
-import type { SkillIcon } from "@data/skills";
+import type {
+  Cta,
+  Project,
+  ProjectDetailContent,
+  ProjectLinkType,
+} from "@content-types/content";
 
-export type ProjectStatus = "planned" | "in-progress" | "mvp" | "completed";
+export const projectDetailCta: Cta = {
+  title: "Interested in how this project was built?",
+  description:
+    "Check out the source code or let's talk about building something amazing together.",
+  primaryLabel: "Contact me",
+  primaryHref: "/contact",
+  secondaryLabel: "View on GitHub",
+};
 
-export type ProjectLinkType =
-  | "live"
-  | "repo"
-  | "figma"
-  | "video"
-  | "case-study";
-
-export type ProjectTechCategory =
-  | "frontend"
-  | "styling"
-  | "routing"
-  | "state"
-  | "testing"
-  | "tooling"
-  | "browser-api"
-  | "data"
-  | "backend";
-
-export interface ProjectImage {
-  src: string;
-  alt: string;
-  title?: string;
-  caption?: string;
-}
-
-export interface ProjectLink {
-  label: string;
-  href: string;
-  type: ProjectLinkType;
-  external: boolean;
-}
-
-export interface ProjectTech {
-  name: string;
-  category: ProjectTechCategory;
-  featured?: boolean;
-  icon?: SkillIcon;
-}
-
-export interface ProjectCaseStudySection {
-  title: string;
-  content?: string;
-  items?: string[] | ProjectFeature[];
-}
-
-export interface ProjectFeature {
-  title: string;
-  description: string;
-  icon:
-    | "ticket"
-    | "timer"
-    | "cart"
-    | "checkout"
-    | "wallet"
-    | "responsive"
-    | "testing";
-}
-
-export interface ProjectCaseStudy {
-  overview: string;
-  problem: string;
-  solution: string;
-  sections: ProjectCaseStudySection[];
-}
-
-export interface Project {
-  slug: string;
-  title: string;
-  subtitle: string;
-  summary: string;
-  description: string;
-
-  role: string;
-  type: string;
-  timeline: string;
-  status: ProjectStatus;
-  isFeatured: boolean;
-  order: number;
-
-  image: ProjectImage;
-  gallery?: ProjectImage[];
-
-  techStack: ProjectTech[];
-  focus: string[];
-  links: ProjectLink[];
-
-  caseStudy: ProjectCaseStudy;
-}
+export const projectDetailContent: ProjectDetailContent = {
+  backLabel: "Back to projects",
+  eyebrow: "Case study",
+  keyFeaturesTitle: "Key features",
+  caseStudySummary: {
+    overviewTitle: "Overview",
+    problemTitle: "Problem",
+    solutionTitle: "Solution",
+  },
+  caseStudyLabels: {
+    challenges: "Challenges",
+    learned: "What I learned",
+    futureImprovements: "Future improvements",
+  },
+  facts: {
+    title: "Project facts",
+    roleLabel: "Role",
+    typeLabel: "Type",
+    statusLabel: "Status",
+    timelineLabel: "Timeline",
+    focusLabel: "Focus",
+  },
+  gallery: {
+    title: "Gallery",
+  },
+  techStack: {
+    title: "Tech stack",
+    groupLabels: {
+      frontend: "Frontend",
+      routing: "Frontend",
+      state: "Frontend",
+      tooling: "Tooling",
+      data: "Tooling",
+      styling: "Styling",
+      testing: "Testing",
+      "browser-api": "Browser APIs",
+    },
+    featuredCategoryLabels: {
+      frontend: "Frontend",
+      styling: "Styling",
+      routing: "Routing",
+      state: "State",
+      testing: "Testing",
+      tooling: "Build Tool",
+      "browser-api": "Browser API",
+      data: "Data",
+      backend: "Backend",
+    },
+  },
+};
 
 export const projects: Project[] = [
   {
     slug: "stagelink",
     title: "StageLink",
-    subtitle: "Concert ticketing frontend experience",
+    type: "Portfolio Project",
+    status: "MVP",
+    featured: true,
+    order: 1,
 
     summary:
       "Concert ticketing MVP with event discovery, ticket selection, cart persistence, simulated checkout, and session-based digital tickets.",
@@ -104,74 +81,58 @@ export const projects: Project[] = [
       "StageLink is a React and Vite application that simulates a complete ticket purchasing flow for live events. It focuses on event discovery, checkout UX, local persistence, and a smooth digital ticket experience without processing real payments.",
 
     role: "Frontend Developer",
-    type: "Portfolio Project",
-    status: "mvp",
+    year: "2026",
     timeline: "May 2026",
-    isFeatured: true,
-    order: 1,
+    publishedAt: "2026-05-05",
+    updatedAt: "2026-05-05",
 
-    image: {
-      src: "/images/projects/stagelink/cover.webp",
-      alt: "StageLink concert ticketing app preview",
-    },
-
-    gallery: [
+    stack: [
       {
-        src: "/images/projects/stagelink/events-discovery.webp",
-        alt: "StageLink events listing with filters and sorting controls",
-        title: "Event Discovery",
-        caption:
-          "Event discovery with filters, sorting, pagination, and featured event cards.",
+        name: "React",
+        category: "frontend",
+        featured: true,
+        icon: "devicon:react",
       },
       {
-        src: "/images/projects/stagelink/event-detail.webp",
-        alt: "StageLink event detail page with ticket tier selection",
-        title: "Event Detail",
-        caption:
-          "Event detail page with venue details, ticket quantity controls, and pricing summary.",
+        name: "Vite",
+        category: "tooling",
+        featured: true,
+        icon: "devicon:vitejs",
       },
       {
-        src: "/images/projects/stagelink/checkout-review.webp",
-        alt: "StageLink checkout review step with cart and order summary",
-        title: "Checkout Review",
-        caption:
-          "Checkout review step with editable cart items, service fees, and total cost.",
+        name: "CSS Modules",
+        category: "styling",
+        featured: true,
+        icon: "devicon:css3",
       },
       {
-        src: "/images/projects/stagelink/checkout-payment.webp",
-        alt: "StageLink simulated payment step",
-        title: "Checkout Payment",
-        caption: "Simulated payment step inside the multi-step checkout flow.",
+        name: "Testing Library",
+        category: "testing",
+        featured: true,
+        icon: "simple-icons:testinglibrary",
       },
       {
-        src: "/images/projects/stagelink/tickets-wallet.webp",
-        alt: "StageLink My Tickets page with generated digital ticket",
-        title: "My Tickets Wallet",
-        caption:
-          "My Tickets wallet with a generated ticket, holder information, and QR code preview.",
+        name: "React Router",
+        category: "routing",
+        icon: "devicon:reactrouter",
       },
-    ],
-
-    techStack: [
-      { name: "React", category: "frontend", featured: true },
-      { name: "Vite", category: "tooling", featured: true },
-      { name: "CSS Modules", category: "styling", featured: true },
-      { name: "Testing Library", category: "testing", featured: true },
-      { name: "React Router", category: "routing" },
       {
         name: "Custom Hooks",
         category: "state",
-        icon: { provider: "none", fallback: "CH" },
+        icon: "code",
+        fallbackLabel: "CH",
       },
       {
         name: "localStorage",
         category: "browser-api",
-        icon: { provider: "none", fallback: "LS" },
+        icon: "code",
+        fallbackLabel: "LS",
       },
       {
         name: "Mocked Local JSON",
         category: "data",
-        icon: { provider: "none", fallback: "JSON" },
+        icon: "code",
+        fallbackLabel: "JSON",
       },
     ],
 
@@ -190,14 +151,79 @@ export const projects: Project[] = [
         label: "Live Demo",
         href: "https://stagelink.carlosmarte.dev/",
         type: "live",
-        external: true,
+        icon: "external-link",
+        isExternal: true,
       },
       {
         label: "GitHub Repo",
         href: "https://github.com/carlosmarte23/stagelink",
-        type: "repo",
-        external: true,
+        type: "github",
+        icon: "github",
+        isExternal: true,
       },
+      {
+        label: "Case Study",
+        href: "/projects/stagelink",
+        type: "case-study",
+        icon: "case-study",
+        isExternal: false,
+      },
+    ],
+
+    coverImage: {
+      src: "/images/projects/stagelink/cover.webp",
+      alt: "StageLink concert ticketing app preview",
+      position: "top",
+    },
+
+    gallery: [
+      {
+        src: "/images/projects/stagelink/events-discovery.webp",
+        alt: "StageLink events listing with filters and sorting controls",
+        title: "Event Discovery",
+        caption:
+          "Event discovery with filters, sorting, pagination, and featured event cards.",
+        position: "top",
+      },
+      {
+        src: "/images/projects/stagelink/event-detail.webp",
+        alt: "StageLink event detail page with ticket tier selection",
+        title: "Event Detail",
+        caption:
+          "Event detail page with venue details, ticket quantity controls, and pricing summary.",
+        position: "top",
+      },
+      {
+        src: "/images/projects/stagelink/checkout-review.webp",
+        alt: "StageLink checkout review step with cart and order summary",
+        title: "Checkout Review",
+        caption:
+          "Checkout review step with editable cart items, service fees, and total cost.",
+        position: "top",
+      },
+      {
+        src: "/images/projects/stagelink/checkout-payment.webp",
+        alt: "StageLink simulated payment step",
+        title: "Checkout Payment",
+        caption: "Simulated payment step inside the multi-step checkout flow.",
+        position: "top",
+      },
+      {
+        src: "/images/projects/stagelink/tickets-wallet.webp",
+        alt: "StageLink My Tickets page with generated digital ticket",
+        title: "My Tickets Wallet",
+        caption:
+          "My Tickets wallet with a generated ticket, holder information, and QR code preview.",
+        position: "top",
+      },
+    ],
+
+    highlights: [
+      "Responsive event discovery pages",
+      "Persistent cart with localStorage",
+      "Multi-step checkout flow",
+      "Session-based ticket wallet",
+      "Automated testing with Testing Library and Playwright",
     ],
 
     caseStudy: {
@@ -210,92 +236,82 @@ export const projects: Project[] = [
       solution:
         "The MVP models the complete frontend flow with React Router pages, mocked event data, custom state hooks, localStorage persistence, a guided checkout progress UI, and a session-based ticket wallet. It keeps payments simulated while still presenting the product like a real ticketing experience.",
 
-      sections: [
+      features: [
         {
-          title: "Key features",
-          items: [
-            {
-              title: "Event discovery",
-              description:
-                "Browse featured and upcoming events with filters and sorting.",
-              icon: "ticket",
-            },
-            {
-              title: "Ticket selection",
-              description:
-                "Select ticket types, choose quantity, and review pricing.",
-              icon: "timer",
-            },
-            {
-              title: "Persistent cart",
-              description:
-                "Cart items are saved in localStorage so users do not lose their order.",
-              icon: "cart",
-            },
-            {
-              title: "Multi-step checkout",
-              description:
-                "Guided flow with order review, guest details, and payment simulation.",
-              icon: "checkout",
-            },
-            {
-              title: "Ticket wallet",
-              description: "View and manage purchased tickets in one place.",
-              icon: "wallet",
-            },
-            {
-              title: "Responsive design",
-              description:
-                "Fully responsive experience across desktop and mobile.",
-              icon: "responsive",
-            },
-            {
-              title: "Testing",
-              description:
-                "Component and integration tests using Testing Library and Playwright for important user flows.",
-              icon: "testing",
-            },
-          ],
+          title: "Event discovery",
+          description:
+            "Browse featured and upcoming events with filters and sorting.",
+          icon: "ticket",
         },
         {
-          title: "Technical decisions",
-          items: [
-            "Used React and Vite for a fast SPA development workflow.",
-            "Used React Router for event, cart, and ticket routes.",
-            "Kept event data mocked in local JSON to simulate a future API without blocking the MVP.",
-            "Used custom hooks to keep cart, checkout, and persistence logic organized.",
-            "Used localStorage for cart and ticket persistence inside the browser session.",
-          ],
+          title: "Ticket selection",
+          description:
+            "Select ticket types, choose quantity, and review pricing.",
+          icon: "timer",
         },
         {
-          title: "Challenges",
-          items: [
-            "Keeping cart state consistent across event detail, cart, checkout, and ticket views.",
-            "Designing a checkout flow that feels complete without real payment processing.",
-            "Making mocked backend behavior feel realistic enough for a portfolio project.",
-            "Balancing event browsing features with a focused purchase journey.",
-          ],
+          title: "Persistent cart",
+          description:
+            "Cart items are saved in localStorage so users do not lose their order.",
+          icon: "cart",
         },
         {
-          title: "What I learned",
-          items: [
-            "Improved React state management and custom hook patterns.",
-            "Practiced building a fuller e-commerce-style flow from discovery to confirmation.",
-            "Learned how local persistence affects UX across multi-page flows.",
-            "Focused on presenting frontend work as a product experience, not just isolated screens.",
-          ],
+          title: "Multi-step checkout",
+          description:
+            "Guided flow with order review, guest details, and payment simulation.",
+          icon: "checkout",
         },
         {
-          title: "Future improvements",
-          items: [
-            "Add a real API integration for events, carts, orders, and tickets.",
-            "Move mocked local data to a backend service.",
-            "Add safer payment-provider test mode integration.",
-            "Improve empty, loading, and error states around async data.",
-            "Expand test coverage for checkout and ticket generation flows.",
-          ],
+          title: "Ticket wallet",
+          description: "View and manage purchased tickets in one place.",
+          icon: "wallet",
+        },
+        {
+          title: "Responsive design",
+          description: "Fully responsive experience across desktop and mobile.",
+          icon: "responsive",
+        },
+        {
+          title: "Testing",
+          description:
+            "Component and integration tests using Testing Library and Playwright for important user flows.",
+          icon: "testing",
         },
       ],
+      technicalDecisions: [
+        "Used React and Vite for a fast SPA development workflow.",
+        "Used React Router for event, cart, and ticket routes.",
+        "Kept event data mocked in local JSON to simulate a future API without blocking the MVP.",
+        "Used custom hooks to keep cart, checkout, and persistence logic organized.",
+        "Used localStorage for cart and ticket persistence inside the browser session.",
+      ],
+      challenges: [
+        "Keeping cart state consistent across event detail, cart, checkout, and ticket views.",
+        "Designing a checkout flow that feels complete without real payment processing.",
+        "Making mocked backend behavior feel realistic enough for a portfolio project.",
+        "Balancing event browsing features with a focused purchase journey.",
+      ],
+      learned: [
+        "Improved React state management and custom hook patterns.",
+        "Practiced building a fuller e-commerce-style flow from discovery to confirmation.",
+        "Learned how local persistence affects UX across multi-page flows.",
+        "Focused on presenting frontend work as a product experience, not just isolated screens.",
+      ],
+      futureImprovements: [
+        "Add a real API integration for events, carts, orders, and tickets.",
+        "Move mocked local data to a backend service.",
+        "Add safer payment-provider test mode integration.",
+        "Improve empty, loading, and error states around async data.",
+        "Expand test coverage for checkout and ticket generation flows.",
+      ],
+    },
+
+    seo: {
+      title: "StageLink Case Study | Carlos Marte",
+      description:
+        "A case study of StageLink, a frontend-first concert ticketing portfolio project built with React.",
+      ogImage: "/images/projects/stagelink/cover.webp",
+      ogImageAlt: "StageLink concert ticketing app case study preview.",
     },
   },
 ];
@@ -304,7 +320,7 @@ export const getProjectHref = (slug: string) => `/projects/${slug}`;
 
 export const getFeaturedProjects = () =>
   projects
-    .filter((project) => project.isFeatured)
+    .filter((project) => project.featured)
     .sort((first, second) => first.order - second.order);
 
 export const getProjectLink = (project: Project, type: ProjectLinkType) =>

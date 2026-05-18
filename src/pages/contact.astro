@@ -8,7 +8,7 @@ import ContactMethods from "@/components/contact/ContactMethods.astro";
 import ContactSupportSection from "@/components/contact/ContactSupportSection.astro";
 import { ArrowRight } from "@lucide/astro";
 
-import { contactPage } from "@data/contact";
+import { contact } from "@data/contact";
 
 const {
   seo,
@@ -20,13 +20,19 @@ const {
   trustNotes,
   form,
   bottomCta,
-} = contactPage;
+  labels,
+} = contact;
 ---
 
-<BaseLayout title={seo.title} description={seo.description}>
+<BaseLayout
+  title={seo.title}
+  description={seo.description}
+  ogImage={seo.ogImage}
+  ogImageAlt={seo.ogImageAlt}
+>
   <Container>
     <ContactHero hero={hero} availability={availability} />
-    <ContactMethods methods={contactMethods} />
+    <ContactMethods methods={contactMethods} labels={labels} />
     <ContactSupportSection
       openTo={openTo}
       responseExpectation={responseExpectation}

@@ -1,5 +1,9 @@
 ---
-import { getProjectStaticPaths } from "@data/projects";
+import {
+  getProjectStaticPaths,
+  projectDetailContent,
+  projectDetailCta,
+} from "@data/projects";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import Container from "@/components/ui/Container.astro";
 import Button from "@/components/ui/Button.astro";
@@ -15,58 +19,99 @@ import ProjectTechStack from "@/components/projects/ProjectTechStack.astro";
 import FooterCTA from "@/components/shared/FooterCTA.astro";
 import { Lightbulb, Rocket, Wrench, ArrowRight } from "@lucide/astro";
 
-import type { ProjectFeature } from "@data/projects";
-import { site } from "@data/site";
+import type { ProjectFeature } from "@content-types/content";
 
 export function getStaticPaths() {
   return getProjectStaticPaths();
 }
 
-const getSectionItems = (title: string) =>
-  (project.caseStudy.sections.find((section) => section.title === title)
-    ?.items ?? []) as string[];
-
 const { project } = Astro.props;
-const repoUrl = project.links.find((link) => link.type === "repo")?.href;
-const keyFeatures = project.caseStudy.sections[0];
-const featureItems = (keyFeatures.items ?? []) as ProjectFeature[];
-const challenges = getSectionItems("Challenges");
-const learnings = getSectionItems("What I learned");
-const improvements = getSectionItems("Future improvements");
+const repoUrl = project.links.find((link) => link.type === "github")?.href;
+const featureItems = project.caseStudy.features as ProjectFeature[];
+const challenges = project.caseStudy.challenges;
+const learnings = project.caseStudy.learned;
+const improvements = project.caseStudy.futureImprovements;
+const projectUrl = new URL(Astro.url.pathname, Astro.site).toString();
+const projectImage = new URL(
+  project.seo.ogImage ?? project.coverImage.src,
+  Astro.site,
+).toString();
+const projectStructuredData = [
+  {
+    "@type": "CreativeWork",
+    "@id": `${projectUrl}#project`,
+    url: projectUrl,
+    name: project.title,
+    headline: project.seo.title,
+    description: project.seo.description,
+    image: projectImage,
+    dateCreated: project.year,
+    datePublished: project.publishedAt,
+    dateModified: project.updatedAt,
+    creator: {
+      "@id": `${Astro.site}#person`,
+    },
+    programmingLanguage: project.stack.map((tech) => tech.name),
+    keywords: project.focus,
+  },
+];
 ---
 
-<BaseLayout>
+<BaseLayout
+  title={project.seo.title}
+  description={project.seo.description}
+  ogImage={project.seo.ogImage}
+  ogImageAlt={project.seo.ogImageAlt}
+  structuredData={projectStructuredData}
+>
   <Container class="flex flex-col gap-8 lg:gap-6">
-    <ProjectHero project={project} />
-    <ProjectFacts project={project} />
-    <ProjectCaseStudySummary caseStudy={project.caseStudy} />
+    <ProjectHero
+      project={project}
+      backLabel={projectDetailContent.backLabel}
+      eyebrow={projectDetailContent.eyebrow}
+      techStackContent={projectDetailContent.techStack}
+    />
+    <ProjectFacts project={project} content={projectDetailContent.facts} />
+    <ProjectCaseStudySummary
+      caseStudy={project.caseStudy}
+      content={projectDetailContent.caseStudySummary}
+    />
 
     <div
       class="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1.35fr)_minmax(20rem,0.65fr)]"
     >
-      <ProjectKeyFeatures title={keyFeatures.title} features={featureItems} />
-      <ProjectTechStack techStack={project.techStack} />
+      <ProjectKeyFeatures
+        title={projectDetailContent.keyFeaturesTitle}
+        features={featureItems}
+      />
+      <ProjectTechStack
+        techStack={project.stack}
+        content={projectDetailContent.techStack}
+      />
     </div>
 
-    <ProjectGallery images={project.gallery} />
+    <ProjectGallery
+      images={project.gallery}
+      title={projectDetailContent.gallery.title}
+    />
 
     <div class="grid grid-cols-1 gap-5 lg:grid-cols-3">
       <ProjectCaseStudyList
-        title="Challenges"
+        title={projectDetailContent.caseStudyLabels.challenges}
         icon={Wrench}
         items={challenges}
         listType="numbered"
       />
 
       <ProjectCaseStudyList
-        title="What I learned"
+        title={projectDetailContent.caseStudyLabels.learned}
         icon={Lightbulb}
         items={learnings}
         listType="bullet"
       />
 
       <ProjectCaseStudyList
-        title="Future improvements"
+        title={projectDetailContent.caseStudyLabels.futureImprovements}
         icon={Rocket}
         items={improvements}
         listType="arrow"
@@ -74,22 +119,30 @@ const improvements = getSectionItems("Future improvements");
     </div>
 
     <FooterCTA
-      title={site.projects.cta.title}
-      description={site.projects.cta.description}
+      title={projectDetailCta.title}
+      description={projectDetailCta.description}
     >
-      <Button
-        href={repoUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        variant="secondary"
-        aria-label={`Open ${project.title} GitHub repository`}
-      >
-        <Icon name="simple-icons:github" class="size-4" aria-hidden="true" />
+      {
+        repoUrl && (
+          <Button
+            href={repoUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            variant="secondary"
+            aria-label={`Open ${project.title} GitHub repository`}
+          >
+            <Icon
+              name="simple-icons:github"
+              class="size-4"
+              aria-hidden="true"
+            />
 
-        {"View on GitHub"}
-      </Button>
-      <Button variant="primary" href="/contact">
-        Contact me
+            {projectDetailCta.secondaryLabel}
+          </Button>
+        )
+      }
+      <Button variant="primary" href={projectDetailCta.primaryHref}>
+        {projectDetailCta.primaryLabel}
         <ArrowRight class="size-4" aria-hidden="true" />
       </Button>
     </FooterCTA>

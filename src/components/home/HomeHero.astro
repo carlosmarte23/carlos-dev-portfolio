@@ -6,9 +6,11 @@ import SocialLinks from "../ui/SocialLinks.astro";
 
 import { ArrowRight, ArrowDown, Mail, ChevronRight } from "@lucide/astro";
 
+import { homePage } from "@data/pages/home";
 import { site } from "@data/site";
 
-const { hero, cta } = site;
+const { hero } = homePage;
+const { cta } = hero;
 ---
 
 <section
@@ -52,7 +54,7 @@ const { hero, cta } = site;
       <div class="w-full lg:max-w-xl xl:max-w-2xl">
         <TerminalCard class="lg:ml-auto">
           <div class="space-y-2">
-            <p class="text-accent">// Current profile</p>
+            <p class="text-accent">// {hero.terminal.comment}</p>
             <p>
               <span class="text-accent">const</span>
               <span class="text-main"> developer </span>
@@ -61,14 +63,14 @@ const { hero, cta } = site;
             </p>
 
             <p class="pl-4">
-              <span class="text-blue-400">name</span>
+              <span class="text-blue-400">{hero.terminal.nameLabel}</span>
               <span class="text-muted">: </span>
-              <span class="text-accent">"Carlos Marte"</span>
+              <span class="text-accent">"{site.name}"</span>
               <span class="text-muted">,</span>
             </p>
 
             <p class="pl-4">
-              <span class="text-blue-400">skills</span>
+              <span class="text-blue-400">{hero.terminal.skillsLabel}</span>
               <span class="text-muted">: [</span>
             </p>
 
@@ -97,9 +99,9 @@ const { hero, cta } = site;
             </p>
 
             <p class="pl-4">
-              <span class="text-blue-400">status</span>
+              <span class="text-blue-400">{hero.terminal.statusLabel}</span>
               <span class="text-muted">: </span>
-              <span class="text-accent">"Open to work"</span>
+              <span class="text-accent">"{site.availability}"</span>
             </p>
 
             <p>
@@ -116,11 +118,11 @@ const { hero, cta } = site;
     </div>
   </Container>
   <a
-    href="#projects"
+    href={hero.scroll.href}
     class="absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 font-mono text-xs font-semibold text-soft transition hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent md:flex"
-    aria-label="Scroll to projects"
+    aria-label={hero.scroll.ariaLabel}
   >
-    <span class="tracking-wide uppercase">Scroll</span>
+    <span class="tracking-wide uppercase">{hero.scroll.label}</span>
 
     <span
       class="flex size-9 animate-bounce items-center justify-center rounded-full border border-line bg-surface text-accent shadow-card"

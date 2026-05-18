@@ -8,19 +8,11 @@ import AboutStory from "@/components/about/AboutStory.astro";
 import AboutValues from "@/components/about/AboutValues.astro";
 import FooterCTA from "@/components/shared/FooterCTA.astro";
 import { site } from "@data/site";
+import { aboutPage } from "@data/pages/about";
 
 import { ArrowRight } from "@lucide/astro";
 
-const {
-  name: profileName,
-  role,
-  location,
-  positioning,
-  availability,
-  about,
-} = site;
-
-const { label: availabilityLabel, value: isOpenToWork } = availability;
+const { name: profileName, role, location, headline, availability } = site;
 
 const {
   title: aboutTitle,
@@ -29,42 +21,62 @@ const {
   values: buildValues,
   focusAreas,
   cta: aboutCta,
-} = about;
+  eyebrow,
+  profileImage,
+  sectionLabels,
+  seo,
+} = aboutPage;
 
 const { title: aboutCtaTitle, description: aboutCtaDescription } = aboutCta;
 ---
 
-<BaseLayout>
+<BaseLayout
+  title={seo.title}
+  description={seo.description}
+  ogImage={seo.ogImage}
+  ogImageAlt={seo.ogImageAlt}
+>
   <Container>
     <AboutHero
+      eyebrow={eyebrow}
       title={aboutTitle}
       intro={aboutIntro}
       profileName={profileName}
       role={role}
       location={location}
-      positioning={positioning}
-      availabilityLabel={availabilityLabel}
-      isOpenToWork={isOpenToWork}
+      positioning={headline}
+      availabilityLabel={availability}
+      isOpenToWork={availability === "Open to work"}
       focus={focus}
+      profileImage={profileImage}
+      cta={aboutCta}
     />
 
-    <AboutStory story={about.story} />
-    <AboutValues values={buildValues} />
+    <AboutStory
+      story={aboutPage.story}
+      eyebrow={sectionLabels.storyEyebrow}
+      readMoreLabel={sectionLabels.storyReadMoreLabel}
+    />
+    <AboutValues values={buildValues} eyebrow={sectionLabels.valuesEyebrow} />
     <AboutFocusAreas focusAreas={focusAreas} />
 
     <FooterCTA title={aboutCtaTitle} description={aboutCtaDescription}>
-      <Button href="/contact" variant="primary">
-        <span>Contact me</span>
+      <Button href={aboutCta.primaryHref} variant="primary">
+        <span>{aboutCta.primaryLabel}</span>
         <ArrowRight
           name="simple-icons:github"
           class="size-4"
           aria-hidden="true"
         />
       </Button>
-      <Button variant="secondary" href="/#projects">
-        View Projects
-        <ArrowRight class="size-4" aria-hidden="true" />
-      </Button>
+      {
+        aboutCta.secondaryHref && aboutCta.secondaryLabel && (
+          <Button variant="secondary" href={aboutCta.secondaryHref}>
+            {aboutCta.secondaryLabel}
+            <ArrowRight class="size-4" aria-hidden="true" />
+          </Button>
+        )
+      }
     </FooterCTA>
   </Container>
 </BaseLayout>

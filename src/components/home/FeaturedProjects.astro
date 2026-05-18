@@ -3,8 +3,10 @@ import Container from "../ui/Container.astro";
 import { FolderOpen } from "@lucide/astro";
 import ProjectCard from "../projects/ProjectCard.astro";
 import { getFeaturedProjects } from "@data/projects";
+import { homePage } from "@data/pages/home";
 
 const featuredProjects = getFeaturedProjects();
+const { projects: projectsSection } = homePage.sections;
 ---
 
 <section id="projects" class="scroll-mt-22">
@@ -15,7 +17,8 @@ const featuredProjects = getFeaturedProjects();
       <h2
         class="flex items-center justify-between gap-4 font-mono text-lg font-bold"
       >
-        <span class="size-4 text-accent"><FolderOpen /></span> Projects
+        <span class="size-4 text-accent"><FolderOpen /></span>
+        {projectsSection.title}
       </h2>
     </header>
 
@@ -25,12 +28,13 @@ const featuredProjects = getFeaturedProjects();
           <ProjectCard
             title={project.title}
             summary={project.summary}
-            image={project.image.src}
-            imageAlt={project.image.alt}
-            stack={project.techStack}
+            image={project.coverImage.src}
+            imageAlt={project.coverImage.alt}
+            stack={project.stack}
             links={project.links}
             slug={project.slug}
-            featured={project.isFeatured}
+            featured={project.featured}
+            featuredLabel={projectsSection.featuredBadgeLabel}
             status={project.status}
           />
         ))

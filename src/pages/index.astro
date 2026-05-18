@@ -4,19 +4,20 @@ import HomeHero from "@/components/home/HomeHero.astro";
 import FeaturedProjects from "@/components/home/FeaturedProjects.astro";
 import TechStack from "@/components/home/TechStack.astro";
 import AboutPreview from "@/components/home/AboutPreview.astro";
-import AboutThisSite from "./about-this-site.astro";
 import ContactCTA from "@/components/home/ContactCTA.astro";
+import { homePage } from "@data/pages/home";
 ---
 
 <BaseLayout
-  title="Carlos Marte | Web Developer"
-  description="Web developer building clean, responsive applications while growing toward full-stack development."
+  title={homePage.seo.title}
+  description={homePage.seo.description}
+  ogImage={homePage.seo.ogImage}
+  ogImageAlt={homePage.seo.ogImageAlt}
   class="flex flex-col gap-3"
 >
   <HomeHero />
   <FeaturedProjects />
   <TechStack />
   <AboutPreview />
-  <AboutThisSite />
   <ContactCTA />
 </BaseLayout>

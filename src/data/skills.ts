@@ -1,67 +1,40 @@
-export type SkillLevel = "primary" | "learning";
-
-export type SkillCategory =
-  | "frontend"
-  | "backend"
-  | "data-cms"
-  | "ui-styling"
-  | "tools"
-  | "testing-quality";
-
-export type SkillIcon =
-  | {
-      provider: "iconify";
-      name: string;
-    }
-  | {
-      provider: "none";
-      fallback: string;
-    };
-
-export interface Skill {
-  id: string;
-  name: string;
-  level: SkillLevel;
-  category: SkillCategory;
-  icon: SkillIcon;
-  order: number;
-}
-
-export interface SkillGroup {
-  id: SkillCategory;
-  title: string;
-  order: number;
-}
+import type { Skill, SkillGroup } from "@content-types/content";
 
 export const skillGroups: SkillGroup[] = [
   {
     id: "frontend",
     title: "Frontend",
+    description: "Core technologies I use to build user interfaces.",
     order: 1,
   },
   {
     id: "backend",
     title: "Backend",
+    description: "Server-side fundamentals I am practicing through projects.",
     order: 2,
   },
   {
     id: "data-cms",
     title: "Data & CMS",
+    description: "Tools for structured content, persistence, and CMS work.",
     order: 3,
   },
   {
     id: "ui-styling",
     title: "UI & Styling",
+    description: "Styling and interface craft for responsive experiences.",
     order: 4,
   },
   {
     id: "tools",
     title: "Tools",
+    description: "Development tools I use to build and ship projects.",
     order: 5,
   },
   {
     id: "testing-quality",
     title: "Testing & Quality",
+    description: "Testing and formatting tools that protect project quality.",
     order: 6,
   },
 ];
@@ -72,7 +45,8 @@ export const skills: Skill[] = [
     name: "React",
     level: "primary",
     category: "frontend",
-    icon: { provider: "iconify", name: "devicon:react" },
+    icon: "devicon:react",
+    url: "https://react.dev",
     order: 1,
   },
   {
@@ -80,7 +54,8 @@ export const skills: Skill[] = [
     name: "JavaScript",
     level: "primary",
     category: "frontend",
-    icon: { provider: "iconify", name: "devicon:javascript" },
+    icon: "devicon:javascript",
+    url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
     order: 2,
   },
   {
@@ -88,7 +63,8 @@ export const skills: Skill[] = [
     name: "TypeScript",
     level: "learning",
     category: "frontend",
-    icon: { provider: "iconify", name: "devicon:typescript" },
+    icon: "devicon:typescript",
+    url: "https://www.typescriptlang.org",
     order: 3,
   },
   {
@@ -96,7 +72,8 @@ export const skills: Skill[] = [
     name: "Astro",
     level: "learning",
     category: "frontend",
-    icon: { provider: "iconify", name: "devicon:astro" },
+    icon: "devicon:astro",
+    url: "https://astro.build",
     order: 4,
   },
   {
@@ -104,7 +81,8 @@ export const skills: Skill[] = [
     name: "Node.js",
     level: "learning",
     category: "backend",
-    icon: { provider: "iconify", name: "devicon:nodejs" },
+    icon: "devicon:nodejs",
+    url: "https://nodejs.org",
     order: 1,
   },
   {
@@ -112,7 +90,8 @@ export const skills: Skill[] = [
     name: "Express",
     level: "learning",
     category: "backend",
-    icon: { provider: "iconify", name: "simple-icons:express" },
+    icon: "simple-icons:express",
+    url: "https://expressjs.com",
     order: 2,
   },
   {
@@ -120,7 +99,8 @@ export const skills: Skill[] = [
     name: "API Integration",
     level: "learning",
     category: "backend",
-    icon: { provider: "none", fallback: "API" },
+    icon: "code",
+    fallbackLabel: "API",
     order: 3,
   },
   {
@@ -128,7 +108,8 @@ export const skills: Skill[] = [
     name: "Strapi",
     level: "learning",
     category: "data-cms",
-    icon: { provider: "iconify", name: "simple-icons:strapi" },
+    icon: "simple-icons:strapi",
+    url: "https://strapi.io",
     order: 1,
   },
   {
@@ -136,7 +117,8 @@ export const skills: Skill[] = [
     name: "PostgreSQL",
     level: "learning",
     category: "data-cms",
-    icon: { provider: "iconify", name: "devicon:postgresql" },
+    icon: "devicon:postgresql",
+    url: "https://www.postgresql.org",
     order: 2,
   },
   {
@@ -144,7 +126,7 @@ export const skills: Skill[] = [
     name: "CSS Modules",
     level: "primary",
     category: "ui-styling",
-    icon: { provider: "iconify", name: "devicon:css3" },
+    icon: "devicon:css3",
     order: 1,
   },
   {
@@ -152,7 +134,8 @@ export const skills: Skill[] = [
     name: "Responsive Design",
     level: "primary",
     category: "ui-styling",
-    icon: { provider: "none", fallback: "RD" },
+    icon: "code",
+    fallbackLabel: "RD",
     order: 2,
   },
   {
@@ -160,7 +143,8 @@ export const skills: Skill[] = [
     name: "Tailwind CSS",
     level: "learning",
     category: "ui-styling",
-    icon: { provider: "iconify", name: "devicon:tailwindcss" },
+    icon: "devicon:tailwindcss",
+    url: "https://tailwindcss.com",
     order: 3,
   },
   {
@@ -168,7 +152,8 @@ export const skills: Skill[] = [
     name: "Accessibility",
     level: "learning",
     category: "ui-styling",
-    icon: { provider: "none", fallback: "A11Y" },
+    icon: "code",
+    fallbackLabel: "A11Y",
     order: 4,
   },
   {
@@ -176,7 +161,8 @@ export const skills: Skill[] = [
     name: "Git",
     level: "primary",
     category: "tools",
-    icon: { provider: "iconify", name: "devicon:git" },
+    icon: "devicon:git",
+    url: "https://git-scm.com",
     order: 1,
   },
   {
@@ -184,7 +170,8 @@ export const skills: Skill[] = [
     name: "GitHub",
     level: "primary",
     category: "tools",
-    icon: { provider: "iconify", name: "simple-icons:github" },
+    icon: "simple-icons:github",
+    url: "https://github.com",
     order: 2,
   },
   {
@@ -192,7 +179,8 @@ export const skills: Skill[] = [
     name: "Vite",
     level: "primary",
     category: "tools",
-    icon: { provider: "iconify", name: "devicon:vitejs" },
+    icon: "devicon:vitejs",
+    url: "https://vite.dev",
     order: 3,
   },
   {
@@ -200,7 +188,8 @@ export const skills: Skill[] = [
     name: "VS Code",
     level: "primary",
     category: "tools",
-    icon: { provider: "iconify", name: "devicon:vscode" },
+    icon: "devicon:vscode",
+    url: "https://code.visualstudio.com",
     order: 4,
   },
   {
@@ -208,7 +197,8 @@ export const skills: Skill[] = [
     name: "Figma",
     level: "learning",
     category: "tools",
-    icon: { provider: "iconify", name: "devicon:figma" },
+    icon: "devicon:figma",
+    url: "https://figma.com",
     order: 5,
   },
   {
@@ -216,7 +206,8 @@ export const skills: Skill[] = [
     name: "Vitest",
     level: "learning",
     category: "testing-quality",
-    icon: { provider: "iconify", name: "devicon:vitest" },
+    icon: "devicon:vitest",
+    url: "https://vitest.dev",
     order: 1,
   },
   {
@@ -224,7 +215,8 @@ export const skills: Skill[] = [
     name: "Testing Library",
     level: "learning",
     category: "testing-quality",
-    icon: { provider: "iconify", name: "simple-icons:testinglibrary" },
+    icon: "simple-icons:testinglibrary",
+    url: "https://testing-library.com",
     order: 2,
   },
   {
@@ -232,7 +224,8 @@ export const skills: Skill[] = [
     name: "ESLint",
     level: "primary",
     category: "testing-quality",
-    icon: { provider: "iconify", name: "devicon:eslint" },
+    icon: "devicon:eslint",
+    url: "https://eslint.org",
     order: 3,
   },
   {
@@ -240,7 +233,8 @@ export const skills: Skill[] = [
     name: "Prettier",
     level: "primary",
     category: "testing-quality",
-    icon: { provider: "iconify", name: "simple-icons:prettier" },
+    icon: "simple-icons:prettier",
+    url: "https://prettier.io",
     order: 4,
   },
 ];

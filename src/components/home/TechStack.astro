@@ -3,7 +3,10 @@ import Container from "@/components/ui/Container.astro";
 import Card from "@/components/ui/Card.astro";
 import SkillIcon from "@/components/skills/SkillIcon.astro";
 import { groupedSkillGroups } from "@data/skills";
+import { homePage } from "@data/pages/home";
 import { CodeXml } from "@lucide/astro";
+
+const { techStack } = homePage.sections;
 ---
 
 <section class="scroll-mt-22">
@@ -15,7 +18,7 @@ import { CodeXml } from "@lucide/astro";
       <h2
         class="flex items-center justify-between gap-4 font-mono text-lg font-bold"
       >
-        Tech Stack
+        {techStack.title}
       </h2>
     </header>
 
@@ -35,6 +38,7 @@ import { CodeXml } from "@lucide/astro";
                 <SkillIcon
                   name={skill.name}
                   icon={skill.icon}
+                  fallbackLabel={skill.fallbackLabel}
                   level={skill.level}
                 />
               ))}

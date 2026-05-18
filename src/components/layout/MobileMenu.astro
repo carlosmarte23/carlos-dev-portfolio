@@ -3,11 +3,7 @@ import NavLink from "@components/layout/NavLink.astro";
 import BrandLogo from "@components/layout/BrandLogo.astro";
 import ThemeToggle from "@components/layout/ThemeToggle.astro";
 import { Menu, X } from "@lucide/astro";
-
-interface NavItem {
-  href: string;
-  label: string;
-}
+import type { NavItem } from "@content-types/content";
 
 interface Props {
   navItems: NavItem[];
