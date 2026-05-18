@@ -4,7 +4,7 @@ import TerminalCard from "../ui/TerminalCard.astro";
 import Button from "../ui/Button.astro";
 import SocialLinks from "../ui/SocialLinks.astro";
 
-import { ArrowRight, ArrowDown, Mail } from "@lucide/astro";
+import { ArrowRight, ArrowDown, Mail, ChevronRight } from "@lucide/astro";
 
 import { site } from "@data/site";
 
@@ -51,40 +51,65 @@ const { hero, cta } = site;
       </div>
       <div class="w-full lg:max-w-xl xl:max-w-2xl">
         <TerminalCard class="lg:ml-auto">
-          <div class="space-y-5">
+          <div class="space-y-2">
+            <p class="text-accent">// Current profile</p>
             <p>
-              <span class="text-accent"
-                >carlos@portfolio:<span class="text-blue-400">~</span></span
-              >$
-              <span class="text-main">whoami</span>
+              <span class="text-accent">const</span>
+              <span class="text-main"> developer </span>
+              <span class="text-muted">=</span>
+              <span class="text-main"> {"{"}</span>
             </p>
-            <p class="pl-4">&gt; Carlos Marte</p>
+
+            <p class="pl-4">
+              <span class="text-blue-400">name</span>
+              <span class="text-muted">: </span>
+              <span class="text-accent">"Carlos Marte"</span>
+              <span class="text-muted">,</span>
+            </p>
+
+            <p class="pl-4">
+              <span class="text-blue-400">skills</span>
+              <span class="text-muted">: [</span>
+            </p>
+
+            <div class="space-y-1 pl-8">
+              {
+                hero.skills.map((skill, index) => (
+                  <div class="flex items-start gap-2">
+                    <ChevronRight
+                      class="mt-0.5 size-4 shrink-0 text-accent"
+                      aria-hidden="true"
+                    />
+                    <span>
+                      <span class="text-accent">"{skill}"</span>
+                      <span class="text-muted">
+                        {index === hero.skills.length - 1 ? "" : ","}
+                      </span>
+                    </span>
+                  </div>
+                ))
+              }
+            </div>
+
+            <p class="pl-4">
+              <span class="text-muted">]</span>
+              <span class="text-muted">,</span>
+            </p>
+
+            <p class="pl-4">
+              <span class="text-blue-400">status</span>
+              <span class="text-muted">: </span>
+              <span class="text-accent">"Open to work"</span>
+            </p>
 
             <p>
-              <span class="text-accent"
-                >carlos@portfolio:<span class="text-blue-400">~</span></span
-              >$
-              <span class="text-main">skills</span>
+              <span class="text-main">{"}"}</span>
+              <span class="text-muted">;</span>
             </p>
 
-            <ul class="space-y-2 pl-4 text-accent">
-              {hero.skills.map((skill) => <li>&gt; {skill}</li>)}
-            </ul>
-
-            <p>
-              <span class="text-accent"
-                >carlos@portfolio:<span class="text-blue-400">~</span></span
-              >$
-              <span class="text-main">status</span>
-            </p>
-
-            <p class="pl-4 text-accent">
-              &gt; Open to work
-
-              <span
-                class="ml-1 inline-block h-4 w-2 translate-y-0.5 animate-flash bg-accent animate-iteration-count-infinite"
-                aria-hidden="true"></span>
-            </p>
+            <span
+              class="inline-block h-4 w-2 animate-flash bg-accent animate-iteration-count-infinite"
+              aria-hidden="true"></span>
           </div>
         </TerminalCard>
       </div>

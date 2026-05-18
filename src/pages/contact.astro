@@ -1,0 +1,49 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Container from "@/components/ui/Container.astro";
+import Button from "@/components/ui/Button.astro";
+import FooterCTA from "@/components/shared/FooterCTA.astro";
+import ContactHero from "@/components/contact/ContactHero.astro";
+import ContactMethods from "@/components/contact/ContactMethods.astro";
+import ContactSupportSection from "@/components/contact/ContactSupportSection.astro";
+import { ArrowRight } from "@lucide/astro";
+
+import { contactPage } from "@data/contact";
+
+const {
+  seo,
+  hero,
+  availability,
+  contactMethods,
+  openTo,
+  responseExpectation,
+  trustNotes,
+  form,
+  bottomCta,
+} = contactPage;
+---
+
+<BaseLayout title={seo.title} description={seo.description}>
+  <Container>
+    <ContactHero hero={hero} availability={availability} />
+    <ContactMethods methods={contactMethods} />
+    <ContactSupportSection
+      openTo={openTo}
+      responseExpectation={responseExpectation}
+      trustNotes={trustNotes}
+      form={form}
+    />
+
+    <FooterCTA title={bottomCta.title} description={bottomCta.description}>
+      <Button variant="primary" href={bottomCta.primaryHref}>
+        <span>{bottomCta.primaryLabel}</span>
+        <ArrowRight class="size-5" aria-hidden="true" />
+      </Button>
+
+      <Button variant="secondary" href={bottomCta.secondaryHref}>
+        <span>{bottomCta.secondaryLabel}</span>
+        <ArrowRight class="size-5" aria-hidden="true" />
+      </Button>
+    </FooterCTA>
+  </Container>
+</BaseLayout>

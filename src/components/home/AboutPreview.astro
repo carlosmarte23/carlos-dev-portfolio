@@ -2,7 +2,7 @@
 import Container from "@/components/ui/Container.astro";
 import Button from "@/components/ui/Button.astro";
 import TerminalCard from "@/components/ui/TerminalCard.astro";
-import { ArrowRight, UserRound } from "@lucide/astro";
+import { ArrowRight, ChevronRight, UserRound } from "@lucide/astro";
 
 import { site } from "@data/site";
 const {
@@ -41,91 +41,99 @@ const {
       <div class="w-full lg:max-w-xl xl:max-w-2xl">
         <TerminalCard class="lg:ml-auto">
           <div class="space-y-2">
+            <p class="text-accent">// About profile</p>
             <p>
-              <span class="text-pink-400">const</span>
-              <span class="text-orange-300"> developer</span>
-              <span class="text-main"> = {"{"}</span>
+              <span class="text-accent">const</span>
+              <span class="text-main"> developer </span>
+              <span class="text-muted">=</span>
+              <span class="text-main"> {"{"}</span>
             </p>
 
             <p class="pl-4">
-              <span class="text-accent-code">name</span><span class="text-main"
-                >:
-              </span><span class="text-accent">'{name}'</span><span
-                class="text-main">,</span
-              >
+              <span class="text-blue-400">name</span>
+              <span class="text-muted">: </span>
+              <span class="text-accent">"{name}"</span>
+              <span class="text-muted">,</span>
             </p>
 
             <p class="pl-4">
-              <span class="text-accent-code">location</span><span
-                class="text-main"
-                >:
-              </span><span class="text-accent">'{location}'</span><span
-                class="text-main">,</span
-              >
+              <span class="text-blue-400">location</span>
+              <span class="text-muted">: </span>
+              <span class="text-accent">"{location}"</span>
+              <span class="text-muted">,</span>
             </p>
 
             <p class="pl-4">
-              <span class="text-accent-code">role</span><span class="text-main"
-                >:
-              </span><span class="text-accent">'{role}'</span><span
-                class="text-main">,</span
-              >
+              <span class="text-blue-400">role</span>
+              <span class="text-muted">: </span>
+              <span class="text-accent">"{role}"</span>
+              <span class="text-muted">,</span>
             </p>
 
             <p class="pl-4">
-              <span class="text-accent-code">direction</span><span
-                class="text-main"
-                >:
-              </span><span class="text-accent">'{positioning}'</span><span
-                class="text-main">,</span
-              >
+              <span class="text-blue-400">direction</span>
+              <span class="text-muted">: </span>
+              <span class="text-accent">"{positioning}"</span>
+              <span class="text-muted">,</span>
             </p>
 
             <p class="pl-4">
-              <span class="text-accent-code">currentStrength</span><span
-                class="text-main"
-                >:
-              </span><span class="text-accent">'{currentStrength}'</span><span
-                class="text-main">,</span
-              >
+              <span class="text-blue-400">currentStrength</span>
+              <span class="text-muted">: </span>
+              <span class="text-accent">"{currentStrength}"</span>
+              <span class="text-muted">,</span>
             </p>
 
             <p class="pl-4">
-              <span class="text-accent-code">interests</span><span
-                class="text-main">: [</span
-              >{
+              <span class="text-blue-400">interests</span>
+              <span class="text-muted">: [</span>
+            </p>
+
+            <div class="space-y-1 pl-8">
+              {
                 professionalInterests.map((interest, index) => (
-                  <>
-                    <span class="text-accent">'{interest}'</span>
-                    {index < professionalInterests.length - 1 && (
-                      <span class="text-main">, </span>
-                    )}
-                  </>
+                  <div class="flex items-start gap-2">
+                    <ChevronRight
+                      class="mt-0.5 size-4 shrink-0 text-accent"
+                      aria-hidden="true"
+                    />
+                    <span>
+                      <span class="text-accent">"{interest}"</span>
+                      <span class="text-muted">
+                        {index === professionalInterests.length - 1 ? "" : ","}
+                      </span>
+                    </span>
+                  </div>
                 ))
-              }<span class="text-main">],</span>
+              }
+            </div>
+
+            <p class="pl-4">
+              <span class="text-muted">]</span>
+              <span class="text-muted">,</span>
             </p>
 
             <p class="pl-4">
-              <span class="text-accent-code">currentGoal</span><span
-                class="text-main"
-                >:
-              </span><span class="text-accent">'{currentGoal}'</span><span
-                class="text-main">,</span
-              >
+              <span class="text-blue-400">currentGoal</span>
+              <span class="text-muted">: </span>
+              <span class="text-accent">"{currentGoal}"</span>
+              <span class="text-muted">,</span>
             </p>
 
             <p class="pl-4">
-              <span class="text-accent-code">openToWork</span><span
-                class="text-main"
-                >:
-              </span><span class="text-yellow-300"
-                >{String(availability.value)}</span
-              ><span class="text-main">,</span>
+              <span class="text-blue-400">openToWork</span>
+              <span class="text-muted">: </span>
+              <span class="text-yellow-300">{String(availability.value)}</span>
             </p>
 
             <p>
-              <span class="text-main"> {"};"}</span>
+              <span class="text-main">{"}"}</span>
+              <span class="text-muted">;</span>
             </p>
+
+            <span
+              class="inline-block h-4 w-2 animate-flash bg-accent animate-iteration-count-infinite"
+              aria-hidden="true"></span>
           </div>
         </TerminalCard>
       </div>
