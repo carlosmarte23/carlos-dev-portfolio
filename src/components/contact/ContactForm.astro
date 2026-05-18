@@ -1,0 +1,146 @@
+---
+import Button from "@/components/ui/Button.astro";
+import Card from "@/components/ui/Card.astro";
+import { ArrowRight, ArrowUpRight, LockKeyhole } from "@lucide/astro";
+import type { ContactPage } from "@data/contact";
+
+interface Props {
+  form: ContactPage["form"];
+}
+
+const { form } = Astro.props;
+---
+
+<Card padding="sm" class="flex min-w-0 flex-col gap-6">
+  <h2 class="font-mono text-xl font-bold text-accent uppercase">
+    {form.title}
+  </h2>
+
+  <form action={form.action} method="POST" class="flex flex-col gap-5">
+    <input
+      type="hidden"
+      name={form.hiddenFields.subject.name}
+      value={form.hiddenFields.subject.value}
+    />
+    <input
+      type="text"
+      name={form.hiddenFields.honeypot.name}
+      class="hidden"
+      tabindex={form.hiddenFields.honeypot.tabindex}
+      autocomplete={form.hiddenFields.honeypot.autocomplete}
+    />
+
+    <div class="flex flex-col gap-4 lg:grid lg:grid-cols-2">
+      <label for={form.fields.name.name} class="flex flex-col gap-2">
+        <span class="font-mono text-sm font-semibold text-main">
+          {form.fields.name.label}
+        </span>
+        <input
+          id={form.fields.name.name}
+          type="text"
+          name={form.fields.name.name}
+          required={form.fields.name.required}
+          autocomplete={form.fields.name.autocomplete}
+          placeholder={form.fields.name.placeholder}
+          class="min-h-12 rounded-button border border-line bg-surface px-4 py-3 text-main transition placeholder:text-soft focus:border-accent focus:ring-2 focus:ring-accent/25 focus:outline-none"
+        />
+      </label>
+
+      <label for={form.fields.email.name} class="flex flex-col gap-2">
+        <span class="font-mono text-sm font-semibold text-main">
+          {form.fields.email.label}
+        </span>
+        <input
+          id={form.fields.email.name}
+          type="email"
+          name={form.fields.email.name}
+          required={form.fields.email.required}
+          autocomplete={form.fields.email.autocomplete}
+          placeholder={form.fields.email.placeholder}
+          class="min-h-12 rounded-button border border-line bg-surface px-4 py-3 text-main transition placeholder:text-soft focus:border-accent focus:ring-2 focus:ring-accent/25 focus:outline-none"
+        />
+      </label>
+    </div>
+
+    <label for={form.fields.messageType.name} class="flex flex-col gap-2">
+      <span class="font-mono text-sm font-semibold text-main">
+        {form.fields.messageType.label}
+      </span>
+
+      <select
+        id={form.fields.messageType.name}
+        name={form.fields.messageType.name}
+        required={form.fields.messageType.required}
+        class="min-h-12 rounded-button border border-line bg-surface px-4 py-3 text-soft transition focus:border-accent focus:ring-2 focus:ring-accent/25 focus:outline-none"
+        data-muted-select
+      >
+        <option value="" disabled selected hidden>
+          {form.fields.messageType.placeholder}
+        </option>
+        {
+          form.fields.messageType.options.map((option) => (
+            <option value={option.value}>{option.label}</option>
+          ))
+        }
+      </select>
+    </label>
+
+    <label for={form.fields.message.name} class="flex flex-col gap-2">
+      <span class="font-mono text-sm font-semibold text-main">
+        {form.fields.message.label}
+      </span>
+      <textarea
+        id={form.fields.message.name}
+        name={form.fields.message.name}
+        required={form.fields.message.required}
+        placeholder={form.fields.message.placeholder}
+        class="min-h-32 rounded-button border border-line bg-surface px-4 py-3 text-main transition placeholder:text-soft focus:border-accent focus:ring-2 focus:ring-accent/25 focus:outline-none"
+      ></textarea>
+    </label>
+
+    <div class="grid gap-4 pt-2 sm:grid-cols-2 sm:items-center sm:gap-6">
+      <Button type="submit" class="w-full">
+        <span>{form.submitLabel}</span>
+        <ArrowRight name="send" class="size-5" aria-hidden="true" />
+      </Button>
+
+      <div class="flex flex-col gap-1 sm:justify-self-center">
+        <p class="text-muted">{form.fallback.text}</p>
+        <a
+          href={form.fallback.href}
+          class="inline-flex items-center gap-2 font-mono text-sm font-semibold text-accent transition hover:text-accent-hover focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+        >
+          {form.fallback.label}
+          <ArrowUpRight class="size-4 shrink-0" aria-hidden="true" />
+        </a>
+      </div>
+    </div>
+  </form>
+
+  <footer
+    class="-mx-4 -mb-4 border-t border-line px-4 py-4 font-mono text-sm text-soft"
+  >
+    <p class="flex items-center justify-center gap-2">
+      <LockKeyhole class="size-4 shrink-0" aria-hidden="true" />
+      <span>{`/* ${form.securityNote} */`}</span>
+    </p>
+  </footer>
+</Card>
+
+<script>
+  const mutedSelects = document.querySelectorAll<HTMLSelectElement>(
+    "[data-muted-select]",
+  );
+
+  mutedSelects.forEach((select) => {
+    const updateSelectColor = () => {
+      const hasValue = Boolean(select.value);
+
+      select.classList.toggle("text-soft", !hasValue);
+      select.classList.toggle("text-main", hasValue);
+    };
+
+    updateSelectColor();
+    select.addEventListener("change", updateSelectColor);
+  });
+</script>

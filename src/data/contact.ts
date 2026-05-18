@@ -178,3 +178,5 @@ export const contactPage = {
     secondaryHref: "/about",
   },
 } as const;
+
+export type ContactPage = typeof contactPage;

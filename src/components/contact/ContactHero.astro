@@ -1,0 +1,111 @@
+---
+import TerminalCard from "@/components/ui/TerminalCard.astro";
+import { ChevronRight, MapPin } from "@lucide/astro";
+import type { ContactPage } from "@data/contact";
+
+interface Props {
+  hero: ContactPage["hero"];
+  availability: ContactPage["availability"];
+}
+
+const { hero, availability } = Astro.props;
+---
+
+<header
+  class="flex flex-col gap-6 lg:mt-6 lg:grid lg:grid-cols-[auto_1fr] lg:gap-1"
+>
+  <div class="flex flex-col gap-4 lg:max-w-[50ch] lg:gap-6">
+    <div class="flex items-center gap-2 text-accent">
+      <span class="size-2.5 rounded-full bg-accent" aria-hidden="true"></span>
+      <p class="font-mono text-sm font-semibold uppercase">
+        {hero.eyebrow}
+      </p>
+    </div>
+
+    <div class="flex flex-col gap-1 lg:gap-3">
+      <h1 class="font-display text-3xl font-bold text-main">
+        {hero.title}
+      </h1>
+      <p class="text-muted">{hero.description}</p>
+    </div>
+
+    <div class="flex flex-wrap gap-2 lg:gap-3">
+      {
+        hero.badges.map((badge) => (
+          <div class="inline-flex min-h-10 items-center gap-2 rounded-button border border-line bg-surface px-4 py-2 font-mono text-sm text-main shadow-card">
+            {badge.icon === "map-pin" ? (
+              <MapPin class="size-4 text-accent" aria-hidden="true" />
+            ) : (
+              <span
+                class="size-2 rounded-full bg-accent shadow-glow"
+                aria-hidden="true"
+              />
+            )}
+            <span>{badge.label}</span>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <TerminalCard bodyClass="flex flex-col gap-2 p-4">
+    <p class="text-muted uppercase">{`// ${availability.title}`}</p>
+    <p>
+      <span class="text-accent">const</span>
+      <span class="text-main"> availability </span>
+      <span class="text-muted">=</span>
+      <span class="text-main"> {"{"}</span>
+    </p>
+
+    <p class="pl-4">
+      <span class="text-blue-400">status</span>
+      <span class="text-muted">: </span>
+      <span class="text-accent">"{availability.status}"</span>
+      <span class="text-muted">,</span>
+    </p>
+
+    <p class="pl-4">
+      <span class="text-blue-400">openTo</span>
+      <span class="text-muted">: [</span>
+    </p>
+
+    <div class="pl-8">
+      {
+        availability.items.map((item, index) => (
+          <div class="flex items-start gap-2">
+            <ChevronRight
+              class="mt-0.5 size-4 shrink-0 text-accent"
+              aria-hidden="true"
+            />
+            <span>
+              <span class="text-accent">"{item}"</span>
+              <span class="text-muted">
+                {index === availability.items.length - 1 ? "" : ","}
+              </span>
+            </span>
+          </div>
+        ))
+      }
+    </div>
+
+    <p class="pl-4">
+      <span class="text-muted">]</span>
+      <span class="text-muted">,</span>
+    </p>
+
+    <p class="pl-4">
+      <span class="text-blue-400">note</span>
+      <span class="text-muted">: </span>
+      <span class="text-accent">"{availability.note}"</span>
+    </p>
+
+    <p>
+      <span class="text-main">{"}"}</span>
+      <span class="text-muted">;</span>
+    </p>
+
+    <span
+      class="inline-block h-4 w-2 animate-flash bg-accent animate-iteration-count-infinite"
+      aria-hidden="true"></span>
+  </TerminalCard>
+</header>

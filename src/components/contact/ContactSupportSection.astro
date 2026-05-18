@@ -1,0 +1,41 @@
+---
+import ContactForm from "@/components/contact/ContactForm.astro";
+import ContactInfoCard from "@/components/contact/ContactInfoCard.astro";
+import type { ContactPage } from "@data/contact";
+
+interface Props {
+  openTo: ContactPage["openTo"];
+  responseExpectation: ContactPage["responseExpectation"];
+  trustNotes: ContactPage["trustNotes"];
+  form: ContactPage["form"];
+}
+
+const { openTo, responseExpectation, trustNotes, form } = Astro.props;
+---
+
+<section
+  class="my-8 flex flex-col gap-4 border-b border-line pb-8 lg:grid lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-6"
+>
+  <div class="flex min-w-0 flex-col gap-4">
+    <ContactInfoCard
+      title={openTo.title}
+      icon={openTo.icon}
+      items={openTo.items}
+    />
+
+    <ContactInfoCard
+      title={responseExpectation.title}
+      icon={responseExpectation.icon}
+      description={responseExpectation.description}
+    />
+
+    <ContactInfoCard
+      title={trustNotes.title}
+      icon={trustNotes.icon}
+      items={trustNotes.items}
+      listIcon="check"
+    />
+  </div>
+
+  <ContactForm form={form} />
+</section>
