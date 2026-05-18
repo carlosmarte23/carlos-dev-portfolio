@@ -5,8 +5,9 @@ import BrandLogo from "@components/layout/BrandLogo.astro";
 import ThemeToggle from "./ThemeToggle.astro";
 import MobileMenu from "./MobileMenu.astro";
 import { site } from "@data/site";
+import { navigation } from "@data/navigation";
 
-const navItems = site.nav;
+const navItems = navigation.main;
 ---
 
 <header class="sticky top-0 z-50 bg-app/90 backdrop-blur">

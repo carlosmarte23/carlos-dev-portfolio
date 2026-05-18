@@ -1,14 +1,17 @@
 ---
 import { Icon } from "astro-icon/components";
-import type { SkillIcon as SkillIconData, SkillLevel } from "@data/skills";
+import { CodeXml } from "@lucide/astro";
+import type { SkillLevel } from "@content-types/content";
 
 interface Props {
   name: string;
-  icon: SkillIconData;
+  icon: string;
+  fallbackLabel?: string;
   level: SkillLevel;
 }
 
-const { name, icon, level } = Astro.props;
+const { name, icon, fallbackLabel, level } = Astro.props;
+const isIconifyIcon = icon.includes(":");
 ---
 
 <div
@@ -21,16 +24,21 @@ const { name, icon, level } = Astro.props;
   title={name}
 >
   {
-    icon.provider === "iconify" ? (
+    isIconifyIcon ? (
       <Icon
-        name={icon.name}
+        name={icon}
         class="size-7 text-main transition group-hover:text-accent"
         aria-hidden="true"
       />
-    ) : (
+    ) : fallbackLabel ? (
       <span class="text-xs font-bold text-muted transition group-hover:text-accent">
-        {icon.fallback}
+        {fallbackLabel}
       </span>
+    ) : (
+      <CodeXml
+        class="size-7 text-main transition group-hover:text-accent"
+        aria-hidden="true"
+      />
     )
   }
 

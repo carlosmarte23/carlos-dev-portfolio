@@ -1,5 +1,5 @@
 ---
-import type { Project } from "@data/projects";
+import type { Project } from "@content-types/content";
 import Button from "@/components/ui/Button.astro";
 import TerminalCard from "@/components/ui/TerminalCard.astro";
 import ProjectTechStrip from "@/components/projects/ProjectTechStrip.astro";
@@ -28,7 +28,7 @@ const { project } = Astro.props;
     </p>
     <h1 class="font-display text-4xl font-bold">{project.title}</h1>
     <h2 class="text-xl font-semibold text-muted">
-      {project.subtitle}
+      {project.summary}
     </h2>
     <p class="text-muted">{project.description}</p>
 
@@ -37,12 +37,12 @@ const { project } = Astro.props;
         project.links.map((link) => (
           <Button
             href={link.href}
-            target={link.external ? "_blank" : undefined}
-            rel={link.external ? "noopener noreferrer" : undefined}
+            target={link.isExternal ? "_blank" : undefined}
+            rel={link.isExternal ? "noopener noreferrer" : undefined}
             variant={link.type === "live" ? "primary" : "secondary"}
             aria-label={`Open ${project.title} ${link.label}`}
           >
-            {link.type === "repo" && (
+            {link.type === "github" && (
               <Icon
                 name="simple-icons:github"
                 class="size-4"
@@ -58,14 +58,14 @@ const { project } = Astro.props;
       }
     </div>
 
-    <ProjectTechStrip techStack={project.techStack} />
+    <ProjectTechStrip techStack={project.stack} />
   </div>
 
   <TerminalCard bodyClass="p-0">
     <div class="aspect-16/10 overflow-hidden">
       <img
-        src={project.image.src}
-        alt={project.image.alt}
+        src={project.coverImage.src}
+        alt={project.coverImage.alt}
         class="size-full object-cover object-top"
       />
     </div>

@@ -6,11 +6,12 @@ import TechStack from "@/components/home/TechStack.astro";
 import AboutPreview from "@/components/home/AboutPreview.astro";
 import AboutThisSite from "./about-this-site.astro";
 import ContactCTA from "@/components/home/ContactCTA.astro";
+import { homePage } from "@data/pages/home";
 ---
 
 <BaseLayout
-  title="Carlos Marte | Web Developer"
-  description="Web developer building clean, responsive applications while growing toward full-stack development."
+  title={homePage.seo.title}
+  description={homePage.seo.description}
   class="flex flex-col gap-3"
 >
   <HomeHero />

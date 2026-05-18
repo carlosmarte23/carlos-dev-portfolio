@@ -4,7 +4,11 @@ import Card from "../ui/Card.astro";
 import Button from "../ui/Button.astro";
 import { Icon } from "astro-icon/components";
 import { ExternalLink } from "@lucide/astro";
-import type { ProjectLink, ProjectStatus, ProjectTech } from "@data/projects";
+import type {
+  ProjectLink,
+  ProjectStatus,
+  ProjectTech,
+} from "@content-types/content";
 
 interface Props {
   title: string;
@@ -27,14 +31,14 @@ const {
   links,
   slug,
   featured = false,
-  status = "completed",
+  status = "Completed",
 } = Astro.props;
 
 const projectHref = `/projects/${slug}`;
-const isAvailable = status !== "planned";
+const isAvailable = status !== "Planned";
 const applyGlow = isAvailable && featured;
 const visibleLinks = links.filter((link) =>
-  ["live", "repo"].includes(link.type),
+  ["live", "github"].includes(link.type),
 );
 ---
 
@@ -85,12 +89,12 @@ const visibleLinks = links.filter((link) =>
           <Button
             href={link.href}
             variant={link.type === "live" ? "primary" : "secondary"}
-            target={link.external ? "_blank" : undefined}
-            rel={link.external ? "noopener noreferrer" : undefined}
+            target={link.isExternal ? "_blank" : undefined}
+            rel={link.isExternal ? "noopener noreferrer" : undefined}
             aria-label={`Open ${title} ${link.label}`}
           >
             <span>{link.label}</span>
-            {link.type === "repo" ? (
+            {link.type === "github" ? (
               <Icon
                 name="simple-icons:github"
                 class="size-4"

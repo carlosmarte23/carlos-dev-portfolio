@@ -25,12 +25,12 @@ const featuredProjects = getFeaturedProjects();
           <ProjectCard
             title={project.title}
             summary={project.summary}
-            image={project.image.src}
-            imageAlt={project.image.alt}
-            stack={project.techStack}
+            image={project.coverImage.src}
+            imageAlt={project.coverImage.alt}
+            stack={project.stack}
             links={project.links}
             slug={project.slug}
-            featured={project.isFeatured}
+            featured={project.featured}
             status={project.status}
           />
         ))

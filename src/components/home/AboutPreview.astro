@@ -5,17 +5,17 @@ import TerminalCard from "@/components/ui/TerminalCard.astro";
 import { ArrowRight, ChevronRight, UserRound } from "@lucide/astro";
 
 import { site } from "@data/site";
+import { homePage } from "@data/pages/home";
+const { name, location, role } = site;
+
 const {
-  name,
-  location,
-  role,
+  preview,
   positioning,
   currentStrength,
   professionalInterests,
   currentGoal,
-  availability,
-  about,
-} = site;
+  openToWork,
+} = homePage.profileSummary;
 ---
 
 <section>
@@ -32,7 +32,7 @@ const {
 
     <div class="grid gap-5 md:grid-cols-2">
       <div>
-        <p class="leading-6 text-pretty text-muted">{about.preview}</p>
+        <p class="leading-6 text-pretty text-muted">{preview}</p>
         <Button href="/about" class="mt-6" variant="secondary">
           More About Me
           <span><ArrowRight /></span>
@@ -123,7 +123,7 @@ const {
             <p class="pl-4">
               <span class="text-blue-400">openToWork</span>
               <span class="text-muted">: </span>
-              <span class="text-yellow-300">{String(availability.value)}</span>
+              <span class="text-yellow-300">{String(openToWork)}</span>
             </p>
 
             <p>

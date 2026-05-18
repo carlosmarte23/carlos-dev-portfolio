@@ -1,11 +1,11 @@
 ---
-import type { ProjectImage } from "@data/projects";
+import type { ImageAsset } from "@content-types/content";
 import Card from "../ui/Card.astro";
 
 import { ImageIcon } from "@lucide/astro";
 
 interface Props {
-  images?: ProjectImage[];
+  images?: ImageAsset[];
 }
 
 const { images = [] } = Astro.props;

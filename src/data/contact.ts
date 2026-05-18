@@ -1,10 +1,6 @@
-import { site } from "@data/site";
+import type { ContactPage } from "@content-types/content";
 
-const emailLink = site.socialLinks.find((link) => link.type === "email");
-const githubLink = site.socialLinks.find((link) => link.type === "github");
-const linkedinLink = site.socialLinks.find((link) => link.type === "linkedin");
-
-export const contactPage = {
+export const contact: ContactPage = {
   seo: {
     title: "Contact | Carlos Marte",
     description:
@@ -18,11 +14,11 @@ export const contactPage = {
       "I'm open to junior frontend opportunities, collaborations, and practical projects where I can contribute and keep growing.",
     badges: [
       {
-        label: site.availability.label,
+        label: "Open to work",
         icon: "status-dot",
       },
       {
-        label: site.location,
+        label: "Lancaster, Pennsylvania",
         icon: "map-pin",
       },
     ],
@@ -30,7 +26,7 @@ export const contactPage = {
 
   availability: {
     title: "Current availability",
-    status: site.availability.label,
+    status: "Open to work",
     intro: "Open to",
     items: [
       "Junior frontend opportunities",
@@ -43,12 +39,11 @@ export const contactPage = {
   contactMethods: [
     {
       label: "Email",
-      value: site.email,
+      value: "carlosmartebloise@gmail.com",
       linkLabel: "Email me directly",
-      href:
-        emailLink?.href ?? `mailto:${site.email}?subject=Portfolio%20Contact`,
+      href: "mailto:carlosmartebloise@gmail.com?subject=Portfolio%20Contact",
       description: "Best for direct messages and opportunities.",
-      icon: "simple-icons:gmail",
+      icon: "mail",
       external: false,
       isPrimary: true,
     },
@@ -56,9 +51,9 @@ export const contactPage = {
       label: "LinkedIn",
       value: "linkedin.com/in/carlos-marte-4baa8138",
       linkLabel: "View LinkedIn profile",
-      href: linkedinLink?.href ?? "",
+      href: "https://www.linkedin.com/in/carlos-marte-4baa8138/",
       description: "Connect with me professionally.",
-      icon: "simple-icons:linkedin",
+      icon: "linkedin",
       external: true,
       isPrimary: false,
     },
@@ -66,9 +61,9 @@ export const contactPage = {
       label: "GitHub",
       value: "github.com/carlosmarte23",
       linkLabel: "View GitHub profile",
-      href: githubLink?.href ?? "",
+      href: "https://github.com/carlosmarte23",
       description: "Check out my code, projects, and progress.",
-      icon: "simple-icons:github",
+      icon: "github",
       external: true,
       isPrimary: false,
     },
@@ -146,8 +141,7 @@ export const contactPage = {
     fallback: {
       text: "Prefer email?",
       label: "Email me directly",
-      href:
-        emailLink?.href ?? `mailto:${site.email}?subject=Portfolio%20Contact`,
+      href: "mailto:carlosmartebloise@gmail.com?subject=Portfolio%20Contact",
     },
   },
 
@@ -177,6 +171,4 @@ export const contactPage = {
     secondaryLabel: "About Me",
     secondaryHref: "/about",
   },
-} as const;
-
-export type ContactPage = typeof contactPage;
+};

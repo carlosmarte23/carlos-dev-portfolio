@@ -1,9 +1,9 @@
 ---
 import { Icon } from "astro-icon/components";
 import { CodeXml } from "@lucide/astro";
-import type { ProjectTech } from "@data/projects";
+import type { ProjectTech } from "@content-types/content";
 import { skills } from "@data/skills";
-import type { SkillIcon } from "@data/skills";
+import type { Skill } from "@content-types/content";
 
 interface Props {
   techStack: ProjectTech[];
@@ -27,11 +27,17 @@ const categoryLabels: Record<ProjectTech["category"], string> = {
 
 const normalize = (value: string) => value.toLowerCase().trim();
 
-const getSkillIcon = (tech: ProjectTech): SkillIcon | undefined => {
-  if (tech.icon) return tech.icon;
+const getSkillIcon = (
+  tech: ProjectTech,
+): Pick<Skill, "icon" | "fallbackLabel"> | undefined => {
+  if (tech.icon) {
+    return {
+      icon: tech.icon,
+      fallbackLabel: tech.fallbackLabel,
+    };
+  }
 
-  return skills.find((skill) => normalize(skill.name) === normalize(tech.name))
-    ?.icon;
+  return skills.find((skill) => normalize(skill.name) === normalize(tech.name));
 };
 ---
 
@@ -39,6 +45,7 @@ const getSkillIcon = (tech: ProjectTech): SkillIcon | undefined => {
   {
     visibleTech.map((tech, index) => {
       const icon = getSkillIcon(tech);
+      const isIconifyIcon = Boolean(icon?.icon.includes(":"));
 
       return (
         <div
@@ -48,10 +55,12 @@ const getSkillIcon = (tech: ProjectTech): SkillIcon | undefined => {
           ]}
         >
           <div class="flex size-8 shrink-0 items-center justify-center text-cyan-400">
-            {icon?.provider === "iconify" ? (
-              <Icon name={icon.name} class="size-6" aria-hidden="true" />
-            ) : icon?.provider === "none" ? (
-              <span class="font-mono text-xs font-bold">{icon.fallback}</span>
+            {isIconifyIcon && icon?.icon ? (
+              <Icon name={icon.icon} class="size-6" aria-hidden="true" />
+            ) : icon?.fallbackLabel ? (
+              <span class="font-mono text-xs font-bold">
+                {icon.fallbackLabel}
+              </span>
             ) : (
               <CodeXml class="size-6" aria-hidden="true" />
             )}

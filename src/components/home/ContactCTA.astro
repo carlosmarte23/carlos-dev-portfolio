@@ -3,6 +3,9 @@ import Container from "@/components/ui/Container.astro";
 import Card from "@/components/ui/Card.astro";
 import Button from "@/components/ui/Button.astro";
 import { Rocket, ArrowRight } from "@lucide/astro";
+import { homePage } from "@data/pages/home";
+
+const { contactCta } = homePage;
 ---
 
 <section class="my-5">
@@ -15,14 +18,14 @@ import { Rocket, ArrowRight } from "@lucide/astro";
         <Rocket class="size-12 text-accent md:size-9" aria-hidden="true" />
         <div>
           <h2 class="font-display text-xl font-bold text-main">
-            Have a project in mind?
+            {contactCta.title}
           </h2>
-          <p class="mt-1 text-muted">Let's build something amazing together.</p>
+          <p class="mt-1 text-muted">{contactCta.description}</p>
         </div>
       </div>
 
-      <Button href="/contact" class="w-full md:w-auto">
-        Get in touch
+      <Button href={contactCta.primaryHref} class="w-full md:w-auto">
+        {contactCta.primaryLabel}
         <ArrowRight class="size-4" aria-hidden="true" />
       </Button>
     </Card>
