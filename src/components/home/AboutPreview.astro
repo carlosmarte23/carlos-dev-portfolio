@@ -16,6 +16,7 @@ const {
   currentGoal,
   openToWork,
 } = homePage.profileSummary;
+const { aboutPreview } = homePage.sections;
 ---
 
 <section>
@@ -26,15 +27,16 @@ const {
       <h2
         class="flex items-baseline justify-between gap-4 font-mono text-lg font-bold"
       >
-        <span class="size-4 text-accent"><UserRound /></span> About Me
+        <span class="size-4 text-accent"><UserRound /></span>
+        {aboutPreview.title}
       </h2>
     </header>
 
     <div class="grid gap-5 md:grid-cols-2">
       <div>
         <p class="leading-6 text-pretty text-muted">{preview}</p>
-        <Button href="/about" class="mt-6" variant="secondary">
-          More About Me
+        <Button href={aboutPreview.linkHref} class="mt-6" variant="secondary">
+          {aboutPreview.linkLabel}
           <span><ArrowRight /></span>
         </Button>
       </div>

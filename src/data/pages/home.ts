@@ -6,6 +6,20 @@ export const homePage: HomePage = {
     description:
       "Web developer building clean, responsive applications while growing toward full-stack development.",
   },
+  sections: {
+    projects: {
+      title: "Projects",
+      featuredBadgeLabel: "Featured",
+    },
+    techStack: {
+      title: "Tech Stack",
+    },
+    aboutPreview: {
+      title: "About Me",
+      linkLabel: "More About Me",
+      linkHref: "/about",
+    },
+  },
   hero: {
     eyebrow: "Web Developer",
     headline: {
@@ -15,6 +29,17 @@ export const homePage: HomePage = {
     description:
       "I'm building real-world web projects with React, Astro, TypeScript, Tailwind CSS and modern tooling, while growing toward full-stack application development.",
     skills: ["Web Development", "React", "TypeScript", "Astro", "Tailwind CSS"],
+    terminal: {
+      comment: "Current profile",
+      nameLabel: "name",
+      skillsLabel: "skills",
+      statusLabel: "status",
+    },
+    scroll: {
+      label: "Scroll",
+      ariaLabel: "Scroll to projects",
+      href: "#projects",
+    },
     cta: {
       primary: {
         label: "View Projects",

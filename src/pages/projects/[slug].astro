@@ -1,5 +1,9 @@
 ---
-import { getProjectStaticPaths, projectDetailCta } from "@data/projects";
+import {
+  getProjectStaticPaths,
+  projectDetailContent,
+  projectDetailCta,
+} from "@data/projects";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import Container from "@/components/ui/Container.astro";
 import Button from "@/components/ui/Button.astro";
@@ -31,36 +35,53 @@ const improvements = project.caseStudy.futureImprovements;
 
 <BaseLayout title={project.seo.title} description={project.seo.description}>
   <Container class="flex flex-col gap-8 lg:gap-6">
-    <ProjectHero project={project} />
-    <ProjectFacts project={project} />
-    <ProjectCaseStudySummary caseStudy={project.caseStudy} />
+    <ProjectHero
+      project={project}
+      backLabel={projectDetailContent.backLabel}
+      eyebrow={projectDetailContent.eyebrow}
+      techStackContent={projectDetailContent.techStack}
+    />
+    <ProjectFacts project={project} content={projectDetailContent.facts} />
+    <ProjectCaseStudySummary
+      caseStudy={project.caseStudy}
+      content={projectDetailContent.caseStudySummary}
+    />
 
     <div
       class="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1.35fr)_minmax(20rem,0.65fr)]"
     >
-      <ProjectKeyFeatures title="Key features" features={featureItems} />
-      <ProjectTechStack techStack={project.stack} />
+      <ProjectKeyFeatures
+        title={projectDetailContent.keyFeaturesTitle}
+        features={featureItems}
+      />
+      <ProjectTechStack
+        techStack={project.stack}
+        content={projectDetailContent.techStack}
+      />
     </div>
 
-    <ProjectGallery images={project.gallery} />
+    <ProjectGallery
+      images={project.gallery}
+      title={projectDetailContent.gallery.title}
+    />
 
     <div class="grid grid-cols-1 gap-5 lg:grid-cols-3">
       <ProjectCaseStudyList
-        title="Challenges"
+        title={projectDetailContent.caseStudyLabels.challenges}
         icon={Wrench}
         items={challenges}
         listType="numbered"
       />
 
       <ProjectCaseStudyList
-        title="What I learned"
+        title={projectDetailContent.caseStudyLabels.learned}
         icon={Lightbulb}
         items={learnings}
         listType="bullet"
       />
 
       <ProjectCaseStudyList
-        title="Future improvements"
+        title={projectDetailContent.caseStudyLabels.futureImprovements}
         icon={Rocket}
         items={improvements}
         listType="arrow"

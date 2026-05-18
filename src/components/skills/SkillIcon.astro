@@ -1,11 +1,11 @@
 ---
 import { Icon } from "astro-icon/components";
 import { CodeXml } from "@lucide/astro";
-import type { SkillLevel } from "@content-types/content";
+import type { IconName, SkillLevel } from "@content-types/content";
 
 interface Props {
   name: string;
-  icon: string;
+  icon: IconName;
   fallbackLabel?: string;
   level: SkillLevel;
 }

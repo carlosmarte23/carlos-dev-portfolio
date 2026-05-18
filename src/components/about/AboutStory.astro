@@ -4,9 +4,11 @@ import { ArrowRight } from "@lucide/astro";
 
 interface Props {
   story: AboutStoryData;
+  eyebrow: string;
+  readMoreLabel: string;
 }
 
-const { story } = Astro.props;
+const { story, eyebrow, readMoreLabel } = Astro.props;
 const { title, summary, items } = story;
 ---
 
@@ -16,7 +18,7 @@ const { title, summary, items } = story;
   <header class="flex flex-col gap-3 lg:border-r lg:border-line lg:pr-8">
     <div class="flex items-center gap-3 font-mono text-accent">
       <span class="size-2.5 rounded-full bg-accent" aria-hidden="true"></span>
-      <p>My story</p>
+      <p>{eyebrow}</p>
     </div>
     <h2 class="font-display text-2xl font-bold text-main">
       {title}
@@ -28,7 +30,7 @@ const { title, summary, items } = story;
     <summary
       class="flex cursor-pointer list-none items-center gap-2 font-mono text-sm font-semibold text-accent"
     >
-      Read more
+      {readMoreLabel}
       <ArrowRight class="size-4" aria-hidden="true" />
     </summary>
 

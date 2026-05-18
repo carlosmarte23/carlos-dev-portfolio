@@ -6,9 +6,10 @@ import type { ContactPage } from "@content-types/content";
 
 interface Props {
   methods: ContactPage["contactMethods"];
+  labels: ContactPage["labels"];
 }
 
-const { methods } = Astro.props;
+const { methods, labels } = Astro.props;
 
 const contactMethodIconClasses: Record<string, string> = {
   Email: "border-accent/30 bg-accent-soft text-accent",
@@ -26,7 +27,7 @@ const brandIcons: Record<string, string> = {
   <header class="flex flex-col gap-3">
     <div class="flex items-center gap-3 font-mono text-accent">
       <span class="size-2.5 rounded-full bg-accent" aria-hidden="true"></span>
-      <p>Contact methods</p>
+      <p>{labels.contactMethodsTitle}</p>
     </div>
   </header>
 
@@ -59,7 +60,7 @@ const brandIcons: Record<string, string> = {
 
                   {method.isPrimary && (
                     <span class="shrink-0 rounded-button border border-accent/40 bg-accent-soft px-2.5 py-1 font-mono text-xs font-bold text-accent uppercase">
-                      Primary
+                      {labels.primaryMethodBadge}
                     </span>
                   )}
                 </div>
@@ -68,8 +69,8 @@ const brandIcons: Record<string, string> = {
                 <a
                   href={method.href}
                   class="inline-flex w-fit max-w-full items-center gap-2 font-mono text-sm font-semibold text-accent transition hover:text-accent-hover focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
-                  target={method.external ? "_blank" : undefined}
-                  rel={method.external ? "noopener noreferrer" : undefined}
+                  target={method.isExternal ? "_blank" : undefined}
+                  rel={method.isExternal ? "noopener noreferrer" : undefined}
                 >
                   <span>{method.linkLabel}</span>
                   <ArrowUpRight class="size-4 shrink-0" aria-hidden="true" />

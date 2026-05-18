@@ -1,5 +1,5 @@
 ---
-import type { Project } from "@content-types/content";
+import type { Project, ProjectDetailContent } from "@content-types/content";
 import Button from "@/components/ui/Button.astro";
 import TerminalCard from "@/components/ui/TerminalCard.astro";
 import ProjectTechStrip from "@/components/projects/ProjectTechStrip.astro";
@@ -8,14 +8,17 @@ import { Icon } from "astro-icon/components";
 
 interface Props {
   project: Project;
+  backLabel: string;
+  eyebrow: string;
+  techStackContent: ProjectDetailContent["techStack"];
 }
 
-const { project } = Astro.props;
+const { project, backLabel, eyebrow, techStackContent } = Astro.props;
 ---
 
 <a href="/#projects" class="flex items-center gap-2 text-accent">
   <ArrowLeft class="size-4" aria-hidden="true" />
-  Back to projects
+  {backLabel}
 </a>
 
 <header class="grid grid-cols-1 gap-5 lg:grid-cols-2">
@@ -24,7 +27,7 @@ const { project } = Astro.props;
       class="flex items-center gap-3 font-mono text-sm font-semibold text-accent uppercase"
     >
       <span class="size-2.5 rounded-full bg-accent" aria-hidden="true"></span>
-      Case study
+      {eyebrow}
     </p>
     <h1 class="font-display text-4xl font-bold">{project.title}</h1>
     <h2 class="text-xl font-semibold text-muted">
@@ -58,7 +61,10 @@ const { project } = Astro.props;
       }
     </div>
 
-    <ProjectTechStrip techStack={project.stack} />
+    <ProjectTechStrip
+      techStack={project.stack}
+      categoryLabels={techStackContent.featuredCategoryLabels}
+    />
   </div>
 
   <TerminalCard bodyClass="p-0">

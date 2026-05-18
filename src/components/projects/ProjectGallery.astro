@@ -6,16 +6,17 @@ import { ImageIcon } from "@lucide/astro";
 
 interface Props {
   images?: ImageAsset[];
+  title: string;
 }
 
-const { images = [] } = Astro.props;
+const { images = [], title } = Astro.props;
 ---
 
 <section data-project-gallery data-count={images.length}>
   <Card padding="sm" class="overflow-hidden">
     <header class="mb-3 flex items-center gap-3">
       <ImageIcon class="size-8 text-accent" aria-hidden="true" />
-      <h3 class="font-display text-xl font-bold text-main">Gallery</h3>
+      <h3 class="font-display text-xl font-bold text-main">{title}</h3>
     </header>
 
     <div class="gallery-scroll overflow-x-auto pb-3">

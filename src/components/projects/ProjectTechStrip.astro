@@ -1,19 +1,20 @@
 ---
 import { Icon } from "astro-icon/components";
 import { CodeXml } from "@lucide/astro";
-import type { ProjectTech } from "@content-types/content";
+import type { ProjectDetailContent, ProjectTech } from "@content-types/content";
 import { skills } from "@data/skills";
 import type { Skill } from "@content-types/content";
 
 interface Props {
   techStack: ProjectTech[];
+  categoryLabels: ProjectDetailContent["techStack"]["featuredCategoryLabels"];
 }
 
-const { techStack } = Astro.props;
+const { techStack, categoryLabels } = Astro.props;
 
 const visibleTech = techStack.filter((tech) => tech.featured);
 
-const categoryLabels: Record<ProjectTech["category"], string> = {
+const defaultCategoryLabels: Record<ProjectTech["category"], string> = {
   frontend: "Frontend",
   styling: "Styling",
   routing: "Routing",
@@ -69,7 +70,8 @@ const getSkillIcon = (
           <div class="min-w-0">
             <p class="truncate text-sm font-bold text-main">{tech.name}</p>
             <p class="mt-1 truncate text-xs text-muted">
-              {categoryLabels[tech.category]}
+              {categoryLabels[tech.category] ??
+                defaultCategoryLabels[tech.category]}
             </p>
           </div>
         </div>

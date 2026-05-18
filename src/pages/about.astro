@@ -21,6 +21,9 @@ const {
   values: buildValues,
   focusAreas,
   cta: aboutCta,
+  eyebrow,
+  profileImage,
+  sectionLabels,
   seo,
 } = aboutPage;
 
@@ -30,6 +33,7 @@ const { title: aboutCtaTitle, description: aboutCtaDescription } = aboutCta;
 <BaseLayout title={seo.title} description={seo.description}>
   <Container>
     <AboutHero
+      eyebrow={eyebrow}
       title={aboutTitle}
       intro={aboutIntro}
       profileName={profileName}
@@ -39,10 +43,16 @@ const { title: aboutCtaTitle, description: aboutCtaDescription } = aboutCta;
       availabilityLabel={availability}
       isOpenToWork={availability === "Open to work"}
       focus={focus}
+      profileImage={profileImage}
+      cta={aboutCta}
     />
 
-    <AboutStory story={aboutPage.story} />
-    <AboutValues values={buildValues} />
+    <AboutStory
+      story={aboutPage.story}
+      eyebrow={sectionLabels.storyEyebrow}
+      readMoreLabel={sectionLabels.storyReadMoreLabel}
+    />
+    <AboutValues values={buildValues} eyebrow={sectionLabels.valuesEyebrow} />
     <AboutFocusAreas focusAreas={focusAreas} />
 
     <FooterCTA title={aboutCtaTitle} description={aboutCtaDescription}>

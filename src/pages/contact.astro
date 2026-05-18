@@ -20,13 +20,14 @@ const {
   trustNotes,
   form,
   bottomCta,
+  labels,
 } = contact;
 ---
 
 <BaseLayout title={seo.title} description={seo.description}>
   <Container>
     <ContactHero hero={hero} availability={availability} />
-    <ContactMethods methods={contactMethods} />
+    <ContactMethods methods={contactMethods} labels={labels} />
     <ContactSupportSection
       openTo={openTo}
       responseExpectation={responseExpectation}

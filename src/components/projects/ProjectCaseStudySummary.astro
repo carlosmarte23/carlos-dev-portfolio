@@ -1,20 +1,26 @@
 ---
-import type { ProjectCaseStudy } from "@content-types/content";
+import type {
+  ProjectCaseStudy,
+  ProjectDetailContent,
+} from "@content-types/content";
 import Card from "@/components/ui/Card.astro";
 import { BadgeCheck, CircleAlert, PanelsTopLeft } from "@lucide/astro";
 
 interface Props {
   caseStudy: ProjectCaseStudy;
+  content: ProjectDetailContent["caseStudySummary"];
 }
 
-const { caseStudy } = Astro.props;
+const { caseStudy, content } = Astro.props;
 ---
 
 <section class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
   <Card padding="sm" class="space-y-4">
     <div class="flex items-center gap-3">
       <PanelsTopLeft class="size-8 text-accent" aria-hidden="true" />
-      <h3 class="font-display text-xl font-bold text-main">Overview</h3>
+      <h3 class="font-display text-xl font-bold text-main">
+        {content.overviewTitle}
+      </h3>
     </div>
     <p class="text-muted">{caseStudy.overview}</p>
   </Card>
@@ -22,7 +28,9 @@ const { caseStudy } = Astro.props;
   <Card padding="sm" class="space-y-4">
     <div class="flex items-center gap-3">
       <CircleAlert class="size-8 text-accent" aria-hidden="true" />
-      <h3 class="font-display text-xl font-bold text-main">Problem</h3>
+      <h3 class="font-display text-xl font-bold text-main">
+        {content.problemTitle}
+      </h3>
     </div>
     <p class="text-muted">{caseStudy.problem}</p>
   </Card>
@@ -30,7 +38,9 @@ const { caseStudy } = Astro.props;
   <Card padding="sm" class="space-y-4">
     <div class="flex items-center gap-3">
       <BadgeCheck class="size-8 text-accent" aria-hidden="true" />
-      <h3 class="font-display text-xl font-bold text-main">Solution</h3>
+      <h3 class="font-display text-xl font-bold text-main">
+        {content.solutionTitle}
+      </h3>
     </div>
     <p class="text-muted">{caseStudy.solution}</p>
   </Card>

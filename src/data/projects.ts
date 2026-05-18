@@ -1,4 +1,9 @@
-import type { Cta, Project, ProjectLinkType } from "@content-types/content";
+import type {
+  Cta,
+  Project,
+  ProjectDetailContent,
+  ProjectLinkType,
+} from "@content-types/content";
 
 export const projectDetailCta: Cta = {
   title: "Interested in how this project was built?",
@@ -7,6 +12,57 @@ export const projectDetailCta: Cta = {
   primaryLabel: "Contact me",
   primaryHref: "/contact",
   secondaryLabel: "View on GitHub",
+};
+
+export const projectDetailContent: ProjectDetailContent = {
+  backLabel: "Back to projects",
+  eyebrow: "Case study",
+  keyFeaturesTitle: "Key features",
+  caseStudySummary: {
+    overviewTitle: "Overview",
+    problemTitle: "Problem",
+    solutionTitle: "Solution",
+  },
+  caseStudyLabels: {
+    challenges: "Challenges",
+    learned: "What I learned",
+    futureImprovements: "Future improvements",
+  },
+  facts: {
+    title: "Project facts",
+    roleLabel: "Role",
+    typeLabel: "Type",
+    statusLabel: "Status",
+    timelineLabel: "Timeline",
+    focusLabel: "Focus",
+  },
+  gallery: {
+    title: "Gallery",
+  },
+  techStack: {
+    title: "Tech stack",
+    groupLabels: {
+      frontend: "Frontend",
+      routing: "Frontend",
+      state: "Frontend",
+      tooling: "Tooling",
+      data: "Tooling",
+      styling: "Styling",
+      testing: "Testing",
+      "browser-api": "Browser APIs",
+    },
+    featuredCategoryLabels: {
+      frontend: "Frontend",
+      styling: "Styling",
+      routing: "Routing",
+      state: "State",
+      testing: "Testing",
+      tooling: "Build Tool",
+      "browser-api": "Browser API",
+      data: "Data",
+      backend: "Backend",
+    },
+  },
 };
 
 export const projects: Project[] = [

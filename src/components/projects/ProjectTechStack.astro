@@ -2,15 +2,16 @@
 import Card from "@/components/ui/Card.astro";
 import { Icon } from "astro-icon/components";
 import { CodeXml } from "@lucide/astro";
-import type { ProjectTech } from "@content-types/content";
+import type { ProjectDetailContent, ProjectTech } from "@content-types/content";
 import { skills } from "@data/skills";
 import type { Skill } from "@content-types/content";
 
 interface Props {
   techStack: ProjectTech[];
+  content: ProjectDetailContent["techStack"];
 }
 
-const { techStack } = Astro.props;
+const { techStack, content } = Astro.props;
 
 type TechDisplayGroup = {
   id: string;
@@ -23,35 +24,35 @@ type TechDisplayGroup = {
 const displayGroups: TechDisplayGroup[] = [
   {
     id: "frontend",
-    label: "Frontend",
+    label: content.groupLabels.frontend ?? "Frontend",
     categories: ["frontend", "routing", "state"],
     rowClasses: "border-cyan-400/15 bg-cyan-400/5",
     chipClasses: "bg-cyan-400/15 text-cyan-200 ring-cyan-300/20",
   },
   {
     id: "tooling",
-    label: "Tooling",
+    label: content.groupLabels.tooling ?? "Tooling",
     categories: ["tooling", "data"],
     rowClasses: "border-violet-400/15 bg-violet-400/5",
     chipClasses: "bg-violet-400/15 text-violet-200 ring-violet-300/20",
   },
   {
     id: "styling",
-    label: "Styling",
+    label: content.groupLabels.styling ?? "Styling",
     categories: ["styling"],
     rowClasses: "border-emerald-400/15 bg-emerald-400/5",
     chipClasses: "bg-emerald-400/15 text-emerald-200 ring-emerald-300/20",
   },
   {
     id: "testing",
-    label: "Testing",
+    label: content.groupLabels.testing ?? "Testing",
     categories: ["testing"],
     rowClasses: "border-fuchsia-400/15 bg-fuchsia-400/5",
     chipClasses: "bg-fuchsia-400/15 text-fuchsia-200 ring-fuchsia-300/20",
   },
   {
     id: "browser-api",
-    label: "Browser APIs",
+    label: content.groupLabels["browser-api"] ?? "Browser APIs",
     categories: ["browser-api"],
     rowClasses: "border-orange-400/15 bg-orange-400/5",
     chipClasses: "bg-orange-400/15 text-orange-200 ring-orange-300/20",
@@ -84,7 +85,7 @@ const groupedTech = displayGroups
 <Card class="space-y-4">
   <h2 class="flex items-center gap-3 font-display text-xl font-bold text-main">
     <CodeXml class="size-5 text-accent" aria-hidden="true" />
-    Tech stack
+    {content.title}
   </h2>
 
   <div class="space-y-3">

@@ -3,6 +3,13 @@ export interface NavItem {
   href: string;
 }
 
+export type IconName = string;
+
+export interface IconContent {
+  icon: IconName;
+  fallbackLabel?: string;
+}
+
 export interface Seo {
   title: string;
   description: string;
@@ -55,6 +62,20 @@ export interface SocialLink {
 
 export interface HomePage {
   seo: Seo;
+  sections: {
+    projects: {
+      title: string;
+      featuredBadgeLabel: string;
+    };
+    techStack: {
+      title: string;
+    };
+    aboutPreview: {
+      title: string;
+      linkLabel: string;
+      linkHref: string;
+    };
+  };
   hero: {
     eyebrow: string;
     headline: {
@@ -63,6 +84,17 @@ export interface HomePage {
     };
     description: string;
     skills: string[];
+    terminal: {
+      comment: string;
+      nameLabel: string;
+      skillsLabel: string;
+      statusLabel: string;
+    };
+    scroll: {
+      label: string;
+      ariaLabel: string;
+      href: string;
+    };
     cta: {
       primary: NavItem;
       secondary: NavItem;
@@ -113,6 +145,12 @@ export interface AboutPage {
   title: string;
   intro: string;
   focus: string;
+  profileImage: ImageAsset;
+  sectionLabels: {
+    storyEyebrow: string;
+    storyReadMoreLabel: string;
+    valuesEyebrow: string;
+  };
   story: AboutStory;
   values: AboutValue[];
   focusAreas: AboutFocus;
@@ -122,13 +160,17 @@ export interface AboutPage {
 
 export interface ContactPage {
   seo: Seo;
+  labels: {
+    contactMethodsTitle: string;
+    primaryMethodBadge: string;
+  };
   hero: {
     eyebrow: string;
     title: string;
     description: string;
     badges: Array<{
       label: string;
-      icon: string;
+      icon: IconName;
     }>;
   };
   availability: {
@@ -144,8 +186,8 @@ export interface ContactPage {
     linkLabel: string;
     href: string;
     description: string;
-    icon: string;
-    external: boolean;
+    icon: IconName;
+    isExternal: boolean;
     isPrimary: boolean;
   }>;
   openTo: {
@@ -223,13 +265,11 @@ export type SkillCategory =
   | "tools"
   | "testing-quality";
 
-export interface Skill {
+export interface Skill extends IconContent {
   id: string;
   name: string;
   level: SkillLevel;
   category: SkillCategory;
-  icon: string;
-  fallbackLabel?: string;
   url?: string;
   order: number;
 }
@@ -265,16 +305,14 @@ export interface ProjectLink {
   label: string;
   href: string;
   type: ProjectLinkType;
-  icon: string;
+  icon: IconName;
   isExternal: boolean;
 }
 
-export interface ProjectTech {
+export interface ProjectTech extends IconContent {
   name: string;
   category: ProjectTechCategory;
   featured?: boolean;
-  icon?: string;
-  fallbackLabel?: string;
 }
 
 export interface ProjectFeature {
@@ -299,6 +337,38 @@ export interface ProjectCaseStudy {
   challenges: string[];
   learned: string[];
   futureImprovements: string[];
+}
+
+export interface ProjectDetailContent {
+  backLabel: string;
+  eyebrow: string;
+  keyFeaturesTitle: string;
+  caseStudySummary: {
+    overviewTitle: string;
+    problemTitle: string;
+    solutionTitle: string;
+  };
+  caseStudyLabels: {
+    challenges: string;
+    learned: string;
+    futureImprovements: string;
+  };
+  facts: {
+    title: string;
+    roleLabel: string;
+    typeLabel: string;
+    statusLabel: string;
+    timelineLabel: string;
+    focusLabel: string;
+  };
+  gallery: {
+    title: string;
+  };
+  techStack: {
+    title: string;
+    groupLabels: Partial<Record<ProjectTechCategory, string>>;
+    featuredCategoryLabels: Partial<Record<ProjectTechCategory, string>>;
+  };
 }
 
 export interface Project {
@@ -330,7 +400,7 @@ export interface AboutThisSitePage {
   stack: Array<{
     name: string;
     description: string;
-    icon: string;
+    icon: IconName;
   }>;
   decisions: Array<{
     title: string;

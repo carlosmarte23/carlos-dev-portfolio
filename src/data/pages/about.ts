@@ -6,6 +6,16 @@ export const aboutPage: AboutPage = {
   focus: "building practical web applications",
   intro:
     "I'm Carlos Marte, a web developer based in Lancaster, Pennsylvania. My current strongest area is frontend development, and I'm growing toward building complete applications with frontend, backend, APIs, databases, and deployment.",
+  profileImage: {
+    src: "/images/profile/photo.webp",
+    alt: "Profile photo of Carlos Marte",
+    position: "center",
+  },
+  sectionLabels: {
+    storyEyebrow: "My story",
+    storyReadMoreLabel: "Read more",
+    valuesEyebrow: "How I build",
+  },
   story: {
     title: "Technical background meets web development.",
     summary:

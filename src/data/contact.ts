@@ -7,6 +7,11 @@ export const contact: ContactPage = {
       "Get in touch with Carlos Marte for junior frontend opportunities, collaborations, and practical web projects.",
   },
 
+  labels: {
+    contactMethodsTitle: "Contact methods",
+    primaryMethodBadge: "Primary",
+  },
+
   hero: {
     eyebrow: "Contact",
     title: "Let's build something amazing together.",
@@ -44,7 +49,7 @@ export const contact: ContactPage = {
       href: "mailto:carlosmartebloise@gmail.com?subject=Portfolio%20Contact",
       description: "Best for direct messages and opportunities.",
       icon: "mail",
-      external: false,
+      isExternal: false,
       isPrimary: true,
     },
     {
@@ -54,7 +59,7 @@ export const contact: ContactPage = {
       href: "https://www.linkedin.com/in/carlos-marte-4baa8138/",
       description: "Connect with me professionally.",
       icon: "linkedin",
-      external: true,
+      isExternal: true,
       isPrimary: false,
     },
     {
@@ -64,7 +69,7 @@ export const contact: ContactPage = {
       href: "https://github.com/carlosmarte23",
       description: "Check out my code, projects, and progress.",
       icon: "github",
-      external: true,
+      isExternal: true,
       isPrimary: false,
     },
   ],
