@@ -1,0 +1,452 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Container from "@/components/ui/Container.astro";
+import TerminalCard from "@/components/ui/TerminalCard.astro";
+import Card from "@/components/ui/Card.astro";
+import Button from "@/components/ui/Button.astro";
+import FooterCTA from "@/components/shared/FooterCTA.astro";
+
+import {
+  MapPin,
+  ChevronRight,
+  ArrowRight,
+  ArrowUpRight,
+  Clock,
+  ShieldCheck,
+  Check,
+  MessageSquare,
+  LockKeyhole,
+} from "@lucide/astro";
+import { Icon } from "astro-icon/components";
+
+import { contactPage } from "@data/contact";
+const {
+  hero,
+  availability,
+  contactMethods,
+  openTo,
+  responseExpectation: responseData,
+  trustNotes: notesData,
+  form: formData,
+  bottomCta,
+} = contactPage;
+
+const contactMethodIconClasses = {
+  Email: "border-accent/30 bg-accent-soft text-accent",
+  LinkedIn: "border-sky-400/30 bg-sky-400/10 text-sky-400",
+  GitHub: "border-line-strong bg-surface-muted text-main",
+};
+
+const supportCardIcons = {
+  message: MessageSquare,
+  clock: Clock,
+  shield: ShieldCheck,
+};
+
+const OpenToIcon = supportCardIcons[openTo.icon];
+const ResponseIcon = supportCardIcons[responseData.icon];
+const NotesIcon = supportCardIcons[notesData.icon];
+---
+
+<BaseLayout>
+  <Container>
+    <header
+      class="flex flex-col gap-6 lg:mt-6 lg:grid lg:grid-cols-[auto_1fr] lg:gap-1"
+    >
+      <div class="flex flex-col gap-4 lg:max-w-[50ch] lg:gap-6">
+        <div class="flex items-center gap-2 text-accent">
+          <span class="size-2.5 rounded-full bg-accent" aria-hidden="true"
+          ></span>
+          <p class="font-mono text-sm font-semibold uppercase">
+            {hero.eyebrow}
+          </p>
+        </div>
+
+        <div class="flex flex-col gap-1 lg:gap-3">
+          <h1 class="font-display text-3xl font-bold text-main">
+            {hero.title}
+          </h1>
+          <p class="text-muted">{hero.description}</p>
+        </div>
+
+        <div class="flex flex-wrap gap-2 lg:gap-3">
+          {
+            hero.badges.map((badge) => (
+              <div class="inline-flex min-h-10 items-center gap-2 rounded-button border border-line bg-surface px-4 py-2 font-mono text-sm text-main shadow-card">
+                {badge.icon === "map-pin" ? (
+                  <MapPin class="size-4 text-accent" aria-hidden="true" />
+                ) : (
+                  <span
+                    class="size-2 rounded-full bg-accent shadow-glow"
+                    aria-hidden="true"
+                  />
+                )}
+                <span>{badge.label}</span>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      <TerminalCard bodyClass="flex flex-col gap-2 p-4">
+        <p class="text-muted uppercase">{`// ${availability.title}`}</p>
+        <p>
+          <span class="text-accent">const</span>
+          <span class="text-main"> availability </span>
+          <span class="text-muted">=</span>
+          <span class="text-main"> {"{"}</span>
+        </p>
+
+        <p class="pl-4">
+          <span class="text-blue-400">status</span>
+          <span class="text-muted">: </span>
+          <span class="text-accent">"{availability.status}"</span>
+          <span class="text-muted">,</span>
+        </p>
+
+        <p class="pl-4">
+          <span class="text-blue-400">openTo</span>
+          <span class="text-muted">: [</span>
+        </p>
+
+        <div class="pl-8">
+          {
+            availability.items.map((item, index) => (
+              <div class="flex items-start gap-2">
+                <ChevronRight
+                  class="mt-0.5 size-4 shrink-0 text-accent"
+                  aria-hidden="true"
+                />
+                <span>
+                  <span class="text-accent">"{item}"</span>
+                  <span class="text-muted">
+                    {index === availability.items.length - 1 ? "" : ","}
+                  </span>
+                </span>
+              </div>
+            ))
+          }
+        </div>
+
+        <p class="pl-4">
+          <span class="text-muted">]</span>
+          <span class="text-muted">,</span>
+        </p>
+
+        <p class="pl-4">
+          <span class="text-blue-400">note</span>
+          <span class="text-muted">: </span>
+          <span class="text-accent">"{availability.note}"</span>
+        </p>
+
+        <p>
+          <span class="text-main">{"}"}</span>
+          <span class="text-muted">;</span>
+        </p>
+
+        <span
+          class="inline-block h-4 w-2 animate-flash bg-accent animate-iteration-count-infinite"
+          aria-hidden="true"></span>
+      </TerminalCard>
+    </header>
+
+    <section class="my-8 flex flex-col gap-6 border-b border-line pb-8">
+      <header class="flex flex-col gap-3">
+        <div class="flex items-center gap-3 font-mono text-accent">
+          <span class="size-2.5 rounded-full bg-accent" aria-hidden="true"
+          ></span>
+          <p>Contact methods</p>
+        </div>
+      </header>
+
+      <div class="flex flex-col gap-4 lg:grid lg:grid-cols-3 lg:gap-6">
+        {
+          contactMethods.map((method) => {
+            const iconClasses = contactMethodIconClasses[method.label];
+
+            return (
+              <Card padding="sm">
+                <div class="grid grid-cols-[auto_minmax(0,1fr)] gap-4">
+                  <div>
+                    <span
+                      class={`inline-flex size-10 shrink-0 items-center justify-center rounded-button border ${iconClasses}`}
+                    >
+                      <Icon
+                        name={method.icon}
+                        class="size-6"
+                        aria-hidden="true"
+                      />
+                    </span>
+                  </div>
+
+                  <div class="min-w-0 space-y-4">
+                    <div class="flex items-start justify-between gap-3">
+                      <h3 class="font-display text-xl font-bold text-main">
+                        {method.label}
+                      </h3>
+
+                      {method.isPrimary && (
+                        <span class="shrink-0 rounded-button border border-accent/40 bg-accent-soft px-2.5 py-1 font-mono text-xs font-bold text-accent uppercase">
+                          Primary
+                        </span>
+                      )}
+                    </div>
+
+                    <p class="text-muted">{method.description}</p>
+                    <a
+                      href={method.href}
+                      class="inline-flex w-fit max-w-full items-center gap-2 font-mono text-sm font-semibold text-accent transition hover:text-accent-hover focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+                      target={method.external ? "_blank" : undefined}
+                      rel={method.external ? "noopener noreferrer" : undefined}
+                    >
+                      <span>{method.linkLabel}</span>
+                      <ArrowUpRight
+                        class="size-4 shrink-0"
+                        aria-hidden="true"
+                      />
+                    </a>
+                  </div>
+                </div>
+              </Card>
+            );
+          })
+        }
+      </div>
+    </section>
+
+    <section
+      class="my-8 flex flex-col gap-4 border-b border-line pb-8 lg:grid lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-6"
+    >
+      <div class="flex min-w-0 flex-col gap-4">
+        <Card padding="sm">
+          <div class="grid grid-cols-[auto_minmax(0,1fr)] gap-4">
+            <span
+              class="inline-flex size-10 shrink-0 items-center justify-center rounded-button border border-accent/30 bg-accent-soft text-accent"
+            >
+              <OpenToIcon class="size-5" aria-hidden="true" />
+            </span>
+
+            <div class="min-w-0 space-y-3">
+              <h3 class="font-mono text-sm font-semibold text-accent uppercase">
+                {openTo.title}
+              </h3>
+
+              <div class="flex flex-col gap-2">
+                {
+                  openTo.items.map((item) => (
+                    <div class="flex items-center gap-2">
+                      <ChevronRight
+                        class="size-4 shrink-0 text-accent"
+                        aria-hidden="true"
+                      />
+                      <p class="text-muted">{item}</p>
+                    </div>
+                  ))
+                }
+              </div>
+            </div>
+          </div>
+        </Card>
+
+        <Card padding="sm">
+          <div class="grid grid-cols-[auto_minmax(0,1fr)] gap-4">
+            <span
+              class="inline-flex size-10 shrink-0 items-center justify-center rounded-button border border-accent/30 bg-accent-soft text-accent"
+            >
+              <ResponseIcon class="size-5" aria-hidden="true" />
+            </span>
+
+            <div class="min-w-0 space-y-2">
+              <h3 class="font-mono text-sm font-semibold text-accent uppercase">
+                {responseData.title}
+              </h3>
+              <p class="text-muted">{responseData.description}</p>
+            </div>
+          </div>
+        </Card>
+
+        <Card padding="sm">
+          <div class="grid grid-cols-[auto_minmax(0,1fr)] gap-4">
+            <span
+              class="inline-flex size-10 shrink-0 items-center justify-center rounded-button border border-accent/30 bg-accent-soft text-accent"
+            >
+              <NotesIcon class="size-5" aria-hidden="true" />
+            </span>
+
+            <div class="min-w-0 space-y-3">
+              <h3 class="font-mono text-sm font-semibold text-accent uppercase">
+                {notesData.title}
+              </h3>
+
+              <div class="flex flex-col gap-2">
+                {
+                  notesData.items.map((item) => (
+                    <div class="flex items-center gap-2">
+                      <Check
+                        class="size-4 shrink-0 text-accent"
+                        aria-hidden="true"
+                      />
+                      <p class="text-muted">{item}</p>
+                    </div>
+                  ))
+                }
+              </div>
+            </div>
+          </div>
+        </Card>
+      </div>
+
+      <Card padding="sm" class="flex min-w-0 flex-col gap-6">
+        <h2 class="font-mono text-xl font-bold text-accent uppercase">
+          {formData.title}
+        </h2>
+        <form
+          action={formData.action}
+          method="POST"
+          class="flex flex-col gap-5"
+        >
+          <input
+            type="hidden"
+            name={formData.hiddenFields.subject.name}
+            value={formData.hiddenFields.subject.value}
+          />
+          <input
+            type="text"
+            name={formData.hiddenFields.honeypot.name}
+            class="hidden"
+            tabindex={formData.hiddenFields.honeypot.tabindex}
+            autocomplete={formData.hiddenFields.honeypot.autocomplete}
+          />
+
+          <div class="flex flex-col gap-4 lg:grid lg:grid-cols-2">
+            <label for={formData.fields.name.name} class="flex flex-col gap-2">
+              <span class="font-mono text-sm font-semibold text-main">
+                {formData.fields.name.label}
+              </span>
+              <input
+                id={formData.fields.name.name}
+                type="text"
+                name={formData.fields.name.name}
+                required={formData.fields.name.required}
+                autocomplete={formData.fields.name.autocomplete}
+                placeholder={formData.fields.name.placeholder}
+                class="min-h-12 rounded-button border border-line bg-surface px-4 py-3 text-main transition placeholder:text-soft focus:border-accent focus:ring-2 focus:ring-accent/25 focus:outline-none"
+              />
+            </label>
+
+            <label for={formData.fields.email.name} class="flex flex-col gap-2">
+              <span class="font-mono text-sm font-semibold text-main">
+                {formData.fields.email.label}
+              </span>
+              <input
+                id={formData.fields.email.name}
+                type="email"
+                name={formData.fields.email.name}
+                required={formData.fields.email.required}
+                autocomplete={formData.fields.email.autocomplete}
+                placeholder={formData.fields.email.placeholder}
+                class="min-h-12 rounded-button border border-line bg-surface px-4 py-3 text-main transition placeholder:text-soft focus:border-accent focus:ring-2 focus:ring-accent/25 focus:outline-none"
+              />
+            </label>
+          </div>
+
+          <label
+            for={formData.fields.messageType.name}
+            class="flex flex-col gap-2"
+          >
+            <span class="font-mono text-sm font-semibold text-main">
+              {formData.fields.messageType.label}
+            </span>
+
+            <select
+              id={formData.fields.messageType.name}
+              name={formData.fields.messageType.name}
+              required={formData.fields.messageType.required}
+              class="min-h-12 rounded-button border border-line bg-surface px-4 py-3 text-soft transition focus:border-accent focus:ring-2 focus:ring-accent/25 focus:outline-none"
+              data-muted-select
+            >
+              <option value="" disabled selected hidden>
+                {formData.fields.messageType.placeholder}
+              </option>
+              {
+                formData.fields.messageType.options.map((option) => (
+                  <option value={option.value}>{option.label}</option>
+                ))
+              }
+            </select>
+          </label>
+
+          <label for={formData.fields.message.name} class="flex flex-col gap-2">
+            <span class="font-mono text-sm font-semibold text-main">
+              {formData.fields.message.label}
+            </span>
+            <textarea
+              id={formData.fields.message.name}
+              name={formData.fields.message.name}
+              required={formData.fields.message.required}
+              placeholder={formData.fields.message.placeholder}
+              class="min-h-32 rounded-button border border-line bg-surface px-4 py-3 text-main transition placeholder:text-soft focus:border-accent focus:ring-2 focus:ring-accent/25 focus:outline-none"
+            ></textarea>
+          </label>
+
+          <div class="grid gap-4 pt-2 sm:grid-cols-2 sm:items-center sm:gap-6">
+            <Button type="submit" class="w-full">
+              <span>{formData.submitLabel}</span>
+              <ArrowRight name="send" class="size-5" aria-hidden="true" />
+            </Button>
+
+            <div class="flex flex-col gap-1 sm:justify-self-center">
+              <p class="text-muted">{formData.fallback.text}</p>
+              <a
+                href={formData.fallback.href}
+                class="inline-flex items-center gap-2 font-mono text-sm font-semibold text-accent transition hover:text-accent-hover focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+              >
+                {formData.fallback.label}
+                <ArrowUpRight class="size-4 shrink-0" aria-hidden="true" />
+              </a>
+            </div>
+          </div>
+        </form>
+
+        <footer
+          class="-mx-4 -mb-4 border-t border-line px-4 py-4 font-mono text-sm text-soft"
+        >
+          <p class="flex items-center justify-center gap-2">
+            <LockKeyhole class="size-4 shrink-0" aria-hidden="true" />
+            <span>{`/* ${formData.securityNote} */`}</span>
+          </p>
+        </footer>
+      </Card>
+    </section>
+
+    <FooterCTA title={bottomCta.title} description={bottomCta.description}>
+      <Button variant="primary" href={bottomCta.primaryHref}>
+        <span>{bottomCta.primaryLabel}</span>
+        <ArrowRight class="size-5" aria-hidden="true" />
+      </Button>
+
+      <Button variant="secondary" href={bottomCta.secondaryHref}>
+        <span>{bottomCta.secondaryLabel}</span>
+        <ArrowRight class="size-5" aria-hidden="true" />
+      </Button>
+    </FooterCTA>
+  </Container>
+</BaseLayout>
+
+<script>
+  const mutedSelects = document.querySelectorAll<HTMLSelectElement>(
+    "[data-muted-select]",
+  );
+
+  mutedSelects.forEach((select) => {
+    const updateSelectColor = () => {
+      const hasValue = Boolean(select.value);
+
+      select.classList.toggle("text-soft", !hasValue);
+      select.classList.toggle("text-main", hasValue);
+    };
+
+    updateSelectColor();
+    select.addEventListener("change", updateSelectColor);
+  });
+</script>
