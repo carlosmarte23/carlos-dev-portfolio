@@ -10,7 +10,10 @@ interface Props {
 const { title, description } = Astro.props;
 ---
 
-<Card padding="sm" class="bg-surface/80">
+<Card
+  padding="sm"
+  class="timeline-view animate-slide-up-fade bg-surface/80 animate-range-[entry_0%_contain_20%] animate-duration-slow animate-bezier-expo-out"
+>
   <div class="grid gap-5 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
     <div class="flex min-w-0 items-start gap-4 sm:items-center">
       <Rocket

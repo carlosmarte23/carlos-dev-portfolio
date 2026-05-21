@@ -71,5 +71,7 @@ export const homePage: HomePage = {
     description: "Let's build something amazing together.",
     primaryLabel: "Get in touch",
     primaryHref: "/contact",
+    secondaryLabel: "About Me",
+    secondaryHref: "/about",
   },
 };
