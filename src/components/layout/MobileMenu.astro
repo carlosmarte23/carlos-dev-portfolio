@@ -69,6 +69,10 @@ const dialogId = "mobile-menu";
 </dialog>
 
 <script>
+  const mobileMenuWindow = window as Window & {
+    __portfolioMobileMenuReady?: boolean;
+  };
+
   const setupMobileMenu = () => {
     const dialog =
       document.querySelector<HTMLDialogElement>("[data-mobile-menu]");
@@ -77,27 +81,26 @@ const dialogId = "mobile-menu";
     const closeButton =
       document.querySelector<HTMLButtonElement>("[data-menu-close]");
 
+    if (!dialog || !openButton || !closeButton) return;
+
+    if (dialog.dataset.menuReady === "true") return;
+    dialog.dataset.menuReady = "true";
+
     const setExpanded = (expanded: boolean) => {
-      openButton?.setAttribute("aria-expanded", String(expanded));
+      openButton.setAttribute("aria-expanded", String(expanded));
     };
 
-    openButton?.addEventListener("click", () => {
-      if (!(dialog instanceof HTMLDialogElement)) return;
-
+    openButton.addEventListener("click", () => {
       dialog.showModal();
       setExpanded(true);
     });
 
-    closeButton?.addEventListener("click", () => {
-      if (!(dialog instanceof HTMLDialogElement)) return;
-
+    closeButton.addEventListener("click", () => {
       dialog.close();
       setExpanded(false);
     });
 
-    dialog?.addEventListener("click", (event) => {
-      if (!(dialog instanceof HTMLDialogElement)) return;
-
+    dialog.addEventListener("click", (event) => {
       const rect = dialog.getBoundingClientRect();
 
       const clickedOutside =
@@ -112,11 +115,15 @@ const dialogId = "mobile-menu";
       }
     });
 
-    dialog?.addEventListener("close", () => {
+    dialog.addEventListener("close", () => {
       setExpanded(false);
     });
   };
 
   setupMobileMenu();
-  document.addEventListener("astro:page-load", setupMobileMenu);
+
+  if (!mobileMenuWindow.__portfolioMobileMenuReady) {
+    mobileMenuWindow.__portfolioMobileMenuReady = true;
+    document.addEventListener("astro:page-load", setupMobileMenu);
+  }
 </script>

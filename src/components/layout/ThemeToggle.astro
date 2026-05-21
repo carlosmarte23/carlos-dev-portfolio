@@ -24,6 +24,10 @@ const label = "Toggle Theme";
 <script>
   type Theme = "light" | "dark";
 
+  const themeToggleWindow = window as Window & {
+    __portfolioThemeToggleReady?: boolean;
+  };
+
   const getCurrentTheme = (): Theme => {
     const theme = document.documentElement.dataset.theme;
 
@@ -117,5 +121,8 @@ const label = "Toggle Theme";
 
   setupThemeToggles();
 
-  document.addEventListener("astro:page-load", setupThemeToggles);
+  if (!themeToggleWindow.__portfolioThemeToggleReady) {
+    themeToggleWindow.__portfolioThemeToggleReady = true;
+    document.addEventListener("astro:page-load", setupThemeToggles);
+  }
 </script>

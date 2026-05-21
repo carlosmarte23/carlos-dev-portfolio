@@ -128,19 +128,35 @@ const { form } = Astro.props;
 </Card>
 
 <script>
-  const mutedSelects = document.querySelectorAll<HTMLSelectElement>(
-    "[data-muted-select]",
-  );
+  const contactFormWindow = window as Window & {
+    __portfolioMutedSelectsReady?: boolean;
+  };
 
-  mutedSelects.forEach((select) => {
-    const updateSelectColor = () => {
-      const hasValue = Boolean(select.value);
+  const setupMutedSelects = () => {
+    const mutedSelects = document.querySelectorAll<HTMLSelectElement>(
+      "[data-muted-select]",
+    );
 
-      select.classList.toggle("text-soft", !hasValue);
-      select.classList.toggle("text-main", hasValue);
-    };
+    mutedSelects.forEach((select) => {
+      if (select.dataset.mutedSelectReady === "true") return;
+      select.dataset.mutedSelectReady = "true";
 
-    updateSelectColor();
-    select.addEventListener("change", updateSelectColor);
-  });
+      const updateSelectColor = () => {
+        const hasValue = Boolean(select.value);
+
+        select.classList.toggle("text-soft", !hasValue);
+        select.classList.toggle("text-main", hasValue);
+      };
+
+      updateSelectColor();
+      select.addEventListener("change", updateSelectColor);
+    });
+  };
+
+  setupMutedSelects();
+
+  if (!contactFormWindow.__portfolioMutedSelectsReady) {
+    contactFormWindow.__portfolioMutedSelectsReady = true;
+    document.addEventListener("astro:page-load", setupMutedSelects);
+  }
 </script>
