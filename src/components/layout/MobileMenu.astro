@@ -69,49 +69,54 @@ const dialogId = "mobile-menu";
 </dialog>
 
 <script>
-  const dialog =
-    document.querySelector<HTMLDialogElement>("[data-mobile-menu]");
-  const openButton =
-    document.querySelector<HTMLButtonElement>("[data-menu-open]");
-  const closeButton =
-    document.querySelector<HTMLButtonElement>("[data-menu-close]");
+  const setupMobileMenu = () => {
+    const dialog =
+      document.querySelector<HTMLDialogElement>("[data-mobile-menu]");
+    const openButton =
+      document.querySelector<HTMLButtonElement>("[data-menu-open]");
+    const closeButton =
+      document.querySelector<HTMLButtonElement>("[data-menu-close]");
 
-  const setExpanded = (expanded: boolean) => {
-    openButton?.setAttribute("aria-expanded", String(expanded));
-  };
+    const setExpanded = (expanded: boolean) => {
+      openButton?.setAttribute("aria-expanded", String(expanded));
+    };
 
-  openButton?.addEventListener("click", () => {
-    if (!(dialog instanceof HTMLDialogElement)) return;
+    openButton?.addEventListener("click", () => {
+      if (!(dialog instanceof HTMLDialogElement)) return;
 
-    dialog.showModal();
-    setExpanded(true);
-  });
+      dialog.showModal();
+      setExpanded(true);
+    });
 
-  closeButton?.addEventListener("click", () => {
-    if (!(dialog instanceof HTMLDialogElement)) return;
+    closeButton?.addEventListener("click", () => {
+      if (!(dialog instanceof HTMLDialogElement)) return;
 
-    dialog.close();
-    setExpanded(false);
-  });
-
-  dialog?.addEventListener("click", (event) => {
-    if (!(dialog instanceof HTMLDialogElement)) return;
-
-    const rect = dialog.getBoundingClientRect();
-
-    const clickedOutside =
-      event.clientX < rect.left ||
-      event.clientX > rect.right ||
-      event.clientY < rect.top ||
-      event.clientY > rect.bottom;
-
-    if (clickedOutside) {
       dialog.close();
       setExpanded(false);
-    }
-  });
+    });
 
-  dialog?.addEventListener("close", () => {
-    setExpanded(false);
-  });
+    dialog?.addEventListener("click", (event) => {
+      if (!(dialog instanceof HTMLDialogElement)) return;
+
+      const rect = dialog.getBoundingClientRect();
+
+      const clickedOutside =
+        event.clientX < rect.left ||
+        event.clientX > rect.right ||
+        event.clientY < rect.top ||
+        event.clientY > rect.bottom;
+
+      if (clickedOutside) {
+        dialog.close();
+        setExpanded(false);
+      }
+    });
+
+    dialog?.addEventListener("close", () => {
+      setExpanded(false);
+    });
+  };
+
+  setupMobileMenu();
+  document.addEventListener("astro:page-load", setupMobileMenu);
 </script>
