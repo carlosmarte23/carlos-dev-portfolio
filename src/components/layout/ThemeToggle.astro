@@ -1,11 +1,121 @@
 ---
+import { Moon, Sun } from "@lucide/astro";
 const label = "Toggle Theme";
 ---
 
 <button
   type="button"
   aria-label={label}
-  class="inline-flex h-8 w-14 items-center justify-end rounded-full border border-line bg-surface px-1 transition hover:bg-surface-muted focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+  aria-pressed="false"
+  data-theme-toggle
+  class="group inline-flex h-8 w-14 items-center rounded-full border border-line bg-surface px-1 transition-colors hover:bg-surface-muted focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
 >
-  <span class="size-6 rounded-full bg-accent shadow"></span>
+  <span class="sr-only">{label}</span>
+
+  <span
+    data-theme-toggle-knob
+    class="flex size-6 translate-x-0 items-center justify-center rounded-full bg-accent text-accent-contrast shadow transition-transform"
+  >
+    <Sun data-theme-sun class="size-3.5" aria-hidden="true" />
+    <Moon data-theme-moon class="hidden size-3.5" aria-hidden="true" />
+  </span>
 </button>
+
+<script>
+  type Theme = "light" | "dark";
+
+  const getCurrentTheme = (): Theme => {
+    const theme = document.documentElement.dataset.theme;
+
+    if (theme === "light" || theme === "dark") {
+      return theme;
+    }
+
+    return document.documentElement.classList.contains("dark")
+      ? "dark"
+      : "light";
+  };
+
+  const syncThemeToggles = (theme: Theme) => {
+    const isDark = theme === "dark";
+
+    document
+      .querySelectorAll<HTMLButtonElement>("[data-theme-toggle]")
+      .forEach((button) => {
+        const knob = button.querySelector("[data-theme-toggle-knob]");
+        const sun = button.querySelector("[data-theme-sun]");
+        const moon = button.querySelector("[data-theme-moon]");
+
+        button.setAttribute("aria-pressed", String(isDark));
+
+        knob?.classList.toggle("translate-x-6", isDark);
+        knob?.classList.toggle("translate-x-0", !isDark);
+
+        sun?.classList.toggle("hidden", isDark);
+        moon?.classList.toggle("hidden", !isDark);
+      });
+  };
+
+  const applyTheme = (theme: Theme) => {
+    document.documentElement.classList.toggle("dark", theme === "dark");
+    document.documentElement.dataset.theme = theme;
+    localStorage.setItem("theme", theme);
+    syncThemeToggles(theme);
+  };
+
+  const setTransitionOrigin = (source: HTMLElement) => {
+    const rect = source.getBoundingClientRect();
+    const x = rect.left + rect.width / 2;
+    const y = rect.top + rect.height / 2;
+
+    document.documentElement.style.setProperty("--theme-toggle-x", `${x}px`);
+    document.documentElement.style.setProperty("--theme-toggle-y", `${y}px`);
+  };
+
+  const animateThemeChange = (nextTheme: Theme, source: HTMLElement) => {
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    if (!document.startViewTransition || prefersReducedMotion) {
+      applyTheme(nextTheme);
+      return;
+    }
+
+    setTransitionOrigin(source);
+    document.documentElement.classList.add("theme-transitioning");
+
+    const transition = document.startViewTransition(() => {
+      applyTheme(nextTheme);
+    });
+
+    transition.finished.finally(() => {
+      document.documentElement.classList.remove("theme-transitioning");
+    });
+  };
+
+  const setupThemeToggles = () => {
+    syncThemeToggles(getCurrentTheme());
+
+    document
+      .querySelectorAll<HTMLButtonElement>("[data-theme-toggle]")
+      .forEach((button) => {
+        if (button.dataset.themeToggleReady === "true") {
+          return;
+        }
+
+        button.dataset.themeToggleReady = "true";
+
+        button.addEventListener("click", () => {
+          const currentTheme = getCurrentTheme();
+          const nextTheme = currentTheme === "light" ? "dark" : "light";
+
+          animateThemeChange(nextTheme, button);
+        });
+      });
+  };
+
+  setupThemeToggles();
+
+  document.addEventListener("astro:page-load", setupThemeToggles);
+</script>
