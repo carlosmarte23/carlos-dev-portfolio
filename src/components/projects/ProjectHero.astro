@@ -29,7 +29,12 @@ const { project, backLabel, eyebrow, techStackContent } = Astro.props;
       <span class="size-2.5 rounded-full bg-accent" aria-hidden="true"></span>
       {eyebrow}
     </p>
-    <h1 class="font-display text-4xl font-bold">{project.title}</h1>
+    <h1
+      class="font-display text-4xl font-bold"
+      transition:name={`project-title-${project.slug}`}
+    >
+      {project.title}
+    </h1>
     <h2 class="text-xl font-semibold text-muted">
       {project.summary}
     </h2>
@@ -73,6 +78,7 @@ const { project, backLabel, eyebrow, techStackContent } = Astro.props;
         src={project.coverImage.src}
         alt={project.coverImage.alt}
         class="size-full object-cover object-top"
+        transition:name={`project-image-${project.slug}`}
       />
     </div>
   </TerminalCard>
