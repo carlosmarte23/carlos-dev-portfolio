@@ -109,23 +109,23 @@ dialog {
     box-shadow 180ms ease;
 }
 
-::view-transition-old(root),
-::view-transition-new(root) {
+html.theme-transitioning::view-transition-old(root),
+html.theme-transitioning::view-transition-new(root) {
   animation: none;
   mix-blend-mode: normal;
 }
 
-::view-transition-group(root) {
+html.theme-transitioning::view-transition-group(root) {
   animation-timing-function: var(--expo-out);
 }
 
-::view-transition-old(root) {
+html.theme-transitioning::view-transition-old(root) {
   animation: none;
   animation-fill-mode: both;
   z-index: -1;
 }
 
-::view-transition-new(root) {
+html.theme-transitioning::view-transition-new(root) {
   animation: theme-mask-scale 1s;
   animation-fill-mode: both;
   -webkit-mask: var(--theme-transition-mask) var(--theme-toggle-x)
@@ -149,6 +149,97 @@ html.theme-transitioning *::after {
       calc(var(--theme-toggle-y) - 160vmax);
     -webkit-mask-size: 320vmax;
     mask-size: 320vmax;
+  }
+}
+
+html:not(.theme-transitioning)::view-transition-old(root) {
+  animation: page-fade-out 180ms ease both;
+}
+
+html:not(.theme-transitioning)::view-transition-new(root) {
+  animation: page-fade-in 240ms var(--expo-out) both;
+}
+
+.timeline-view {
+  transition:
+    opacity 520ms var(--expo-out),
+    filter 620ms var(--expo-out),
+    transform 620ms var(--expo-out);
+  transition-delay: var(--reveal-delay, 0ms);
+  animation: none !important;
+  animation-timeline: auto !important;
+}
+
+html.scroll-reveals-ready .timeline-view:not(.is-revealed) {
+  opacity: 0.55;
+  filter: blur(4px);
+  transform: translateY(8px);
+}
+
+.timeline-view.is-revealed {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0);
+}
+
+.timeline-view.animate-delay-100 {
+  --reveal-delay: 100ms;
+}
+
+.timeline-view.animate-delay-150 {
+  --reveal-delay: 150ms;
+}
+
+.timeline-view.animate-delay-200 {
+  --reveal-delay: 200ms;
+}
+
+.timeline-view.animate-delay-300 {
+  --reveal-delay: 300ms;
+}
+
+@keyframes page-fade-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes page-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    animation-iteration-count: 1 !important;
+    animation-timeline: auto !important;
+    scroll-behavior: auto !important;
+    transition-duration: 1ms !important;
+    transform: none !important;
+  }
+
+  .timeline-view {
+    opacity: 1;
+    filter: none;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
   }
 }
 

@@ -82,7 +82,9 @@ const groupedTech = displayGroups
   .filter((group) => group.items.length > 0);
 ---
 
-<Card class="space-y-4">
+<Card
+  class="timeline-view animate-slide-up-fade space-y-4 animate-range-[entry_0%_contain_20%] animate-duration-slow animate-bezier-expo-out"
+>
   <h2 class="flex items-center gap-3 font-display text-xl font-bold text-main">
     <CodeXml class="size-5 text-accent" aria-hidden="true" />
     {content.title}

@@ -69,49 +69,61 @@ const dialogId = "mobile-menu";
 </dialog>
 
 <script>
-  const dialog =
-    document.querySelector<HTMLDialogElement>("[data-mobile-menu]");
-  const openButton =
-    document.querySelector<HTMLButtonElement>("[data-menu-open]");
-  const closeButton =
-    document.querySelector<HTMLButtonElement>("[data-menu-close]");
-
-  const setExpanded = (expanded: boolean) => {
-    openButton?.setAttribute("aria-expanded", String(expanded));
+  const mobileMenuWindow = window as Window & {
+    __portfolioMobileMenuReady?: boolean;
   };
 
-  openButton?.addEventListener("click", () => {
-    if (!(dialog instanceof HTMLDialogElement)) return;
+  const setupMobileMenu = () => {
+    const dialog =
+      document.querySelector<HTMLDialogElement>("[data-mobile-menu]");
+    const openButton =
+      document.querySelector<HTMLButtonElement>("[data-menu-open]");
+    const closeButton =
+      document.querySelector<HTMLButtonElement>("[data-menu-close]");
 
-    dialog.showModal();
-    setExpanded(true);
-  });
+    if (!dialog || !openButton || !closeButton) return;
 
-  closeButton?.addEventListener("click", () => {
-    if (!(dialog instanceof HTMLDialogElement)) return;
+    if (dialog.dataset.menuReady === "true") return;
+    dialog.dataset.menuReady = "true";
 
-    dialog.close();
-    setExpanded(false);
-  });
+    const setExpanded = (expanded: boolean) => {
+      openButton.setAttribute("aria-expanded", String(expanded));
+    };
 
-  dialog?.addEventListener("click", (event) => {
-    if (!(dialog instanceof HTMLDialogElement)) return;
+    openButton.addEventListener("click", () => {
+      dialog.showModal();
+      setExpanded(true);
+    });
 
-    const rect = dialog.getBoundingClientRect();
-
-    const clickedOutside =
-      event.clientX < rect.left ||
-      event.clientX > rect.right ||
-      event.clientY < rect.top ||
-      event.clientY > rect.bottom;
-
-    if (clickedOutside) {
+    closeButton.addEventListener("click", () => {
       dialog.close();
       setExpanded(false);
-    }
-  });
+    });
 
-  dialog?.addEventListener("close", () => {
-    setExpanded(false);
-  });
+    dialog.addEventListener("click", (event) => {
+      const rect = dialog.getBoundingClientRect();
+
+      const clickedOutside =
+        event.clientX < rect.left ||
+        event.clientX > rect.right ||
+        event.clientY < rect.top ||
+        event.clientY > rect.bottom;
+
+      if (clickedOutside) {
+        dialog.close();
+        setExpanded(false);
+      }
+    });
+
+    dialog.addEventListener("close", () => {
+      setExpanded(false);
+    });
+  };
+
+  setupMobileMenu();
+
+  if (!mobileMenuWindow.__portfolioMobileMenuReady) {
+    mobileMenuWindow.__portfolioMobileMenuReady = true;
+    document.addEventListener("astro:page-load", setupMobileMenu);
+  }
 </script>

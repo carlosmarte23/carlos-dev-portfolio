@@ -12,7 +12,11 @@ interface Props {
 const { images = [], title } = Astro.props;
 ---
 
-<section data-project-gallery data-count={images.length}>
+<section
+  class="timeline-view animate-slide-up-fade animate-range-[entry_0%_contain_18%] animate-duration-slow animate-bezier-expo-out"
+  data-project-gallery
+  data-count={images.length}
+>
   <Card padding="sm" class="overflow-hidden">
     <header class="mb-3 flex items-center gap-3">
       <ImageIcon class="size-8 text-accent" aria-hidden="true" />

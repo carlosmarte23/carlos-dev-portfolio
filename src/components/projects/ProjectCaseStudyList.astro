@@ -14,7 +14,10 @@ interface Props {
 const { title, icon: Icon, items, listType = "numbered" } = Astro.props;
 ---
 
-<Card padding="sm" class="h-full space-y-4">
+<Card
+  padding="sm"
+  class="timeline-view h-full animate-slide-up-fade space-y-4 animate-range-[entry_0%_contain_20%] animate-duration-slow animate-bezier-expo-out"
+>
   <header class="flex items-center gap-3">
     {Icon && <Icon class="size-5 text-accent" aria-hidden="true" />}
     <h2 class="font-display text-xl font-bold text-main">{title}</h2>

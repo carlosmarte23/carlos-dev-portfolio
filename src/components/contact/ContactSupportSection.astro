@@ -11,31 +11,53 @@ interface Props {
 }
 
 const { openTo, responseExpectation, trustNotes, form } = Astro.props;
+
+const delayClasses = [
+  "animate-delay-0",
+  "animate-delay-100",
+  "animate-delay-200",
+];
 ---
 
 <section
   class="my-8 flex flex-col gap-4 border-b border-line pb-8 lg:grid lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-6"
 >
   <div class="flex min-w-0 flex-col gap-4">
-    <ContactInfoCard
-      title={openTo.title}
-      icon={openTo.icon}
-      items={openTo.items}
-    />
+    <div
+      class={`timeline-view animate-slide-up-fade animate-range-[entry_0%_contain_20%] animate-duration-slow animate-bezier-expo-out ${delayClasses[0]}`}
+    >
+      <ContactInfoCard
+        title={openTo.title}
+        icon={openTo.icon}
+        items={openTo.items}
+      />
+    </div>
 
-    <ContactInfoCard
-      title={responseExpectation.title}
-      icon={responseExpectation.icon}
-      description={responseExpectation.description}
-    />
+    <div
+      class={`timeline-view animate-slide-up-fade animate-range-[entry_0%_contain_20%] animate-duration-slow animate-bezier-expo-out ${delayClasses[1]}`}
+    >
+      <ContactInfoCard
+        title={responseExpectation.title}
+        icon={responseExpectation.icon}
+        description={responseExpectation.description}
+      />
+    </div>
 
-    <ContactInfoCard
-      title={trustNotes.title}
-      icon={trustNotes.icon}
-      items={trustNotes.items}
-      listIcon="check"
-    />
+    <div
+      class={`timeline-view animate-slide-up-fade animate-range-[entry_0%_contain_20%] animate-duration-slow animate-bezier-expo-out ${delayClasses[2]}`}
+    >
+      <ContactInfoCard
+        title={trustNotes.title}
+        icon={trustNotes.icon}
+        items={trustNotes.items}
+        listIcon="check"
+      />
+    </div>
   </div>
 
-  <ContactForm form={form} />
+  <div
+    class="timeline-view animate-slide-up-fade animate-range-[entry_0%_contain_18%] animate-duration-slow animate-bezier-expo-out lg:animate-delay-100"
+  >
+    <ContactForm form={form} />
+  </div>
 </section>
