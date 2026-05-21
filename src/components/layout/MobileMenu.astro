@@ -90,17 +90,21 @@ const dialogId = "mobile-menu";
       openButton.setAttribute("aria-expanded", String(expanded));
     };
 
+    const closeMenu = () => {
+      if (!dialog.open) return;
+
+      dialog.close();
+      setExpanded(false);
+    };
+
     openButton.addEventListener("click", () => {
       dialog.showModal();
       setExpanded(true);
     });
 
-    closeButton.addEventListener("click", () => {
-      dialog.close();
-      setExpanded(false);
-    });
+    closeButton.addEventListener("click", closeMenu);
 
-    dialog.addEventListener("click", (event) => {
+    dialog.addEventListener("pointerdown", (event) => {
       const rect = dialog.getBoundingClientRect();
 
       const clickedOutside =
@@ -110,13 +114,18 @@ const dialogId = "mobile-menu";
         event.clientY > rect.bottom;
 
       if (clickedOutside) {
-        dialog.close();
-        setExpanded(false);
+        closeMenu();
       }
     });
 
     dialog.addEventListener("close", () => {
       setExpanded(false);
+    });
+
+    const navLinks = dialog.querySelectorAll<HTMLAnchorElement>("nav a");
+
+    navLinks.forEach((link) => {
+      link.addEventListener("click", closeMenu);
     });
   };
 

@@ -12,14 +12,19 @@ const navItems = navigation.main;
 
 <header class="sticky top-0 z-50 bg-app/90 backdrop-blur">
   <Container class="px-4">
-    <div class="flex h-(--header-height) items-center justify-between gap-6">
+    <div
+      class="flex h-14 items-center justify-between gap-6 md:h-(--header-height)"
+    >
       <a
         href="/"
-        class="inline-flex items-center transition hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+        class="inline-flex items-center focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent motion-reduce:transition-none motion-reduce:hover:scale-100"
         aria-label={`${site.name} home`}
         title={site.name}
+        data-home-logo
       >
-        <BrandLogo class="text-lg" />
+        <BrandLogo
+          class="transition-transform duration-200 hover:scale-115 motion-reduce:transform-none"
+        />
       </a>
 
       <nav
@@ -41,3 +46,32 @@ const navItems = navigation.main;
     </div>
   </Container>
 </header>
+
+<script>
+  const setupHomeLogoScroll = () => {
+    const homeLogo =
+      document.querySelector<HTMLAnchorElement>("[data-home-logo]");
+
+    if (!homeLogo) return;
+
+    if (homeLogo.dataset.scrollReady === "true") return;
+    homeLogo.dataset.scrollReady = "true";
+
+    homeLogo.addEventListener("click", (event) => {
+      const isHomePage = window.location.pathname === "/";
+
+      if (isHomePage) {
+        event.preventDefault();
+
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      }
+    });
+  };
+
+  setupHomeLogoScroll();
+
+  document.addEventListener("astro:page-load", setupHomeLogoScroll);
+</script>
