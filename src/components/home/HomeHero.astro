@@ -14,10 +14,12 @@ const { cta } = hero;
 ---
 
 <section
-  class="relative py-10 md:flex md:h-[calc(100svh-var(--header-height))] md:items-center md:pt-14 md:pb-28 lg:pt-24 lg:pb-24"
+  class="relative pt-6 pb-10 md:flex md:min-h-[calc(100svh-var(--header-height))] md:items-center md:pt-10 md:pb-16 lg:py-14"
 >
   <Container>
-    <div class="grid w-full gap-10 lg:grid-cols-2 lg:items-center">
+    <div
+      class="grid w-full gap-10 md:translate-y-[-8svh] lg:grid-cols-2 lg:items-center"
+    >
       <div class="grid gap-6">
         <p
           class="flex items-center gap-3 font-mono text-sm font-semibold tracking-wide text-accent uppercase"
@@ -55,7 +57,7 @@ const { cta } = hero;
         <div
           class="flex animate-fade-in-up justify-center animate-delay-300 animate-bezier-expo-out animate-duration-slow md:justify-start"
         >
-          <SocialLinks />
+          <SocialLinks label="Profile links" />
         </div>
       </div>
       <div class="w-full lg:max-w-xl xl:max-w-2xl">
@@ -128,7 +130,7 @@ const { cta } = hero;
   </Container>
   <a
     href={hero.scroll.href}
-    class="absolute bottom-6 left-1/2 hidden -translate-x-1/2 animate-fade-in-up flex-col items-center gap-2 font-mono text-xs font-semibold text-soft transition animate-delay-400 animate-bezier-expo-out animate-duration-slow hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent md:flex"
+    class="absolute bottom-10 left-1/2 hidden -translate-x-1/2 animate-fade-in-up flex-col items-center gap-2 font-mono text-xs font-semibold text-soft transition animate-delay-400 animate-bezier-expo-out animate-duration-slow hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent md:flex"
     aria-label={hero.scroll.ariaLabel}
   >
     <span class="tracking-wide uppercase">{hero.scroll.label}</span>

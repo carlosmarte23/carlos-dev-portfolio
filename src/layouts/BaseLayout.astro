@@ -124,13 +124,7 @@ const structuredDataJson = JSON.stringify({
     </script>
     <script is:inline>
       (() => {
-        const scrollRevealWindow = window as Window & {
-          __portfolioScrollRevealReady?: boolean;
-          __portfolioScrollReveal?: {
-            hasScrolled: boolean;
-            observer: IntersectionObserver | null;
-          };
-        };
+        const scrollRevealWindow = window;
 
         const revealSelector = ".timeline-view";
         const minVisibleRatio = 0.33;
@@ -217,10 +211,11 @@ const structuredDataJson = JSON.stringify({
 
           window.addEventListener("scroll", markScrolled, { passive: true });
           document.addEventListener("astro:page-load", () => {
-            const revealState = (scrollRevealWindow.__portfolioScrollReveal ??= {
-              hasScrolled: false,
-              observer: null,
-            });
+            const revealState = (scrollRevealWindow.__portfolioScrollReveal ??=
+              {
+                hasScrolled: false,
+                observer: null,
+              });
 
             revealState.hasScrolled = false;
             setupScrollReveals();

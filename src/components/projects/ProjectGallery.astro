@@ -2,7 +2,7 @@
 import type { ImageAsset } from "@content-types/content";
 import Card from "../ui/Card.astro";
 
-import { ImageIcon } from "@lucide/astro";
+import { ImageIcon, X } from "@lucide/astro";
 
 interface Props {
   images?: ImageAsset[];
@@ -13,7 +13,7 @@ const { images = [], title } = Astro.props;
 ---
 
 <section
-  class="timeline-view animate-slide-up-fade animate-range-[entry_0%_contain_18%] animate-duration-slow animate-bezier-expo-out"
+  class="animate-slide-up-fade animate-bezier-expo-out animate-duration-slow animate-range-[entry_0%_contain_18%] timeline-view"
   data-project-gallery
   data-count={images.length}
 >
@@ -23,19 +23,35 @@ const { images = [], title } = Astro.props;
       <h3 class="font-display text-xl font-bold text-main">{title}</h3>
     </header>
 
-    <div class="gallery-scroll overflow-x-auto pb-3">
+    <div
+      class="gallery-scroll cursor-grab overflow-x-auto pb-3 select-none active:cursor-grabbing"
+      data-gallery-scroll
+    >
       <div class="flex snap-x snap-mandatory gap-4">
         {
           images.map((image) => (
             <article class="min-w-[18rem] snap-start overflow-hidden rounded-xl border border-line bg-surface-muted sm:min-w-88 lg:min-w-104">
-              <div class="overflow-hidden">
+              <button
+                type="button"
+                class="group relative block w-full cursor-pointer overflow-hidden text-left focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+                data-gallery-trigger
+                data-image-src={image.src}
+                data-image-alt={image.alt}
+                data-image-title={image.title ?? ""}
+                data-image-caption={image.caption ?? ""}
+                aria-label={`Preview of ${image.title ?? image.alt}`}
+              >
                 <img
                   src={image.src}
                   alt={image.alt}
                   class="aspect-video size-full object-cover object-top"
                   loading="lazy"
+                  draggable="false"
                 />
-              </div>
+                <span class="pointer-events-none absolute inset-x-3 bottom-3 rounded-full bg-accent/80 px-3 py-1 text-center text-xs font-semibold text-accent-contrast opacity-0 backdrop-blur transition group-hover:opacity-100">
+                  View larger
+                </span>
+              </button>
               {image.title && (
                 <p class="p-2 leading-6 font-bold">{image.title}</p>
               )}
@@ -50,4 +66,171 @@ const { images = [], title } = Astro.props;
       </div>
     </div>
   </Card>
+
+  <dialog
+    class="fixed inset-0 m-auto max-h-[90vh] w-[min(96vw,72rem)] rounded-card border border-line bg-surface p-0 text-main shadow-dialog backdrop:bg-app/70 backdrop:backdrop-blur-sm open:animate-fade-in-up open:animate-duration-500 open:animate-bezier-expo-out"
+    data-gallery-dialog
+    aria-label="Image preview"
+  >
+    <div
+      class="flex items-center justify-between border-b border-line px-5 py-4"
+    >
+      <div class="">
+        <h4 class="font-display text-lg font-bold" data-gallery-title></h4>
+        <p class="text-sm leading-6 text-muted" data-gallery-caption></p>
+      </div>
+
+      <button
+        type="button"
+        class="inline-flex size-9 cursor-pointer items-center justify-center rounded-button border border-line text-main transition hover:bg-surface-muted focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+        data-gallery-close
+        aria-label="Close image preview"
+      >
+        <X aria-hidden="true" />
+      </button>
+    </div>
+
+    <div class="max-h-[78svh] overflow-auto p-3">
+      <img
+        src=""
+        alt=""
+        class="mx-auto max-h-[74svh] w-auto max-w-full rounded-xl object-contain"
+        data-gallery-image
+      />
+    </div>
+  </dialog>
 </section>
+
+<script>
+  const setupProjectGalleryPreview = () => {
+    const galleries = document.querySelectorAll<HTMLElement>(
+      "[data-project-gallery]",
+    );
+
+    galleries.forEach((gallery) => {
+      if (gallery.dataset.previewReady === "true") return;
+      gallery.dataset.previewReady = "true";
+
+      const dialog = gallery.querySelector<HTMLDialogElement>(
+        "[data-gallery-dialog]",
+      );
+      const previewImage = gallery.querySelector<HTMLImageElement>(
+        "[data-gallery-image]",
+      );
+      const previewTitle = gallery.querySelector<HTMLElement>(
+        "[data-gallery-title]",
+      );
+      const previewCaption = gallery.querySelector<HTMLElement>(
+        "[data-gallery-caption]",
+      );
+      const closeButton = gallery.querySelector<HTMLButtonElement>(
+        "[data-gallery-close]",
+      );
+      const triggers = gallery.querySelectorAll<HTMLButtonElement>(
+        "[data-gallery-trigger]",
+      );
+
+      const scrollContainer = gallery.querySelector<HTMLDivElement>(
+        "[data-gallery-scroll]",
+      );
+
+      if (!dialog || !previewImage || !previewTitle || !previewCaption) return;
+
+      const closePreview = () => {
+        if (!dialog.open) return;
+
+        dialog.close();
+      };
+
+      let hasDragged = false;
+
+      if (scrollContainer) {
+        let isDragging = false;
+        let startX = 0;
+        let scrollLeft = 0;
+
+        scrollContainer.addEventListener("pointerdown", (event) => {
+          if (event.pointerType !== "mouse") return;
+
+          event.preventDefault();
+
+          isDragging = true;
+          hasDragged = false;
+          startX = event.clientX;
+          scrollLeft = scrollContainer.scrollLeft;
+
+          scrollContainer.setPointerCapture(event.pointerId);
+        });
+
+        scrollContainer.addEventListener("pointermove", (event) => {
+          if (!isDragging) return;
+
+          const distance = event.clientX - startX;
+
+          if (Math.abs(distance) > 5) {
+            hasDragged = true;
+          }
+
+          scrollContainer.scrollLeft = scrollLeft - distance;
+        });
+
+        const stopDragging = () => {
+          isDragging = false;
+        };
+
+        scrollContainer.addEventListener("pointerup", stopDragging);
+        scrollContainer.addEventListener("pointercancel", stopDragging);
+        scrollContainer.addEventListener("pointerleave", stopDragging);
+      }
+
+      triggers.forEach((trigger) => {
+        trigger.addEventListener("click", (event) => {
+          if (hasDragged) {
+            event?.preventDefault();
+            hasDragged = false;
+            return;
+          }
+
+          const { imageSrc, imageAlt, imageTitle, imageCaption } =
+            trigger.dataset;
+
+          if (!imageSrc) return;
+
+          previewImage.src = imageSrc;
+          previewImage.alt = imageAlt ?? "";
+          previewTitle.textContent = imageTitle || "Project preview";
+          previewCaption.textContent = imageCaption || "";
+
+          dialog.showModal();
+        });
+      });
+
+      closeButton?.addEventListener("click", closePreview);
+
+      dialog.addEventListener("click", (event) => {
+        const rect = dialog.getBoundingClientRect();
+
+        const clickedOutside =
+          event.clientX < rect.left ||
+          event.clientX > rect.right ||
+          event.clientY < rect.top ||
+          event.clientY > rect.bottom;
+
+        if (clickedOutside) {
+          closePreview();
+        }
+      });
+
+      dialog.addEventListener("close", () => {
+        previewImage.removeAttribute("src");
+        previewImage.alt = "";
+        previewTitle.textContent = "";
+        previewCaption.textContent = "";
+      });
+    });
+  };
+
+  setupProjectGalleryPreview();
+
+  document.addEventListener("astro:page-load", setupProjectGalleryPreview);
+</script>
