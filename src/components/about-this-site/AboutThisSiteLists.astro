@@ -1,0 +1,106 @@
+---
+import type { AboutThisSitePage } from "@content-types/content";
+import Card from "@/components/ui/Card.astro";
+
+import {
+  ListChecks,
+  Lightbulb,
+  Rocket,
+  ChevronRight,
+  CircleCheck,
+} from "@lucide/astro";
+
+interface Props {
+  currentFeatures: AboutThisSitePage["currentFeatures"];
+  lessonsLearned: AboutThisSitePage["lessonsLearned"];
+  futureImprovements: AboutThisSitePage["futureImprovements"];
+}
+
+const { currentFeatures, lessonsLearned, futureImprovements } = Astro.props;
+
+const sections = [
+  {
+    ...currentFeatures,
+    icon: ListChecks,
+  },
+  {
+    ...lessonsLearned,
+    icon: Lightbulb,
+  },
+  {
+    ...futureImprovements,
+    icon: Rocket,
+  },
+];
+---
+
+<!-- Mobile: Collapsible List -->
+<div class="space-y-3 lg:hidden">
+  {
+    sections.map((section) => {
+      const SectionIcon = section.icon;
+
+      return (
+        <details class="group rounded-card border border-line bg-surface shadow-card">
+          <summary class="flex cursor-pointer list-none items-center justify-between gap-4 p-4">
+            <span class="flex items-center gap-2 text-accent">
+              <SectionIcon class="size-5 text-accent" />
+              <span class="font-mono text-sm font-semibold uppercase">
+                {section.title}
+              </span>
+            </span>
+
+            <ChevronRight
+              class="size-5 text-muted transition group-open:rotate-90"
+              aria-hidden="true"
+            />
+          </summary>
+
+          <ul class="space-y-3 border-t border-line p-4">
+            {section.items.map((item) => (
+              <li class="flex gap-3 text-sm leading-6 text-muted">
+                <CircleCheck
+                  class="mt-0.5 size-4 shrink-0 text-accent"
+                  aria-hidden="true"
+                />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </details>
+      );
+    })
+  }
+</div>
+
+<!-- Desktop: Card Grid -->
+<div class="hidden gap-4 lg:grid lg:grid-cols-3">
+  {
+    sections.map((section) => {
+      const SectionIcon = section.icon;
+
+      return (
+        <Card padding="md" class="flex flex-col gap-4">
+          <header class="flex flex-row items-center gap-3">
+            <SectionIcon class="size-8 text-accent" aria-hidden="true" />
+            <p class="font-mono text-sm font-semibold text-accent uppercase">
+              {section.title}
+            </p>
+          </header>
+
+          <ul class="space-y-3">
+            {section.items.map((item) => (
+              <li class="flex gap-3 text-sm leading-6 text-muted">
+                <CircleCheck
+                  class="mt-0.5 size-4 shrink-0 text-accent"
+                  aria-hidden="true"
+                />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </Card>
+      );
+    })
+  }
+</div>

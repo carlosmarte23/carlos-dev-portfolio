@@ -4,12 +4,14 @@ export const navigation: NavigationConfig = {
   main: [
     { href: "/", label: "Home" },
     { href: "/#projects", label: "Projects" },
-    { href: "/about", label: "About" },
     { href: "/contact", label: "Contact" },
+    { href: "/about", label: "About Me" },
+    { href: "/about-this-site", label: "About This Site" },
   ],
   footer: [
     { href: "/#projects", label: "Projects" },
-    { href: "/about", label: "About" },
     { href: "/contact", label: "Contact" },
+    { href: "/about", label: "About Me" },
+    { href: "/about-this-site", label: "About This Site" },
   ],
 };

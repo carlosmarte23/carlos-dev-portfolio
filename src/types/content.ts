@@ -396,22 +396,71 @@ export interface Project {
   seo: Seo;
 }
 
-export interface AboutThisSitePage {
-  eyebrow: string;
-  title: string;
+export type AboutThisSiteStackCategory =
+  | "framework"
+  | "language"
+  | "styling"
+  | "content";
+
+export type AboutThisSiteLinkType = "primary" | "secondary";
+
+export interface AboutThisSiteFact {
+  label: string;
+  value: string;
+  icon: IconName;
+}
+
+export interface AboutThisSiteStackItem extends IconContent {
+  name: string;
+  category: AboutThisSiteStackCategory;
   description: string;
-  stack: Array<{
-    name: string;
-    description: string;
-    icon: IconName;
-  }>;
-  decisions: Array<{
+}
+
+export interface AboutThisSiteLink {
+  label: string;
+  href: string;
+  type: AboutThisSiteLinkType;
+  icon: IconName;
+  isExternal: boolean;
+}
+
+export interface AboutThisSiteListSection {
+  title: string;
+  items: string[];
+}
+
+export interface AboutThisSitePage {
+  seo: Seo;
+  hero: {
+    eyebrow: string;
     title: string;
     description: string;
-  }>;
-  futureImprovements: string[];
-  links: {
-    github?: string;
+    badges: Array<{
+      label: string;
+      icon: IconName;
+    }>;
   };
-  seo: Seo;
+  overview: {
+    title: string;
+    eyebrow: string;
+    description: string;
+    highlights: string[];
+  };
+  projectFacts: {
+    title: string;
+    items: AboutThisSiteFact[];
+  };
+  media: {
+    coverImage: ImageAsset;
+  };
+  stack: {
+    title: string;
+    description: string;
+    items: AboutThisSiteStackItem[];
+  };
+  currentFeatures: AboutThisSiteListSection;
+  lessonsLearned: AboutThisSiteListSection;
+  futureImprovements: AboutThisSiteListSection;
+  links: AboutThisSiteLink[];
+  cta: Cta;
 }

@@ -1,0 +1,111 @@
+---
+const { overview, facts } = Astro.props;
+
+import {
+  CircleCheck,
+  Database,
+  LayoutTemplate,
+  UserRoundCog,
+  Zap,
+} from "@lucide/astro";
+import type { AboutThisSiteFact } from "@content-types/content";
+
+import Card from "@/components/ui/Card.astro";
+
+interface Props {
+  overview: {
+    title: string;
+    eyebrow: string;
+    description: string;
+    highlights: string[];
+  };
+
+  facts: {
+    title: string;
+    items: AboutThisSiteFact[];
+  };
+}
+
+const factIcons = {
+  "layout-template": LayoutTemplate,
+  "user-round-cog": UserRoundCog,
+  zap: Zap,
+  database: Database,
+};
+---
+
+<div
+  class="flex flex-col gap-4 lg:grid lg:grid-cols-2 lg:items-stretch lg:gap-4"
+>
+  <section class="flex h-full flex-col gap-2">
+    <Card padding="md" class="flex h-full flex-col gap-4">
+      <header class="flex flex-col gap-3">
+        <div class="flex flex-row items-center gap-3 lg:gap-4">
+          <span class="size-2.5 rounded-full bg-accent" aria-hidden="true"
+          ></span>
+          <p class="font-mono text-sm font-semibold text-accent uppercase">
+            {overview.eyebrow}
+          </p>
+        </div>
+
+        <h2 class="font-display text-3xl font-bold text-main">
+          {overview.title}
+        </h2>
+      </header>
+
+      <p class="text-muted">{overview.description}</p>
+
+      <ul class="space-y-3">
+        {
+          overview.highlights.map((item) => (
+            <li class="flex max-w-[35ch] items-center gap-2">
+              <CircleCheck class="size-4 text-accent" aria-hidden="true" />
+              <p class="text-sm text-pretty text-muted">{item}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </Card>
+  </section>
+
+  <section class="flex h-full flex-col gap-2">
+    <Card padding="md" class="flex h-full flex-col gap-4">
+      <header class="flex flex-col gap-3">
+        <div class="flex flex-row items-center gap-3 lg:gap-4">
+          <span class="size-2.5 rounded-full bg-accent" aria-hidden="true"
+          ></span>
+          <p class="font-mono text-sm font-semibold text-accent uppercase">
+            {facts.title}
+          </p>
+        </div>
+      </header>
+
+      <div class="flex flex-1 flex-col gap-2 lg:grid lg:grid-cols-2 lg:auto-rows-fr lg:gap-4">
+        {
+          facts.items.map((item) => {
+            const FactIcon = factIcons[item.icon as keyof typeof factIcons];
+
+            return (
+              <Card
+                padding="sm"
+                class="grid h-full grid-cols-[auto_minmax(0,1fr)] items-center gap-6 lg:items-start"
+              >
+                <div>
+                  <FactIcon
+                    class="size-8 text-accent"
+                    aria-hidden="true"
+                  />
+                </div>
+
+                <div class="flex flex-col gap-0.5 text-sm">
+                  <p class="font-semibold">{item.label}</p>
+                  <p class="text-muted">{item.value}</p>
+                </div>
+              </Card>
+            );
+          })
+        }
+      </div>
+    </Card>
+  </section>
+</div>

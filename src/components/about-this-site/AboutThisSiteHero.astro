@@ -1,0 +1,113 @@
+---
+import Button from "@/components/ui/Button.astro";
+import TerminalCard from "@/components/ui/TerminalCard.astro";
+import Card from "@/components/ui/Card.astro";
+
+import type { AboutThisSiteLink, ImageAsset } from "@content-types/content";
+import { Icon } from "astro-icon/components";
+
+import {
+  ArrowRight,
+  Database,
+  ExternalLink,
+  Rocket,
+  Search,
+  Zap,
+} from "@lucide/astro";
+
+interface Props {
+  data: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    badges: Array<{
+      label: string;
+      icon: string;
+    }>;
+  };
+  coverImage: ImageAsset;
+  links: AboutThisSiteLink[];
+}
+
+const { data, coverImage, links } = Astro.props;
+const { eyebrow, title, description, badges } = data;
+
+const badgeIcons = {
+  rocket: Rocket,
+  zap: Zap,
+  database: Database,
+  search: Search,
+};
+---
+
+<header
+  class="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:items-start lg:gap-10"
+>
+  <div class="flex flex-col gap-6 lg:gap-4">
+    <div class="flex items-center gap-3 text-accent">
+      <span class="size-2.5 rounded-full bg-accent" aria-hidden="true"></span>
+      <p class="font-mono text-sm font-semibold uppercase">{eyebrow}</p>
+    </div>
+
+    <h1 class="font-display text-3xl font-bold text-main">
+      {title}
+    </h1>
+
+    <p class="text-muted">
+      {description}
+    </p>
+
+    <div class="flex flex-wrap gap-2 lg:mt-4">
+      {
+        badges.map((badge) => {
+          const BadgeIcon = badgeIcons[badge.icon as keyof typeof badgeIcons];
+
+          return (
+            <Card padding="sm" class="inline-flex items-center gap-3">
+              {BadgeIcon && (
+                <BadgeIcon class="size-4 text-accent" aria-hidden="true" />
+              )}
+              <span class="font-mono text-sm font-semibold">{badge.label}</span>
+            </Card>
+          );
+        })
+      }
+    </div>
+
+    <div class="flex flex-col gap-3 sm:flex-row sm:flex-wrap lg:mt-4">
+      {
+        links.map((link) => (
+          <Button
+            href={link.href}
+            variant={link.type}
+            target={link.isExternal ? "_blank" : undefined}
+            rel={link.isExternal ? "noopener noreferrer" : undefined}
+            aria-label={
+              link.isExternal ? `Open ${link.label}` : `Go to ${link.label}`
+            }
+          >
+            {link.icon.includes(":") && (
+              <Icon name={link.icon} class="size-4" aria-hidden="true" />
+            )}
+            <span>{link.label}</span>
+            {link.isExternal ? (
+              <ExternalLink class="size-4" aria-hidden="true" />
+            ) : (
+              <ArrowRight class="size-4" aria-hidden="true" />
+            )}
+          </Button>
+        ))
+      }
+    </div>
+  </div>
+
+  <TerminalCard bodyClass="p-0 aspect-4/3">
+    <div class="aspect-4/3 w-full overflow-hidden lg:aspect-auto lg:h-full">
+      <img
+        src={coverImage.src}
+        alt={coverImage.alt}
+        class="size-full object-cover object-center"
+      />
+    </div>
+  </TerminalCard>
+</header>
