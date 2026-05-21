@@ -2,20 +2,29 @@
 interface Props {
   href: string;
   label: string;
+  activePath?: string;
 }
 
-const { href, label } = Astro.props;
+const { href, label, activePath } = Astro.props;
 
-const hrefPath = href.split("#")[0];
 const currentPath = Astro.url.pathname;
-const normalizedPath = currentPath.endsWith("/")
-  ? currentPath.slice(0, -1) || "/"
-  : currentPath;
-const normalizedHref = hrefPath.endsWith("/")
-  ? hrefPath.slice(0, -1) || "/"
-  : hrefPath;
+const normalizePath = (path: string) => {
+  const pathWithoutHash = path.split("#")[0];
 
-const isActive = !href.includes("#") && normalizedPath === normalizedHref;
+  return pathWithoutHash.endsWith("/")
+    ? pathWithoutHash.slice(0, -1) || "/"
+    : pathWithoutHash;
+};
+
+const normalizedPath = normalizePath(currentPath);
+const normalizedHref = normalizePath(activePath ?? href);
+
+const isHomeLink = normalizedHref === "/";
+
+const isActive = isHomeLink
+  ? normalizedPath === "/"
+  : normalizedPath === normalizedHref ||
+    normalizedPath.startsWith(`${normalizedHref}/`);
 
 const classes = isActive
   ? "text-accent after:scale-x-100"

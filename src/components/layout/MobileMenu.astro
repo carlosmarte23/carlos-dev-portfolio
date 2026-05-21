@@ -57,7 +57,15 @@ const dialogId = "mobile-menu";
       <span class="text-main">menu</span>
     </p>
     <nav class="flex flex-col gap-3" aria-label="Mobile navigation">
-      {navItems.map((item) => <NavLink href={item.href} label={item.label} />)}
+      {
+        navItems.map((item) => (
+          <NavLink
+            href={item.href}
+            label={item.label}
+            activePath={item.activePath}
+          />
+        ))
+      }
     </nav>
 
     <div class="flex items-center justify-between border-t border-line pt-5">

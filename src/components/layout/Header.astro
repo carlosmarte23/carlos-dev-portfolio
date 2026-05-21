@@ -33,7 +33,11 @@ const navItems = navigation.main;
       >
         {
           navItems.map((item) => (
-            <NavLink href={item.href} label={item.label} />
+            <NavLink
+              href={item.href}
+              label={item.label}
+              activePath={item.activePath}
+            />
           ))
         }
       </nav>
