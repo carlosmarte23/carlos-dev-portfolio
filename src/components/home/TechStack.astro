@@ -19,7 +19,7 @@ const delayClasses = [
 <section class="scroll-mt-22">
   <Container>
     <header
-      class="timeline-view w-max-container mx-auto my-12 flex animate-fade-in-up items-center gap-3 border-b border-line py-4 animate-range-[entry_10%_contain_25%] animate-duration-slow animate-bezier-expo-out"
+      class="w-max-container mx-auto my-8 flex animate-fade-in-up items-center gap-3 border-b border-line py-3 animate-bezier-expo-out animate-duration-slow animate-range-[entry_10%_contain_25%] timeline-view"
     >
       <CodeXml class="size-8 text-accent" aria-hidden="true" />
       <h2
@@ -34,7 +34,7 @@ const delayClasses = [
         groupedSkillGroups.map((group, index) => (
           <Card
             padding="sm"
-            class={`timeline-view flex h-full animate-fade-in-up flex-col items-center overflow-visible animate-range-[entry_10%_contain_25%] animate-duration-slow animate-bezier-expo-out md:items-start ${delayClasses[index % delayClasses.length]}`}
+            class={`flex h-full animate-fade-in-up flex-col items-center overflow-visible animate-bezier-expo-out animate-duration-slow animate-range-[entry_10%_contain_25%] timeline-view md:items-start ${delayClasses[index % delayClasses.length]}`}
           >
             <h3 class="font-display text-base font-semibold text-main">
               {group.title}

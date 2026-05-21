@@ -17,7 +17,7 @@ const delayClasses = [
 <section id="projects" class="scroll-mt-22">
   <Container>
     <header
-      class="timeline-view w-max-container mx-auto my-12 flex animate-fade-in-up items-center border-b border-line py-4 animate-range-[entry_10%_contain_25%] animate-duration-slow animate-bezier-expo-out"
+      class="w-max-container mx-auto my-8 flex animate-fade-in-up items-center border-b border-line py-3 animate-bezier-expo-out animate-duration-slow animate-range-[entry_10%_contain_25%] timeline-view"
     >
       <h2
         class="flex items-center justify-between gap-4 font-mono text-lg font-bold"
@@ -31,7 +31,7 @@ const delayClasses = [
       {
         featuredProjects.map((project, index) => (
           <div
-            class={`timeline-view animate-slide-up-fade animate-range-[entry_10%_contain_25%] animate-duration-slow animate-bezier-expo-out ${delayClasses[index % delayClasses.length]}`}
+            class={`animate-slide-up-fade animate-bezier-expo-out animate-duration-slow animate-range-[entry_10%_contain_25%] timeline-view ${delayClasses[index % delayClasses.length]}`}
           >
             <ProjectCard
               title={project.title}
