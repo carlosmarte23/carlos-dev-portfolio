@@ -4,6 +4,11 @@ import { Mail } from "@lucide/astro";
 import { socialLinks } from "@data/socialLinks";
 import type { SocialLinkIcon } from "@content-types/content";
 
+interface Props {
+  label?: string;
+}
+
+const { label = "Social links" } = Astro.props;
 const links = socialLinks;
 
 const brandIcons: Partial<Record<SocialLinkIcon, string>> = {
@@ -12,7 +17,7 @@ const brandIcons: Partial<Record<SocialLinkIcon, string>> = {
 };
 ---
 
-<nav class="flex items-center gap-6" aria-label="Footer navigation">
+<nav class="flex items-center gap-6" aria-label={label}>
   {
     links.map((link) => {
       const brandIcon = brandIcons[link.icon];
