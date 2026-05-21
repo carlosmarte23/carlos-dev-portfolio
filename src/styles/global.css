@@ -109,23 +109,23 @@ dialog {
     box-shadow 180ms ease;
 }
 
-::view-transition-old(root),
-::view-transition-new(root) {
+html.theme-transitioning::view-transition-old(root),
+html.theme-transitioning::view-transition-new(root) {
   animation: none;
   mix-blend-mode: normal;
 }
 
-::view-transition-group(root) {
+html.theme-transitioning::view-transition-group(root) {
   animation-timing-function: var(--expo-out);
 }
 
-::view-transition-old(root) {
+html.theme-transitioning::view-transition-old(root) {
   animation: none;
   animation-fill-mode: both;
   z-index: -1;
 }
 
-::view-transition-new(root) {
+html.theme-transitioning::view-transition-new(root) {
   animation: theme-mask-scale 1s;
   animation-fill-mode: both;
   -webkit-mask: var(--theme-transition-mask) var(--theme-toggle-x)
