@@ -6,13 +6,16 @@ interface Props {
 
 const { href, label } = Astro.props;
 
+const hrefPath = href.split("#")[0];
 const currentPath = Astro.url.pathname;
 const normalizedPath = currentPath.endsWith("/")
   ? currentPath.slice(0, -1) || "/"
   : currentPath;
+const normalizedHref = hrefPath.endsWith("/")
+  ? hrefPath.slice(0, -1) || "/"
+  : hrefPath;
 
-const isActive =
-  href === "/" ? normalizedPath === "/" : normalizedPath.startsWith(href);
+const isActive = !href.includes("#") && normalizedPath === normalizedHref;
 
 const classes = isActive
   ? "text-accent after:scale-x-100"

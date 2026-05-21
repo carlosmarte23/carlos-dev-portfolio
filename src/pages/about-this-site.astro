@@ -1,12 +1,69 @@
 ---
-import BaseLayout from "@/layouts/BaseLayout.astro";
 import { aboutThisSitePage } from "@data/pages/aboutThisSite";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Container from "@/components/ui/Container.astro";
+import Button from "@/components/ui/Button.astro";
 
-const { seo } = aboutThisSitePage;
+import AboutThisSiteHero from "@/components/about-this-site/AboutThisSiteHero.astro";
+import AboutThisSiteOverview from "@/components/about-this-site/AboutThisSiteOverview.astro";
+import AboutThisSiteStack from "@/components/about-this-site/AboutThisSiteStack.astro";
+import AboutThisSiteLists from "@/components/about-this-site/AboutThisSiteLists.astro";
+import FooterCTA from "@/components/shared/FooterCTA.astro";
+
+const {
+  seo,
+  hero,
+  media,
+  links,
+  overview,
+  stack,
+  currentFeatures,
+  lessonsLearned,
+  futureImprovements,
+  projectFacts: facts,
+  cta,
+} = aboutThisSitePage;
 ---
 
 <BaseLayout
   title={seo.title}
   description={seo.description}
   ogImage={seo.ogImage}
-/>
+>
+  <Container>
+    <div class="divide-y divide-line">
+      <section class="pb-8 lg:pb-16">
+        <AboutThisSiteHero
+          data={hero}
+          coverImage={media.coverImage}
+          links={links}
+        />
+      </section>
+
+      <section class="py-8 lg:py-16">
+        <AboutThisSiteOverview overview={overview} facts={facts} />
+      </section>
+
+      <section class="py-8 lg:py-16">
+        <AboutThisSiteStack stack={stack} />
+      </section>
+
+      <section class="py-8 lg:py-16">
+        <AboutThisSiteLists
+          currentFeatures={currentFeatures}
+          lessonsLearned={lessonsLearned}
+          futureImprovements={futureImprovements}
+        />
+      </section>
+    </div>
+
+    <FooterCTA title={cta.title} description={cta.description}>
+      <Button variant="primary" href={cta.primaryHref}
+        >{cta.primaryLabel}</Button
+      >
+      <Button variant="secondary" href={cta.secondaryHref}
+        >{cta.secondaryLabel}</Button
+      >
+    </FooterCTA>
+  </Container>
+</BaseLayout>
