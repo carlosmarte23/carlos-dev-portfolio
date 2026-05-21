@@ -15,10 +15,18 @@ const valueIcons = {
   network: GitBranch,
   rocket: Rocket,
 };
+
+const delayClasses = [
+  "animate-delay-0",
+  "animate-delay-150",
+  "animate-delay-300",
+];
 ---
 
 <section class="my-8 border-b border-line pb-8">
-  <header class="flex flex-col gap-3">
+  <header
+    class="timeline-view flex animate-fade-in-up flex-col gap-3 animate-range-[entry_0%_contain_20%] animate-duration-slow animate-bezier-expo-out"
+  >
     <div class="flex items-center gap-3 font-mono text-accent">
       <span class="size-2.5 rounded-full bg-accent" aria-hidden="true"></span>
       <p>{eyebrow}</p>
@@ -27,11 +35,13 @@ const valueIcons = {
 
   <div class="mt-6 flex flex-col gap-4 lg:hidden">
     {
-      values.map((value) => {
+      values.map((value, index) => {
         const Icon = valueIcons[value.icon];
 
         return (
-          <details>
+          <details
+            class={`timeline-view animate-slide-up-fade animate-range-[entry_0%_contain_20%] animate-duration-slow animate-bezier-expo-out ${delayClasses[index % delayClasses.length]}`}
+          >
             <summary class="flex cursor-pointer list-none items-center gap-2 font-mono text-sm font-semibold text-accent">
               <Icon name={value.icon} class="size-4" aria-hidden="true" />
               <h3>{value.title}</h3>
@@ -48,11 +58,13 @@ const valueIcons = {
 
   <div class="mt-6 hidden grid-cols-3 gap-4 lg:grid">
     {
-      values.map((value) => {
+      values.map((value, index) => {
         const Icon = valueIcons[value.icon];
 
         return (
-          <article class="flex flex-row font-mono text-sm font-semibold text-accent">
+          <article
+            class={`timeline-view flex animate-slide-up-fade flex-row font-mono text-sm font-semibold text-accent animate-range-[entry_0%_contain_20%] animate-duration-slow animate-bezier-expo-out ${delayClasses[index % delayClasses.length]}`}
+          >
             <Card padding="sm" class="grid grid-cols-[auto_1fr] gap-6">
               <Icon
                 name={value.icon}

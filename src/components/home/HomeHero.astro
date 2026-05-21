@@ -22,21 +22,26 @@ const { cta } = hero;
         <p
           class="flex items-center gap-3 font-mono text-sm font-semibold tracking-wide text-accent uppercase"
         >
-          <span class="size-2.5 rounded-full bg-accent" aria-hidden="true"
-          ></span>
+          <span
+            class="size-2.5 animate-fade-in-up rounded-full bg-accent animate-bezier-expo-out animate-duration-slow"
+            aria-hidden="true"></span>
           {hero.eyebrow}
         </p>
         <h1
-          class="font-display text-5xl font-bold tracking-tight sm:text-5xl lg:text-6xl"
+          class="animate-fade-in-up font-display text-5xl font-bold tracking-tight animate-delay-100 animate-bezier-expo-out animate-duration-slow sm:text-5xl lg:text-6xl"
         >
           {hero.headline.main}
           <span class="text-accent">{hero.headline.accent}</span>
         </h1>
-        <p class="max-w-lg text-pretty text-muted lg:max-w-[42ch]">
+        <p
+          class="max-w-lg animate-fade-in-up text-pretty text-muted animate-delay-200 animate-bezier-expo-out animate-duration-slow lg:max-w-[42ch]"
+        >
           {hero.description}
         </p>
 
-        <div class="flex flex-col gap-3 md:flex-row">
+        <div
+          class="flex animate-fade-in-up flex-col gap-3 animate-delay-300 animate-bezier-expo-out animate-duration-slow md:flex-row"
+        >
           <Button href={cta.primary.href} class="button">
             {cta.primary.label}
             <span><ArrowRight class="size-4" aria-hidden="true" /></span>
@@ -47,12 +52,16 @@ const { cta } = hero;
           </Button>
         </div>
 
-        <div class="flex justify-center md:justify-start">
+        <div
+          class="flex animate-fade-in-up justify-center animate-delay-300 animate-bezier-expo-out animate-duration-slow md:justify-start"
+        >
           <SocialLinks />
         </div>
       </div>
       <div class="w-full lg:max-w-xl xl:max-w-2xl">
-        <TerminalCard class="lg:ml-auto">
+        <TerminalCard
+          class="animate-fade-in-up animate-delay-200 animate-bezier-expo-out animate-duration-slow lg:ml-auto"
+        >
           <div class="space-y-2">
             <p class="text-accent">// {hero.terminal.comment}</p>
             <p>
@@ -119,7 +128,7 @@ const { cta } = hero;
   </Container>
   <a
     href={hero.scroll.href}
-    class="absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 font-mono text-xs font-semibold text-soft transition hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent md:flex"
+    class="absolute bottom-6 left-1/2 hidden -translate-x-1/2 animate-fade-in-up flex-col items-center gap-2 font-mono text-xs font-semibold text-soft transition animate-delay-400 animate-bezier-expo-out animate-duration-slow hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent md:flex"
     aria-label={hero.scroll.ariaLabel}
   >
     <span class="tracking-wide uppercase">{hero.scroll.label}</span>

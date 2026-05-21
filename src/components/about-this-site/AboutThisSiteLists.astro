@@ -32,16 +32,24 @@ const sections = [
     icon: Rocket,
   },
 ];
+
+const delayClasses = [
+  "animate-delay-0",
+  "animate-delay-100",
+  "animate-delay-200",
+];
 ---
 
 <!-- Mobile: Collapsible List -->
 <div class="space-y-3 lg:hidden">
   {
-    sections.map((section) => {
+    sections.map((section, index) => {
       const SectionIcon = section.icon;
 
       return (
-        <details class="group rounded-card border border-line bg-surface shadow-card">
+        <details
+          class={`timeline-view group animate-slide-up-fade rounded-card border border-line bg-surface shadow-card animate-range-[entry_0%_contain_20%] animate-duration-slow animate-bezier-expo-out ${delayClasses[index % delayClasses.length]}`}
+        >
           <summary class="flex cursor-pointer list-none items-center justify-between gap-4 p-4">
             <span class="flex items-center gap-2 text-accent">
               <SectionIcon class="size-5 text-accent" />
@@ -76,11 +84,14 @@ const sections = [
 <!-- Desktop: Card Grid -->
 <div class="hidden gap-4 lg:grid lg:grid-cols-3">
   {
-    sections.map((section) => {
+    sections.map((section, index) => {
       const SectionIcon = section.icon;
 
       return (
-        <Card padding="md" class="flex flex-col gap-4">
+        <Card
+          padding="md"
+          class={`timeline-view flex animate-slide-up-fade flex-col gap-4 animate-range-[entry_0%_contain_20%] animate-duration-slow animate-bezier-expo-out ${delayClasses[index % delayClasses.length]}`}
+        >
           <header class="flex flex-row items-center gap-3">
             <SectionIcon class="size-8 text-accent" aria-hidden="true" />
             <p class="font-mono text-sm font-semibold text-accent uppercase">

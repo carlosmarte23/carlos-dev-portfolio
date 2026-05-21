@@ -44,7 +44,9 @@ const {
 <header
   class="grid grid-cols-1 gap-8 border-b border-line pb-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] lg:items-start lg:gap-6"
 >
-  <div class="flex flex-col gap-6 lg:gap-4">
+  <div
+    class="flex animate-fade-in-up flex-col gap-6 animate-duration-slow animate-bezier-expo-out lg:gap-4"
+  >
     <div class="flex items-center gap-3 text-accent">
       <span class="size-2.5 rounded-full bg-accent" aria-hidden="true"></span>
       <p class="font-mono text-sm font-semibold uppercase">{eyebrow}</p>
@@ -75,7 +77,7 @@ const {
   <Card
     glow
     padding="none"
-    class="grid grid-cols-1 font-mono lg:grid-cols-2 lg:items-stretch"
+    class="grid animate-slide-up-fade grid-cols-1 font-mono animate-delay-100 animate-duration-slow animate-bezier-expo-out lg:grid-cols-2 lg:items-stretch"
   >
     <div class="aspect-4/3 w-full overflow-hidden lg:aspect-auto lg:h-full">
       <img

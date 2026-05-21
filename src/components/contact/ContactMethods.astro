@@ -21,10 +21,18 @@ const brandIcons: Record<string, string> = {
   github: "simple-icons:github",
   linkedin: "simple-icons:linkedin",
 };
+
+const delayClasses = [
+  "animate-delay-0",
+  "animate-delay-150",
+  "animate-delay-300",
+];
 ---
 
 <section class="my-8 flex flex-col gap-6 border-b border-line pb-8">
-  <header class="flex flex-col gap-3">
+  <header
+    class="flex animate-fade-in-up flex-col gap-3 animate-bezier-expo-out animate-duration-slow animate-range-[entry_0%_contain_30%] timeline-view"
+  >
     <div class="flex items-center gap-3 font-mono text-accent">
       <span class="size-2.5 rounded-full bg-accent" aria-hidden="true"></span>
       <p>{labels.contactMethodsTitle}</p>
@@ -33,12 +41,15 @@ const brandIcons: Record<string, string> = {
 
   <div class="flex flex-col gap-4 lg:grid lg:grid-cols-3 lg:gap-6">
     {
-      methods.map((method) => {
+      methods.map((method, index) => {
         const iconClasses = contactMethodIconClasses[method.label];
         const brandIcon = brandIcons[method.icon];
 
         return (
-          <Card padding="sm">
+          <Card
+            padding="sm"
+            class={`animate-slide-up-fade animate-bezier-expo-out animate-duration-slow animate-range-[entry_0%_contain_20%] timeline-view ${delayClasses[index % delayClasses.length]}`}
+          >
             <div class="grid grid-cols-[auto_minmax(0,1fr)] gap-4">
               <div>
                 <span

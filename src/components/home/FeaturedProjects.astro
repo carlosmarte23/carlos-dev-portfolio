@@ -5,14 +5,19 @@ import ProjectCard from "../projects/ProjectCard.astro";
 import { getFeaturedProjects } from "@data/projects";
 import { homePage } from "@data/pages/home";
 
-const featuredProjects = getFeaturedProjects();
+const featuredProjects = getFeaturedProjects().slice(0, 3);
 const { projects: projectsSection } = homePage.sections;
+const delayClasses = [
+  "animate-delay-0",
+  "animate-delay-100",
+  "animate-delay-200",
+];
 ---
 
 <section id="projects" class="scroll-mt-22">
   <Container>
     <header
-      class="w-max-container mx-auto my-12 flex items-center border-b border-line py-4"
+      class="timeline-view w-max-container mx-auto my-12 flex animate-fade-in-up items-center border-b border-line py-4 animate-range-[entry_10%_contain_25%] animate-duration-slow animate-bezier-expo-out"
     >
       <h2
         class="flex items-center justify-between gap-4 font-mono text-lg font-bold"
@@ -24,19 +29,23 @@ const { projects: projectsSection } = homePage.sections;
 
     <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
       {
-        featuredProjects.map((project) => (
-          <ProjectCard
-            title={project.title}
-            summary={project.summary}
-            image={project.coverImage.src}
-            imageAlt={project.coverImage.alt}
-            stack={project.stack}
-            links={project.links}
-            slug={project.slug}
-            featured={project.featured}
-            featuredLabel={projectsSection.featuredBadgeLabel}
-            status={project.status}
-          />
+        featuredProjects.map((project, index) => (
+          <div
+            class={`timeline-view animate-slide-up-fade animate-range-[entry_10%_contain_25%] animate-duration-slow animate-bezier-expo-out ${delayClasses[index % delayClasses.length]}`}
+          >
+            <ProjectCard
+              title={project.title}
+              summary={project.summary}
+              image={project.coverImage.src}
+              imageAlt={project.coverImage.alt}
+              stack={project.stack}
+              links={project.links}
+              slug={project.slug}
+              featured={project.featured}
+              featuredLabel={projectsSection.featuredBadgeLabel}
+              status={project.status}
+            />
+          </div>
         ))
       }
     </div>

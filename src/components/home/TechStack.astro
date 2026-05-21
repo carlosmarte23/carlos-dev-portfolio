@@ -7,12 +7,19 @@ import { homePage } from "@data/pages/home";
 import { CodeXml } from "@lucide/astro";
 
 const { techStack } = homePage.sections;
+
+const delayClasses = [
+  "animate-delay-0",
+  "animate-delay-100",
+  "animate-delay-200",
+  "animate-delay-300",
+];
 ---
 
 <section class="scroll-mt-22">
   <Container>
     <header
-      class="w-max-container mx-auto my-12 flex items-center gap-3 border-b border-line py-4"
+      class="timeline-view w-max-container mx-auto my-12 flex animate-fade-in-up items-center gap-3 border-b border-line py-4 animate-range-[entry_10%_contain_25%] animate-duration-slow animate-bezier-expo-out"
     >
       <CodeXml class="size-8 text-accent" aria-hidden="true" />
       <h2
@@ -24,10 +31,10 @@ const { techStack } = homePage.sections;
 
     <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
       {
-        groupedSkillGroups.map((group) => (
+        groupedSkillGroups.map((group, index) => (
           <Card
             padding="sm"
-            class="flex h-full flex-col items-center overflow-visible md:items-start"
+            class={`timeline-view flex h-full animate-fade-in-up flex-col items-center overflow-visible animate-range-[entry_10%_contain_25%] animate-duration-slow animate-bezier-expo-out md:items-start ${delayClasses[index % delayClasses.length]}`}
           >
             <h3 class="font-display text-base font-semibold text-main">
               {group.title}
