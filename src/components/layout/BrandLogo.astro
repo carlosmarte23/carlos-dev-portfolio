@@ -7,13 +7,22 @@ const { class: className = "" } = Astro.props;
 ---
 
 <span
-  class:list={[
-    "inline-flex items-baseline font-mono leading-none font-bold tracking-normal",
-    className,
-  ]}
+  class:list={["inline-flex items-center leading-none", className]}
   aria-hidden="true"
+  translate="no"
 >
-  <span class="text-accent">&lt;</span>
-  <span class="text-main">CM</span>
-  <span class="text-accent">&nbsp;/&gt;</span>
+  <img
+    src="/images/brand/cm-logo-light.svg"
+    alt=""
+    class="h-[1.15em] w-auto dark:hidden"
+    loading="eager"
+    decoding="async"
+  />
+  <img
+    src="/images/brand/cm-logo-dark.svg"
+    alt=""
+    class="hidden h-[1.15em] w-auto dark:block"
+    loading="eager"
+    decoding="async"
+  />
 </span>
