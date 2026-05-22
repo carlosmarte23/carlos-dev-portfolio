@@ -1,16 +1,14 @@
-# Carlos Marte Portfolio
+# carlosmarte.dev
 
-Personal portfolio for Carlos Marte, a web developer focused on building clean, responsive, and practical web applications.
+Astro portfolio site for `carlosmarte.dev`. The project is built as a static site with typed content modules, reusable Astro components, responsive layouts, light/dark themes, project case-study routes, and technical SEO support.
 
 [Live site](https://carlosmarte.dev) | [Featured project: StageLink](https://stagelink.carlosmarte.dev/) | [About this site](https://carlosmarte.dev/about-this-site/) | [Contact](https://carlosmarte.dev/contact/)
 
 ## Status
 
-Version: `0.3.0`
+Version: `1.0.0`
 
-This project has moved past the initial setup phase. The current version includes the public portfolio foundation, custom domain setup, responsive pages, project case study content, SEO metadata, and a clearer content structure that can later receive data from local files, JSON, an API, or a CMS.
-
-The portfolio is still pre-MVP. The main remaining work is to finish public-facing polish, add more project depth, and validate the final content before treating the first portfolio release as complete.
+This is the first stable portfolio release. Version 1.0 includes the public pages, custom domain setup, responsive layout work, project case study content, theme support, motion polish, accessibility passes, SEO metadata, and a content structure that can later move from local TypeScript modules to JSON, an API, or a CMS.
 
 ## Screenshots
 
@@ -31,12 +29,25 @@ The portfolio is still pre-MVP. The main remaining work is to finish public-faci
 - Astro site deployed at `https://carlosmarte.dev`.
 - Responsive homepage, about page, contact page, and project case study route.
 - StageLink project case study with live demo, GitHub link, gallery, project facts, tech stack, and product narrative.
-- About This Site page planned as a portfolio case study for the portfolio itself.
+- About This Site page documenting the portfolio architecture, content model, technical SEO, and future direction.
 - Shared site, navigation, page, project, skill, and contact data modules.
 - Dark and light theme support.
-- Custom textual brand mark and simplified favicon.
+- Image-based brand mark, simplified favicon, active navigation states, and mobile menu behavior.
+- Page transitions, scroll reveal animations, smooth logo-to-top behavior, and reduced-motion handling.
+- Accessibility-focused structure with semantic landmarks, heading order, alt text, named controls, labeled form fields, and stronger light-theme contrast.
 - Canonical domain, sitemap integration, robots file, Open Graph metadata, Twitter metadata, and structured data.
 - Local image assets for profile, social preview, project gallery, and README screenshots.
+
+## Version 1.0 highlights
+
+- Static Astro pages for Home, About, Contact, About This Site, and project details.
+- StageLink case study route with project facts, gallery, feature breakdown, tech stack, and follow-up notes.
+- About This Site route used as technical documentation for this portfolio build.
+- Typed content layer under `src/data` and `src/types` so the data source can be swapped later.
+- Responsive layout polish across desktop and mobile.
+- Light/dark theme support with accessible contrast updates in the project tech stack.
+- Motion layer with page transitions, scroll reveals, smooth scrolling, and reduced-motion handling.
+- Technical SEO baseline with canonical URLs, sitemap generation, robots configuration, social previews, and structured data.
 
 ## Tech stack
 
@@ -58,10 +69,10 @@ StageLink is the first featured case study in the portfolio. It is a React and V
 
 ## Portfolio showcase
 
-The `About This Site` page is intended to become a second MVP showcase: a case study for this portfolio itself. It should explain the design direction, Astro architecture, content structure, SEO setup, responsive decisions, and deployment work behind `carlosmarte.dev`.
+The `About This Site` page documents how this portfolio is structured. It covers the Astro setup, typed content model, reusable components, SEO setup, responsive decisions, accessibility polish, and deployment direction.
 
 - [About this site](https://carlosmarte.dev/about-this-site/)
-- Showcase focus: portfolio strategy, content architecture, technical SEO, responsive UI, and public deployment.
+- Focus: content architecture, technical SEO, responsive UI, accessibility polish, and public deployment.
 
 ## Project structure
 
@@ -146,7 +157,7 @@ Preview the production build:
 pnpm preview
 ```
 
-## MVP checklist
+## Version 1.0 validation
 
 Done:
 
@@ -154,19 +165,20 @@ Done:
 - Portfolio brand, favicon, and shared navigation updated.
 - Core pages created: home, about, contact, and project detail.
 - StageLink case study published with live demo and gallery assets.
-- About This Site route created as the foundation for a portfolio self-case-study.
+- About This Site completed as technical documentation for the portfolio build.
 - Content data split into page/context modules with shared TypeScript types.
 - SEO baseline added with canonical URLs, sitemap, robots, Open Graph, Twitter metadata, and structured data.
+- Light and dark themes reviewed across public pages.
+- Mobile menu, smooth logo-to-top behavior, and responsive navigation validated.
+- Accessibility-oriented checks reviewed for landmarks, headings, image alt text, labeled form controls, named links/buttons, and contrast-sensitive UI.
 
-Remaining before the first MVP release:
+Future improvements:
 
-- Final copy review across public pages.
-- Add or expand project case studies beyond StageLink.
-- Expand About This Site into a complete portfolio showcase for the MVP.
-- Review mobile spacing and visual consistency one more time.
-- Confirm contact flow and public social links.
-- Run final production build and browser review before release.
+- Add more project case studies beyond StageLink.
+- Connect content to a CMS or API when project volume grows.
+- Add richer analytics or contact-flow tracking if needed.
+- Continue expanding the portfolio as new production-quality projects are completed.
 
 ## Goal
 
-The first MVP should make it immediately clear who Carlos is, what he builds, which projects best represent his current skill level, and how to contact him for frontend work or collaboration.
+Keep the codebase simple, typed, static-first, and easy to expand as more projects or content sources are added.
