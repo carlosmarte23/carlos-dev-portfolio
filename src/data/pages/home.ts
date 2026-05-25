@@ -9,7 +9,6 @@ export const homePage: HomePage = {
   sections: {
     projects: {
       title: "Projects",
-      featuredBadgeLabel: "Featured",
     },
     techStack: {
       title: "Tech Stack",

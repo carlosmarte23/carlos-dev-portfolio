@@ -19,7 +19,6 @@ interface Props {
   links: ProjectLink[];
   slug: string;
   featured?: boolean;
-  featuredLabel?: string;
   status?: ProjectStatus;
 }
 
@@ -32,7 +31,6 @@ const {
   links,
   slug,
   featured = false,
-  featuredLabel = "Featured",
   status = "Completed",
 } = Astro.props;
 
@@ -60,9 +58,9 @@ const visibleLinks = links.filter((link) =>
       />
 
       {
-        featured && (
-          <Badge variant="card" class="text-sx absolute top-3 right-3">
-            {featuredLabel}
+        status && (
+          <Badge variant="card" class="text-xs absolute top-3 right-3">
+            {status}
           </Badge>
         )
       }

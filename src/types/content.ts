@@ -67,7 +67,6 @@ export interface HomePage {
   sections: {
     projects: {
       title: string;
-      featuredBadgeLabel: string;
     };
     techStack: {
       title: string;
