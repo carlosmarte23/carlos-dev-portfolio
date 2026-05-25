@@ -293,6 +293,7 @@ export type ProjectLinkType =
 
 export type ProjectTechCategory =
   | "frontend"
+  | "language"
   | "styling"
   | "routing"
   | "state"
@@ -326,7 +327,12 @@ export interface ProjectFeature {
     | "checkout"
     | "wallet"
     | "responsive"
-    | "testing";
+    | "testing"
+    | "layout"
+    | "route"
+    | "fuel"
+    | "chart"
+    | "demo";
 }
 
 export interface ProjectCaseStudy {
