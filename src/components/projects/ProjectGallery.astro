@@ -44,7 +44,7 @@ const { images = [], title } = Astro.props;
                 <img
                   src={image.src}
                   alt={image.alt}
-                  class="aspect-video size-full object-cover object-top"
+                  class="aspect-video size-full bg-surface object-contain"
                   loading="lazy"
                   draggable="false"
                 />
@@ -136,6 +136,20 @@ const { images = [], title } = Astro.props;
 
       if (!dialog || !previewImage || !previewTitle || !previewCaption) return;
 
+      const openPreview = (trigger: HTMLButtonElement) => {
+        const { imageSrc, imageAlt, imageTitle, imageCaption } =
+          trigger.dataset;
+
+        if (!imageSrc) return;
+
+        previewImage.src = imageSrc;
+        previewImage.alt = imageAlt ?? "";
+        previewTitle.textContent = imageTitle || "Project preview";
+        previewCaption.textContent = imageCaption || "";
+
+        dialog.showModal();
+      };
+
       const closePreview = () => {
         if (!dialog.open) return;
 
@@ -146,18 +160,24 @@ const { images = [], title } = Astro.props;
 
       if (scrollContainer) {
         let isDragging = false;
+        let hasDragged = false;
         let startX = 0;
         let scrollLeft = 0;
+        let pendingTrigger: HTMLButtonElement | null = null;
+
+        const dragThreshold = 8;
 
         scrollContainer.addEventListener("pointerdown", (event) => {
           if (event.pointerType !== "mouse") return;
-
-          event.preventDefault();
 
           isDragging = true;
           hasDragged = false;
           startX = event.clientX;
           scrollLeft = scrollContainer.scrollLeft;
+
+          pendingTrigger = (event.target as HTMLElement).closest(
+            "[data-gallery-trigger]",
+          );
 
           scrollContainer.setPointerCapture(event.pointerId);
         });
@@ -167,41 +187,48 @@ const { images = [], title } = Astro.props;
 
           const distance = event.clientX - startX;
 
-          if (Math.abs(distance) > 5) {
+          if (Math.abs(distance) > dragThreshold) {
             hasDragged = true;
+            pendingTrigger = null;
           }
 
           scrollContainer.scrollLeft = scrollLeft - distance;
         });
 
-        const stopDragging = () => {
-          isDragging = false;
-        };
+        scrollContainer.addEventListener("pointerup", (event) => {
+          if (!isDragging) return;
 
-        scrollContainer.addEventListener("pointerup", stopDragging);
-        scrollContainer.addEventListener("pointercancel", stopDragging);
-        scrollContainer.addEventListener("pointerleave", stopDragging);
+          isDragging = false;
+
+          if (scrollContainer.hasPointerCapture(event.pointerId)) {
+            scrollContainer.releasePointerCapture(event.pointerId);
+          }
+
+          if (!hasDragged && pendingTrigger) {
+            openPreview(pendingTrigger);
+          }
+
+          pendingTrigger = null;
+          hasDragged = false;
+        });
+
+        scrollContainer.addEventListener("pointercancel", () => {
+          isDragging = false;
+          pendingTrigger = null;
+          hasDragged = false;
+        });
+
+        scrollContainer.addEventListener("pointerleave", () => {
+          isDragging = false;
+          pendingTrigger = null;
+        });
       }
 
       triggers.forEach((trigger) => {
         trigger.addEventListener("click", (event) => {
-          if (hasDragged) {
-            event?.preventDefault();
-            hasDragged = false;
-            return;
-          }
+          if (event.detail !== 0) return;
 
-          const { imageSrc, imageAlt, imageTitle, imageCaption } =
-            trigger.dataset;
-
-          if (!imageSrc) return;
-
-          previewImage.src = imageSrc;
-          previewImage.alt = imageAlt ?? "";
-          previewTitle.textContent = imageTitle || "Project preview";
-          previewCaption.textContent = imageCaption || "";
-
-          dialog.showModal();
+          openPreview(trigger);
         });
       });
 
