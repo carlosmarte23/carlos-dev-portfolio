@@ -45,14 +45,17 @@ export const projectDetailContent: ProjectDetailContent = {
       frontend: "Frontend",
       routing: "Frontend",
       state: "Frontend",
+      language: "Language",
       tooling: "Tooling",
-      data: "Tooling",
+      data: "Data",
+      backend: "Backend",
       styling: "Styling",
       testing: "Testing",
       "browser-api": "Browser APIs",
     },
     featuredCategoryLabels: {
       frontend: "Frontend",
+      language: "Language",
       styling: "Styling",
       routing: "Routing",
       state: "State",
@@ -312,6 +315,224 @@ export const projects: Project[] = [
         "A case study of StageLink, a frontend-first concert ticketing portfolio project built with React.",
       ogImage: "/images/projects/stagelink/cover.webp",
       ogImageAlt: "StageLink concert ticketing app case study preview.",
+    },
+  },
+  {
+    slug: "drivemargin",
+    title: "DriveMargin",
+    type: "Portfolio Project",
+    status: "In progress",
+    featured: true,
+    order: 2,
+
+    summary:
+      "Profitability dashboard for multi-app delivery workers, focused on real earnings after miles, fuel, time, and expenses.",
+
+    description:
+      "DriveMargin is a fullstack Next.js dashboard in active development. The current release includes a polished landing page and product foundation, while the MVP roadmap includes demo data, profitability calculations, Supabase auth, Postgres persistence, and protected user dashboards.",
+
+    role: "Fullstack Developer",
+    year: "2026",
+    timeline: "May 2026",
+    publishedAt: "2026-05-25",
+    updatedAt: "2026-05-25",
+
+    stack: [
+      {
+        name: "Next.js",
+        category: "frontend",
+        featured: true,
+        icon: "devicon:nextjs",
+      },
+      {
+        name: "React",
+        category: "frontend",
+        featured: true,
+        icon: "devicon:react",
+      },
+      {
+        name: "TypeScript",
+        category: "language",
+        featured: true,
+        icon: "devicon:typescript",
+      },
+      {
+        name: "Tailwind CSS",
+        category: "styling",
+        featured: true,
+        icon: "devicon:tailwindcss",
+      },
+      {
+        name: "shadcn/ui",
+        category: "styling",
+        featured: true,
+        icon: "code",
+        fallbackLabel: "UI",
+      },
+      {
+        name: "Supabase",
+        category: "backend",
+        featured: true,
+        icon: "devicon:supabase",
+      },
+      {
+        name: "Drizzle ORM",
+        category: "data",
+        icon: "code",
+        fallbackLabel: "ORM",
+      },
+      {
+        name: "Recharts",
+        category: "data",
+        icon: "code",
+        fallbackLabel: "CH",
+      },
+      {
+        name: "Vitest",
+        category: "testing",
+        icon: "devicon:vitest",
+      },
+    ],
+
+    focus: [
+      "Profitability tracking",
+      "Multi-app work sessions",
+      "Fuel cost estimation",
+      "Expense tracking",
+      "Dashboard metrics",
+      "Responsive SaaS UI",
+      "Fullstack MVP planning",
+    ],
+
+    links: [
+      {
+        label: "Live Demo",
+        href: "https://drivemargin.carlosmarte.dev/",
+        type: "live",
+        icon: "external-link",
+        isExternal: true,
+      },
+      {
+        label: "GitHub Repo",
+        href: "https://github.com/carlosmarte23/drivemargin",
+        type: "github",
+        icon: "github",
+        isExternal: true,
+      },
+      {
+        label: "Case Study",
+        href: "/projects/drivemargin",
+        type: "case-study",
+        icon: "case-study",
+        isExternal: false,
+      },
+    ],
+
+    coverImage: {
+      src: "/images/projects/drivemargin/cover.webp",
+      alt: "DriveMargin profitability dashboard landing page preview",
+      position: "top",
+    },
+
+    gallery: [
+      {
+        src: "/images/projects/drivemargin/landing.webp",
+        alt: "DriveMargin landing page with dashboard preview and profitability messaging",
+        title: "Landing Page",
+        caption:
+          "Marketing landing page presenting DriveMargin as a profitability dashboard for multi-app delivery workers.",
+        position: "top",
+      },
+    ],
+
+    highlights: [
+      "Live deployed landing page",
+      "Modern SaaS dashboard visual direction",
+      "Cyan and amber fintech-inspired design system",
+      "Planned demo mode with sample data",
+      "Planned calculation engine separated from UI",
+    ],
+
+    caseStudy: {
+      overview:
+        "DriveMargin is a dashboard product for delivery and gig workers who need to understand what they actually earn after mileage, fuel, time, and non-fuel expenses. The current portfolio-ready milestone is the deployed landing page and product foundation.",
+
+      problem:
+        "Gross payout alone does not explain whether a delivery shift was profitable. Drivers working across multiple apps need a clearer way to compare earnings, miles, fuel impact, expenses, and real net performance.",
+
+      solution:
+        "DriveMargin is being structured as a fullstack dashboard with work sessions as the core unit. Each session can include multiple app earnings, miles driven, estimated fuel cost, and related profitability metrics. The MVP roadmap separates calculations from UI and keeps demo data distinct from real authenticated data.",
+
+      features: [
+        {
+          title: "Landing page",
+          description:
+            "Public landing page explaining the product, audience, and profitability-focused value proposition.",
+          icon: "layout",
+        },
+        {
+          title: "Multi-app sessions",
+          description:
+            "Planned work-session model that can track earnings from multiple delivery apps in one shift.",
+          icon: "route",
+        },
+        {
+          title: "Fuel cost estimation",
+          description:
+            "Planned calculations using miles, estimated MPG, and fuel price to estimate session fuel cost.",
+          icon: "fuel",
+        },
+        {
+          title: "Profitability dashboard",
+          description:
+            "Planned dashboard metrics for gross earnings, net earnings, hours, miles, net per hour, and net per mile.",
+          icon: "chart",
+        },
+        {
+          title: "Demo mode",
+          description:
+            "Planned public demo with sample data so portfolio visitors can explore the product without login.",
+          icon: "demo",
+        },
+      ],
+
+      technicalDecisions: [
+        "Used Next.js App Router as the foundation for a fullstack dashboard product.",
+        "Used TypeScript, Tailwind CSS, and shadcn/ui for a typed, component-driven UI system.",
+        "Planned Supabase Auth and Supabase Postgres for real authentication and persistence.",
+        "Planned Drizzle ORM for typed schema definitions, queries, and migrations.",
+        "Kept financial calculations planned as pure functions under a calculation layer instead of inside UI components.",
+      ],
+
+      challenges: [
+        "Defining a data model that treats a work session as the core unit instead of one session per delivery app.",
+        "Avoiding double-counting fuel by separating fuel purchases from estimated fuel cost used in profit calculations.",
+        "Keeping the MVP focused while still showing enough product depth for a portfolio case study.",
+        "Designing a dashboard identity that feels data-first and distinct from StageLink and the personal portfolio.",
+      ],
+
+      learned: [
+        "Improved product planning around fullstack dashboard architecture.",
+        "Practiced separating demo data, UI, and calculation logic before building persistent features.",
+        "Refined how to present an in-progress product honestly in a portfolio.",
+        "Defined stronger MVP boundaries for auth, CRUD, reporting, and future enhancements.",
+      ],
+
+      futureImprovements: [
+        "Build the interactive public demo with sample data.",
+        "Add the profitability calculation engine with unit tests.",
+        "Connect Supabase Auth, Postgres, Drizzle schema, and Row Level Security.",
+        "Implement real CRUD for sessions, fuel purchases, expenses, settings, and onboarding.",
+        "Expand the dashboard with real report-period metrics and charts.",
+      ],
+    },
+
+    seo: {
+      title: "DriveMargin Case Study | Carlos Marte",
+      description:
+        "A case study of DriveMargin, a profitability dashboard for multi-app delivery workers built with Next.js.",
+      ogImage: "/images/projects/drivemargin/cover.webp",
+      ogImageAlt: "DriveMargin profitability dashboard landing page preview.",
     },
   },
 ];

@@ -34,11 +34,38 @@ const displayGroups: TechDisplayGroup[] = [
   {
     id: "tooling",
     label: content.groupLabels.tooling ?? "Tooling",
-    categories: ["tooling", "data"],
+    categories: ["tooling"],
     rowClasses:
       "border-violet-200 bg-violet-50 dark:border-violet-400/15 dark:bg-violet-400/5",
     chipClasses:
       "bg-violet-100 text-violet-800 ring-violet-300/70 dark:bg-violet-400/15 dark:text-violet-200 dark:ring-violet-300/20",
+  },
+  {
+    id: "data",
+    label: content.groupLabels.data ?? "Data",
+    categories: ["data"],
+    rowClasses:
+      "border-teal-200 bg-teal-50 dark:border-teal-400/15 dark:bg-teal-400/5",
+    chipClasses:
+      "bg-teal-100 text-teal-800 ring-teal-300/70 dark:bg-teal-400/15 dark:text-teal-200 dark:ring-teal-300/20",
+  },
+  {
+    id: "language",
+    label: content.groupLabels.language ?? "Language",
+    categories: ["language"],
+    rowClasses:
+      "border-indigo-200 bg-indigo-50 dark:border-indigo-400/15 dark:bg-indigo-400/5",
+    chipClasses:
+      "bg-indigo-100 text-indigo-800 ring-indigo-300/70 dark:bg-indigo-400/15 dark:text-indigo-200 dark:ring-indigo-300/20",
+  },
+  {
+    id: "backend",
+    label: content.groupLabels.backend ?? "Backend",
+    categories: ["backend"],
+    rowClasses:
+      "border-sky-200 bg-sky-50 dark:border-sky-400/15 dark:bg-sky-400/5",
+    chipClasses:
+      "bg-sky-100 text-sky-800 ring-sky-300/70 dark:bg-sky-400/15 dark:text-sky-200 dark:ring-sky-300/20",
   },
   {
     id: "styling",

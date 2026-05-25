@@ -2,7 +2,12 @@
 import type { ProjectFeature } from "@content-types/content";
 import Card from "@/components/ui/Card.astro";
 import {
+  ChartNoAxesCombined,
   CircleCheck,
+  Fuel,
+  LayoutTemplate,
+  MonitorPlay,
+  Route,
   ShoppingCart,
   Smartphone,
   SquareCheckBig,
@@ -27,11 +32,16 @@ const featureIconByName = {
   wallet: WalletCards,
   responsive: Smartphone,
   testing: SquareCheckBig,
+  layout: LayoutTemplate,
+  route: Route,
+  fuel: Fuel,
+  chart: ChartNoAxesCombined,
+  demo: MonitorPlay,
 };
 ---
 
 <section
-  class="timeline-view animate-slide-up-fade animate-range-[entry_0%_contain_20%] animate-duration-slow animate-bezier-expo-out"
+  class="animate-slide-up-fade animate-bezier-expo-out animate-duration-slow animate-range-[entry_0%_contain_20%] timeline-view"
 >
   <Card padding="sm" class="space-y-4">
     <div class="flex items-center gap-3">
