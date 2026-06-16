@@ -301,7 +301,8 @@ export type ProjectTechCategory =
   | "tooling"
   | "browser-api"
   | "data"
-  | "backend";
+  | "backend"
+  | "deployment";
 
 export interface ProjectLink {
   label: string;

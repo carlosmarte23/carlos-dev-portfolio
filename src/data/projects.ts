@@ -164,13 +164,6 @@ export const projects: Project[] = [
         icon: "github",
         isExternal: true,
       },
-      {
-        label: "Case Study",
-        href: "/projects/stagelink",
-        type: "case-study",
-        icon: "case-study",
-        isExternal: false,
-      },
     ],
 
     coverImage: {
@@ -326,16 +319,16 @@ export const projects: Project[] = [
     order: 2,
 
     summary:
-      "Profitability dashboard for multi-app delivery workers, focused on real earnings after miles, fuel, time, and expenses.",
+      "A delivery profitability dashboard that helps independent drivers understand real earnings after miles, fuel, time, and expenses.",
 
     description:
-      "DriveMargin is a fullstack Next.js dashboard in active development. The current release includes a polished landing page and product foundation, while the MVP roadmap includes demo data, profitability calculations, Supabase auth, Postgres persistence, and protected user dashboards.",
+      "DriveMargin is a Next.js public demo for multi-app delivery workers. The current demo milestone includes sample data, editable demo records, dashboard metrics, report period navigation, charts, a guided walkthrough, and temporary browser-based persistence.",
 
-    role: "Fullstack Developer",
+    role: "Frontend Developer & Product Designer",
     year: "2026",
-    timeline: "May 2026",
+    timeline: "May - June 2026",
     publishedAt: "2026-05-25",
-    updatedAt: "2026-05-25",
+    updatedAt: "2026-06-16",
 
     stack: [
       {
@@ -370,27 +363,26 @@ export const projects: Project[] = [
         fallbackLabel: "UI",
       },
       {
-        name: "Supabase",
-        category: "backend",
-        featured: true,
-        icon: "devicon:supabase",
-      },
-      {
-        name: "Drizzle ORM",
-        category: "data",
-        icon: "code",
-        fallbackLabel: "ORM",
-      },
-      {
         name: "Recharts",
         category: "data",
         icon: "code",
         fallbackLabel: "CH",
       },
       {
+        name: "Zod",
+        category: "data",
+        icon: "code",
+        fallbackLabel: "Z",
+      },
+      {
         name: "Vitest",
         category: "testing",
         icon: "devicon:vitest",
+      },
+      {
+        name: "Vercel",
+        category: "deployment",
+        icon: "devicon:vercel",
       },
     ],
 
@@ -399,9 +391,10 @@ export const projects: Project[] = [
       "Multi-app work sessions",
       "Fuel cost estimation",
       "Expense tracking",
+      "Demo CRUD flows",
       "Dashboard metrics",
+      "Guided product tour",
       "Responsive SaaS UI",
-      "Fullstack MVP planning",
     ],
 
     links: [
@@ -419,120 +412,173 @@ export const projects: Project[] = [
         icon: "github",
         isExternal: true,
       },
-      {
-        label: "Case Study",
-        href: "/projects/drivemargin",
-        type: "case-study",
-        icon: "case-study",
-        isExternal: false,
-      },
     ],
 
     coverImage: {
       src: "/images/projects/drivemargin/cover.webp",
-      alt: "DriveMargin profitability dashboard landing page preview",
+      alt: "DriveMargin public demo dashboard preview",
       position: "top",
     },
 
     gallery: [
       {
-        src: "/images/projects/drivemargin/landing.webp",
+        src: "/images/projects/drivemargin/01-landing.webp",
         alt: "DriveMargin landing page with dashboard preview and profitability messaging",
         title: "Landing Page",
         caption:
-          "Marketing landing page presenting DriveMargin as a profitability dashboard for multi-app delivery workers.",
+          "Public landing page explaining how DriveMargin helps delivery drivers understand real profit after miles, fuel, and expenses.",
+        position: "top",
+      },
+      {
+        src: "/images/projects/drivemargin/02-demo-dashboard.webp",
+        alt: "DriveMargin demo dashboard showing earnings, hours, miles, fuel cost, expenses, charts, and recent sessions",
+        title: "Demo Dashboard",
+        caption:
+          "Interactive demo dashboard summarizing net earnings, gross earnings, hours, miles, estimated fuel costs, expenses, mileage deduction, trends, and recent sessions.",
+        position: "top",
+      },
+      {
+        src: "/images/projects/drivemargin/03-demo-sessions.webp",
+        alt: "DriveMargin sessions table showing delivery shifts with apps, vehicle, miles, hours, gross earnings, and actions",
+        title: "Sessions Table",
+        caption:
+          "Session management view where demo users can review multi-app delivery shifts, compare miles and hours, and access record actions.",
+        position: "top",
+      },
+      {
+        src: "/images/projects/drivemargin/04-demo-fuel.webp",
+        alt: "DriveMargin fuel purchases table showing paid amount, gallons, price per gallon, station, vehicle, odometer, notes, and actions",
+        title: "Fuel Purchases",
+        caption:
+          "Fuel tracking view for recording gas purchases and keeping fuel cost data connected to vehicle and profitability calculations.",
+        position: "top",
+      },
+      {
+        src: "/images/projects/drivemargin/05-demo-expenses.webp",
+        alt: "DriveMargin expenses table showing non-fuel delivery costs by date, category, description, amount, and actions",
+        title: "Expenses",
+        caption:
+          "Expense tracking view for logging non-fuel costs like supplies, tolls, phone expenses, parking, maintenance, and car washes.",
+        position: "top",
+      },
+      {
+        src: "/images/projects/drivemargin/06-demo-settings.webp",
+        alt: "DriveMargin settings page with editable vehicle, target profit goals, IRS mileage rate, and theme preference",
+        title: "Demo Settings",
+        caption:
+          "Editable demo settings where users can adjust the default vehicle, profit goals, mileage deduction rate, and theme preference.",
         position: "top",
       },
     ],
 
     highlights: [
-      "Live deployed landing page",
-      "Modern SaaS dashboard visual direction",
-      "Cyan and amber fintech-inspired design system",
-      "Planned demo mode with sample data",
-      "Planned calculation engine separated from UI",
+      "Public demo workspace with generated sample data",
+      "Editable demo records for sessions, fuel purchases, expenses, and settings",
+      "Dashboard metrics for earnings, hours, miles, fuel cost, expenses, net per hour, and net per mile",
+      "Report period navigation with bounded demo data ranges",
+      "Guided walkthrough with replay from settings",
+      "Temporary sessionStorage persistence for demo edits",
+      "Calculation logic covered with Vitest tests",
     ],
 
     caseStudy: {
       overview:
-        "DriveMargin is a dashboard product for delivery and gig workers who need to understand what they actually earn after mileage, fuel, time, and non-fuel expenses. The current portfolio-ready milestone is the deployed landing page and product foundation.",
+        "DriveMargin is a public demo for a profitability dashboard aimed at multi-app delivery workers. It helps users model a delivery shift as one work session, split earnings by platform, estimate fuel cost, track non-fuel expenses, and review real margin through dashboard metrics and charts.",
 
       problem:
-        "Gross payout alone does not explain whether a delivery shift was profitable. Drivers working across multiple apps need a clearer way to compare earnings, miles, fuel impact, expenses, and real net performance.",
+        "Delivery drivers often see gross app payouts without a clear picture of real profitability. A shift can look strong before accounting for miles, fuel, time, tolls, supplies, parking, and other work-related costs. Drivers working across multiple apps also need a single place to understand the full shift instead of treating each platform separately.",
 
       solution:
-        "DriveMargin is being structured as a fullstack dashboard with work sessions as the core unit. Each session can include multiple app earnings, miles driven, estimated fuel cost, and related profitability metrics. The MVP roadmap separates calculations from UI and keeps demo data distinct from real authenticated data.",
+        "DriveMargin uses a work-session model where one shift can include multiple app earnings, miles driven, hours worked, estimated fuel cost, and related expenses. The public demo uses generated sample data and temporary browser storage so visitors can explore dashboards, edit records, reset demo data, and follow a guided walkthrough without creating an account.",
 
       features: [
         {
-          title: "Landing page",
+          title: "Public demo workspace",
           description:
-            "Public landing page explaining the product, audience, and profitability-focused value proposition.",
-          icon: "layout",
+            "Explore DriveMargin with generated sample data and temporary browser-based persistence.",
+          icon: "demo",
         },
         {
           title: "Multi-app sessions",
           description:
-            "Planned work-session model that can track earnings from multiple delivery apps in one shift.",
+            "Track a full delivery shift with earnings from multiple apps in one session.",
           icon: "route",
-        },
-        {
-          title: "Fuel cost estimation",
-          description:
-            "Planned calculations using miles, estimated MPG, and fuel price to estimate session fuel cost.",
-          icon: "fuel",
         },
         {
           title: "Profitability dashboard",
           description:
-            "Planned dashboard metrics for gross earnings, net earnings, hours, miles, net per hour, and net per mile.",
+            "Review earnings, hours, miles, estimated fuel cost, expenses, net per hour, and net per mile.",
           icon: "chart",
         },
         {
-          title: "Demo mode",
+          title: "Fuel and expense tracking",
           description:
-            "Planned public demo with sample data so portfolio visitors can explore the product without login.",
+            "Separate fuel purchases from non-fuel expenses while using estimated fuel cost for profit calculations.",
+          icon: "fuel",
+        },
+        {
+          title: "Report period navigation",
+          description:
+            "Move through demo reporting periods and quick ranges bounded by available sample records.",
+          icon: "timer",
+        },
+        {
+          title: "Guided tour",
+          description:
+            "Walk through the demo workspace and replay the tour from settings.",
           icon: "demo",
+        },
+        {
+          title: "Tested calculations",
+          description:
+            "Keep financial and demo calculations in pure, testable utility functions.",
+          icon: "testing",
         },
       ],
 
       technicalDecisions: [
-        "Used Next.js App Router as the foundation for a fullstack dashboard product.",
-        "Used TypeScript, Tailwind CSS, and shadcn/ui for a typed, component-driven UI system.",
-        "Planned Supabase Auth and Supabase Postgres for real authentication and persistence.",
-        "Planned Drizzle ORM for typed schema definitions, queries, and migrations.",
-        "Kept financial calculations planned as pure functions under a calculation layer instead of inside UI components.",
+        "Used Next.js App Router with TypeScript for a typed frontend demo architecture.",
+        "Used Tailwind CSS and shadcn/ui to build a restrained SaaS-style dashboard interface.",
+        "Modeled the core unit as a work session so one shift can include multiple app earnings.",
+        "Used generated sample data and sessionStorage so visitors can safely edit and reset demo records.",
+        "Kept profitability calculations in pure utility functions instead of calculating financial metrics inside UI components.",
+        "Separated fuel purchases from estimated fuel cost to avoid double-counting fuel in profit calculations.",
+        "Used Recharts and lightweight dashboard components for visual reporting.",
+        "Added Vitest coverage around demo data, mutations, storage, period presets, and calculations.",
       ],
 
       challenges: [
-        "Defining a data model that treats a work session as the core unit instead of one session per delivery app.",
-        "Avoiding double-counting fuel by separating fuel purchases from estimated fuel cost used in profit calculations.",
-        "Keeping the MVP focused while still showing enough product depth for a portfolio case study.",
-        "Designing a dashboard identity that feels data-first and distinct from StageLink and the personal portfolio.",
+        "Defining a data model that treats one delivery shift as the core unit while still supporting multiple apps.",
+        "Keeping fuel purchases separate from estimated fuel cost so profit calculations stay clear.",
+        "Making the demo feel interactive without requiring authentication or a real database.",
+        "Balancing portfolio polish with honest MVP boundaries around backend and persistence.",
+        "Reducing dashboard complexity so the app stays readable on both desktop and mobile.",
       ],
 
       learned: [
-        "Improved product planning around fullstack dashboard architecture.",
-        "Practiced separating demo data, UI, and calculation logic before building persistent features.",
-        "Refined how to present an in-progress product honestly in a portfolio.",
-        "Defined stronger MVP boundaries for auth, CRUD, reporting, and future enhancements.",
+        "Improved how to structure a product demo around realistic sample data instead of static mockups.",
+        "Practiced separating financial calculations, demo mutations, and UI rendering into clearer layers.",
+        "Learned how report periods and sample datasets affect dashboard UX.",
+        "Refined accessibility, SEO, responsive layout, and guided-tour behavior for a public demo release.",
+        "Strengthened release discipline by separating current frontend capabilities from planned backend work.",
       ],
 
       futureImprovements: [
-        "Build the interactive public demo with sample data.",
-        "Add the profitability calculation engine with unit tests.",
-        "Connect Supabase Auth, Postgres, Drizzle schema, and Row Level Security.",
-        "Implement real CRUD for sessions, fuel purchases, expenses, settings, and onboarding.",
-        "Expand the dashboard with real report-period metrics and charts.",
+        "Record a polished product demo video for the landing page.",
+        "Add Supabase Auth and protected user accounts.",
+        "Move from temporary browser storage to Supabase Postgres persistence.",
+        "Add Drizzle schema, migrations, and Row Level Security.",
+        "Build onboarding for real driver settings, vehicles, work apps, and default rates.",
+        "Expand reporting with richer historical trends and production user data.",
       ],
     },
 
     seo: {
       title: "DriveMargin Case Study | Carlos Marte",
       description:
-        "A case study of DriveMargin, a profitability dashboard for multi-app delivery workers built with Next.js.",
+        "A case study of DriveMargin, a public demo for a delivery profitability dashboard built with Next.js, TypeScript, Tailwind CSS, Recharts, and Vitest.",
       ogImage: "/images/projects/drivemargin/cover.webp",
-      ogImageAlt: "DriveMargin profitability dashboard landing page preview.",
+      ogImageAlt: "DriveMargin public demo dashboard case study preview.",
     },
   },
 ];
